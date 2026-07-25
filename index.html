@@ -3,328 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSTS RailHub - Indian Train Simulator Marketplace</title>
-    <!-- Tailwind CSS for styling -->
+    <title>MSTS RailHub - Premium Marketplace</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* 3D Card Animation Styles */
-        .card-3d-wrap {
-            perspective: 1000px;
-        }
-        .card-3d {
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            transform-style: preserve-3d;
-        }
-        .card-3d:hover {
-            transform: rotateX(8deg) rotateY(-8deg) translateZ(15px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
-        }
-        .gloss-effect {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-        }
+        .card-3d-wrap { perspective: 1000px; }
+        .card-3d { transition: transform 0.4s ease, box-shadow 0.4s ease; transform-style: preserve-3d; }
+        .card-3d:hover { transform: translateY(-10px) rotateX(5deg) rotateY(-5deg); box-shadow: 0 25px 40px rgba(0, 0, 0, 0.6); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .toast-animate { animation: slideIn 0.3s ease forwards; }
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; width: 20px; height: 20px; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <div id="toastContainer" class="fixed top-20 right-4 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
     <!-- NAVBAR -->
-    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md bg-opacity-80">
+    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md bg-opacity-90 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <i class="fa-solid fa-train-subway text-2xl text-amber-500"></i>
-                <span class="text-xl font-bold tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">MSTS RailHub</span>
+                <span class="text-xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">MSTS RailHub</span>
             </div>
-
-            <!-- Search Bar -->
-            <div class="hidden md:flex flex-1 max-w-md mx-8">
-                <div class="relative w-full">
-                    <input type="text" placeholder="Search locos, LHB coaches, routes..." 
-                        class="w-full bg-slate-800 text-slate-200 pl-10 pr-4 py-2 rounded-lg border border-slate-700 focus:outline-none focus:border-amber-500">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
             <div class="flex items-center space-x-4">
                 <button onclick="toggleModal('cartModal')" class="relative p-2 text-slate-300 hover:text-amber-400">
                     <i class="fa-solid fa-cart-shopping text-xl"></i>
                     <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
-                <button onclick="toggleModal('loginModal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg transition duration-200">
+                <button id="navLoginBtn" onclick="toggleModal('loginModal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2 rounded-lg">
                     <i class="fa-solid fa-user mr-2"></i>Login
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="relative bg-gradient-to-b from-slate-900 to-slate-950 py-16 px-4 text-center overflow-hidden">
-        <div class="max-w-4xl mx-auto relative z-10">
-            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 px-3 py-1 rounded-full text-sm font-medium">Ultimate Add-on Store</span>
-            <h1 class="text-4xl md:text-6xl font-extrabold mt-4 mb-6 leading-tight">
-                High-Detail Models & Routes for <span class="text-amber-500">MSTS / ORTS</span>
-            </h1>
-            <p class="text-slate-400 text-lg mb-8">Download high-definition WAP-7 locos, realistic LHB coach sets, and accurate Indian Railway routes instantly.</p>
-        </div>
-    </header>
-
-    <!-- PRODUCT CATALOG -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl font-bold border-l-4 border-amber-500 pl-3">Featured Products</h2>
-            <div class="flex space-x-2">
-                <button class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded border border-slate-700">All</button>
-                <button class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded border border-slate-700">Locomotives</button>
-                <button class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded border border-slate-700">Coaches</button>
-                <button class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-1.5 rounded border border-slate-700">Routes</button>
-            </div>
-        </div>
-
-        <!-- 3D GRID -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 card-3d-wrap">
-            
-            <!-- Product 1 -->
-            <div class="card-3d bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between">
-                <div>
-                    <div class="h-48 bg-slate-800 relative overflow-hidden flex items-center justify-center">
-                        <i class="fa-solid fa-train text-6xl text-slate-700"></i>
-                        <span class="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold text-slate-100">WAP-7 High Definition Pack</h3>
-                        <p class="text-slate-400 text-sm mt-2">Ultra-detailed 3D cab view, custom sounds, realistic tractive effort physics, and 4K livery.</p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 flex items-center justify-between mt-4">
-                    <div>
-                        <span class="text-2xl font-bold text-amber-400">₹299</span>
-                        <span class="text-xs text-slate-500 line-through ml-1">₹499</span>
-                    </div>
-                    <button onclick="addToCart('WAP-7 High Definition Pack', 299)" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm transition">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="card-3d bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between">
-                <div>
-                    <div class="h-48 bg-slate-800 relative overflow-hidden flex items-center justify-center">
-                        <i class="fa-solid fa-train-subway text-6xl text-slate-700"></i>
-                        <span class="absolute top-3 right-3 bg-amber-500 text-slate-950 text-xs font-bold px-2 py-1 rounded">BESTSELLER</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold text-slate-100">LHB Rajdhani Complete Coach Set</h3>
-                        <p class="text-slate-400 text-sm mt-2">Includes 1AC, 2AC, 3AC, Generator Van, and Pantry Car with realistic night lighting.</p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 flex items-center justify-between mt-4">
-                    <div>
-                        <span class="text-2xl font-bold text-amber-400">₹399</span>
-                        <span class="text-xs text-slate-500 line-through ml-1">₹699</span>
-                    </div>
-                    <button onclick="addToCart('LHB Rajdhani Complete Coach Set', 399)" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm transition">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="card-3d bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex flex-col justify-between">
-                <div>
-                    <div class="h-48 bg-slate-800 relative overflow-hidden flex items-center justify-center">
-                        <i class="fa-solid fa-route text-6xl text-slate-700"></i>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-bold text-slate-100">Western Railways V12 Mega Route</h3>
-                        <p class="text-slate-400 text-sm mt-2">Over 1,500 km of accurate trackwork, authentic Indian signal systems, and custom station buildings.</p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 flex items-center justify-between mt-4">
-                    <div>
-                        <span class="text-2xl font-bold text-amber-400">₹599</span>
-                        <span class="text-xs text-slate-500 line-through ml-1">₹899</span>
-                    </div>
-                    <button onclick="addToCart('Western Railways V12 Mega Route', 599)" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold px-4 py-2 rounded-lg text-sm transition">
-                        Add to Cart
-                    </button>
-                </div>
-            </div>
-
+    <!-- PRODUCTS SECTION -->
+    <main class="max-w-7xl mx-auto px-4 py-12 flex-grow w-full">
+        <h2 class="text-3xl font-bold border-l-4 border-amber-500 pl-4 mb-10">Featured Assets</h2>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 card-3d-wrap">
+            <!-- Injected via JS -->
         </div>
     </main>
 
-    <!-- MODAL: LOGIN / REGISTER (Customer & Admin) -->
-    <div id="loginModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 relative shadow-2xl">
-            <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-8 relative">
+            <button onclick="toggleModal('loginModal')" class="absolute top-5 right-5 text-slate-500 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
             
-            <!-- Login Role Switcher -->
-            <div class="flex border-b border-slate-800 mb-6">
-                <button id="custTab" onclick="switchTab('customer')" class="flex-1 py-3 text-center font-semibold text-amber-400 border-b-2 border-amber-400">
-                    Customer Portal
-                </button>
-                <button id="adminTab" onclick="switchTab('admin')" class="flex-1 py-3 text-center font-semibold text-slate-400 border-b-2 border-transparent">
-                    Admin Portal
-                </button>
+            <div class="flex border-b border-slate-800 mb-8">
+                <button id="custTab" onclick="switchTab('customer')" class="flex-1 pb-4 text-center font-bold text-amber-400 border-b-2 border-amber-400">Customer</button>
+                <button id="adminTab" onclick="switchTab('admin')" class="flex-1 pb-4 text-center font-bold text-slate-500 border-b-2 border-transparent">Admin</button>
             </div>
 
-            <!-- Customer Form -->
-            <form id="customerForm" onsubmit="event.preventDefault(); alert('Customer Logged In!'); toggleModal('loginModal');" class="space-y-4">
+            <form id="authForm" onsubmit="handleAuth(event)" class="space-y-5">
+                <input type="hidden" id="roleType" value="customer">
                 <div>
-                    <label class="block text-sm text-slate-400 mb-1">Email / Username</label>
-                    <input type="text" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-amber-500">
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Username / ID</label>
+                    <input type="text" id="username" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 focus:border-amber-500">
                 </div>
                 <div>
-                    <label class="block text-sm text-slate-400 mb-1">Password</label>
-                    <input type="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-amber-500">
+                    <label class="block text-sm font-medium text-slate-400 mb-2">Password</label>
+                    <input type="password" id="password" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 focus:border-amber-500">
                 </div>
-                <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition">Login as Customer</button>
+                <button type="submit" id="authBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-lg">Login</button>
             </form>
-
-            <!-- Admin Form -->
-            <form id="adminForm" onsubmit="event.preventDefault(); alert('Admin Access Granted!'); toggleModal('loginModal');" class="space-y-4 hidden">
-                <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg text-xs text-amber-400 mb-2">
-                    <i class="fa-solid fa-shield-halved mr-1"></i> Authorized Sellers & Creators Only
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">Admin Security ID</label>
-                    <input type="text" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-amber-500">
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">Passkey</label>
-                    <input type="password" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-slate-100 focus:outline-none focus:border-amber-500">
-                </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition">Access Dashboard</button>
-            </form>
+            
+            <!-- Quick Test Credentials Note -->
+            <p class="text-xs text-slate-500 mt-4 text-center">Try Customer: lucky@gmail.com / password123<br>Try Admin: admin1 / supersecret</p>
         </div>
     </div>
 
-    <!-- MODAL: CART & PAYMENT -->
-    <div id="cartModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 relative shadow-2xl">
-            <button onclick="toggleModal('cartModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
+    <!-- CART MODAL -->
+    <div id="cartModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 relative flex flex-col max-h-[90vh]">
+            <button onclick="toggleModal('cartModal')" class="absolute top-5 right-5 text-slate-500 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            <h3 class="text-2xl font-bold mb-6 border-b border-slate-800 pb-4"><i class="fa-solid fa-bag-shopping text-amber-500 mr-3"></i> Your Cart</h3>
+            <div id="cartItems" class="space-y-3 mb-6 overflow-y-auto flex-grow"></div>
             
-            <h3 class="text-xl font-bold mb-4 flex items-center">
-                <i class="fa-solid fa-credit-card text-amber-500 mr-2"></i> Checkout & Payment
-            </h3>
-
-            <!-- Cart Items Summary -->
-            <div id="cartItems" class="space-y-2 mb-4 max-h-40 overflow-y-auto border-b border-slate-800 pb-4">
-                <p class="text-slate-500 text-sm">Your cart is empty.</p>
-            </div>
-
-            <div class="flex justify-between font-bold text-lg mb-6">
-                <span>Total Amount:</span>
-                <span id="cartTotal" class="text-amber-400">₹0</span>
-            </div>
-
-            <!-- Payment Options -->
-            <div class="space-y-3 mb-6">
-                <label class="block text-sm font-semibold text-slate-400 mb-2">Select Payment Method</label>
-                
-                <!-- Paytm / UPI Option -->
-                <div class="flex items-center justify-between p-3 border border-slate-700 rounded-lg bg-slate-800 cursor-pointer hover:border-amber-500">
-                    <div class="flex items-center space-x-3">
-                        <input type="radio" name="payment" id="paytm" checked class="accent-amber-500">
-                        <label for="paytm" class="text-sm font-medium cursor-pointer">Paytm / UPI Direct</label>
-                    </div>
-                    <i class="fa-solid fa-mobile-screen text-amber-400"></i>
+            <div id="checkoutSection" class="mt-auto pt-4 border-t border-slate-800">
+                <div class="flex justify-between font-extrabold text-xl mb-6">
+                    <span>Total Amount:</span><span id="cartTotal" class="text-amber-400">₹0</span>
                 </div>
-
-                <!-- Credit/Debit Card Option -->
-                <div class="flex items-center justify-between p-3 border border-slate-700 rounded-lg bg-slate-800 cursor-pointer hover:border-amber-500">
-                    <div class="flex items-center space-x-3">
-                        <input type="radio" name="payment" id="card" class="accent-amber-500">
-                        <label for="card" class="text-sm font-medium cursor-pointer">Debit / Credit Card</label>
-                    </div>
-                    <i class="fa-solid fa-credit-card text-slate-400"></i>
-                </div>
+                <button id="payBtn" onclick="processPayment()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold py-4 rounded-xl text-lg">Pay Securely & Download</button>
             </div>
-
-            <button onclick="processPayment()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition">
-                Pay & Download Instantly
-            </button>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
-        <p>© 2026 MSTS RailHub. Built for Indian Railway Simulation Enthusiasts.</p>
-    </footer>
-
-    <!-- INTERACTIVE JAVASCRIPT -->
     <script>
+        const products = [
+            { id: 1, title: 'WAP-7 High Definition Pack', desc: 'Ultra-detailed 3D cab view, custom traction sounds.', price: 299, icon: 'fa-train' },
+            { id: 2, title: 'LHB Rajdhani Complete Coach Set', desc: 'Includes 1AC, 2AC, 3AC, Generator Van.', price: 399, icon: 'fa-train-subway' },
+            { id: 3, title: 'Western Railways V12 Mega Route', desc: 'Over 1,500 km of trackwork and custom stations.', price: 599, icon: 'fa-route' }
+        ];
+
         let cart = [];
+        let isLoggedIn = false;
+        let cartTotalValue = 0;
 
-        function toggleModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.toggle('hidden');
-        }
-
-        function switchTab(type) {
-            const custForm = document.getElementById('customerForm');
-            const adminForm = document.getElementById('adminForm');
-            const custTab = document.getElementById('custTab');
-            const adminTab = document.getElementById('adminTab');
-
-            if (type === 'customer') {
-                custForm.classList.remove('hidden');
-                adminForm.classList.add('hidden');
-                custTab.className = "flex-1 py-3 text-center font-semibold text-amber-400 border-b-2 border-amber-400";
-                adminTab.className = "flex-1 py-3 text-center font-semibold text-slate-400 border-b-2 border-transparent";
-            } else {
-                custForm.classList.add('hidden');
-                adminForm.classList.remove('hidden');
-                adminTab.className = "flex-1 py-3 text-center font-semibold text-amber-400 border-b-2 border-amber-400";
-                custTab.className = "flex-1 py-3 text-center font-semibold text-slate-400 border-b-2 border-transparent";
-            }
-        }
-
-        function addToCart(title, price) {
-            cart.push({ title, price });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('productGrid').innerHTML = products.map(p => `
+                <div class="card-3d bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden flex flex-col group">
+                    <div class="h-48 bg-slate-950 flex items-center justify-center"><i class="fa-solid ${p.icon} text-7xl text-slate-800"></i></div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-bold text-slate-100 mb-2">${p.title}</h3>
+                        <p class="text-slate-400 text-sm">${p.desc}</p>
+                    </div>
+                    <div class="p-6 pt-0 flex justify-between items-center">
+                        <span class="text-2xl font-black text-amber-500">₹${p.price}</span>
+                        <button onclick="addToCart(${p.id})" class="bg-slate-800 text-slate-300 px-5 py-2 rounded-lg"><i class="fa-solid fa-plus mr-1"></i> Add</button>
+                    </div>
+                </div>
+            `).join('');
             updateCartUI();
-            alert(`${title} added to your cart!`);
+        });
+
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const icon = type === 'success' ? 'fa-circle-check text-green-400' : 'fa-circle-xmark text-red-400';
+            toast.className = `toast-animate bg-slate-800 border border-slate-600 text-white px-6 py-4 rounded shadow-xl mb-2 flex items-center space-x-3`;
+            toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
+        function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
+
+        function switchTab(role) {
+            document.getElementById('roleType').value = role;
+            document.getElementById('custTab').className = `flex-1 pb-4 text-center font-bold ${role === 'customer' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 border-b-2 border-transparent'}`;
+            document.getElementById('adminTab').className = `flex-1 pb-4 text-center font-bold ${role === 'admin' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 border-b-2 border-transparent'}`;
+            document.getElementById('authBtn').className = `w-full font-bold py-3 rounded-lg ${role === 'admin' ? 'bg-red-600 text-white hover:bg-red-500' : 'bg-amber-500 text-slate-950 hover:bg-amber-400'}`;
+        }
+
+        function addToCart(id) {
+            cart.push(products.find(p => p.id === id));
+            updateCartUI();
+            showToast('Added to cart');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
         }
 
         function updateCartUI() {
             document.getElementById('cartCount').innerText = cart.length;
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
+            cartTotalValue = cart.reduce((sum, item) => sum + item.price, 0);
             
             if (cart.length === 0) {
-                container.innerHTML = `<p class="text-slate-500 text-sm">Your cart is empty.</p>`;
-                totalEl.innerText = `₹0`;
-                return;
+                document.getElementById('cartItems').innerHTML = `<p class="text-center text-slate-500 mt-10">Cart is empty</p>`;
+                document.getElementById('checkoutSection').style.display = 'none';
+            } else {
+                document.getElementById('checkoutSection').style.display = 'block';
+                document.getElementById('cartTotal').innerText = `₹${cartTotalValue}`;
+                document.getElementById('cartItems').innerHTML = cart.map((item, i) => `
+                    <div class="flex justify-between items-center bg-slate-950 p-3 rounded border border-slate-800">
+                        <span>${item.title}</span>
+                        <div class="flex items-center"><span class="text-amber-500 font-bold mr-4">₹${item.price}</span><i onclick="removeFromCart(${i})" class="fa-solid fa-trash text-red-500 cursor-pointer"></i></div>
+                    </div>`).join('');
             }
-
-            let total = 0;
-            container.innerHTML = cart.map(item => {
-                total += item.price;
-                return `<div class="flex justify-between items-center text-sm bg-slate-800 p-2 rounded">
-                    <span>${item.title}</span>
-                    <span class="text-amber-400 font-bold">₹${item.price}</span>
-                </div>`;
-            }).join('');
-
-            totalEl.innerText = `₹${total}`;
         }
 
-        function processPayment() {
-            if (cart.length === 0) {
-                alert("Please add items to your cart first!");
-                return;
+        // FULL-STACK CONNECTION: Sending login data to the Node.js backend
+        async function handleAuth(e) {
+            e.preventDefault();
+            const btn = document.getElementById('authBtn');
+            btn.innerHTML = `<span class="spinner"></span>`;
+            
+            const payload = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value,
+                requestedRole: document.getElementById('roleType').value
+            };
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    isLoggedIn = true;
+                    toggleModal('loginModal');
+                    document.getElementById('navLoginBtn').innerHTML = `<i class="fa-solid fa-user-check mr-2 text-amber-500"></i>${data.role.toUpperCase()}`;
+                    showToast(data.message);
+                } else {
+                    showToast(data.message, 'error');
+                }
+            } catch (err) {
+                showToast("Server connection failed.", "error");
             }
-            alert("Payment successful! Your MSTS zip file download will begin now.");
-            cart = [];
-            updateCartUI();
-            toggleModal('cartModal');
+            btn.innerHTML = 'Login';
+        }
+
+        // FULL-STACK CONNECTION: Sending payment request to the Node.js backend
+        async function processPayment() {
+            if (!isLoggedIn) return showToast('Please login first', 'error');
+
+            const btn = document.getElementById('payBtn');
+            btn.innerHTML = `<span class="spinner mr-2"></span> Connecting to Paytm...`;
+            
+            try {
+                const response = await fetch('/api/pay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: cartTotalValue, items: cart })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    btn.innerHTML = `<i class="fa-solid fa-check-double mr-2"></i> Payment Successful`;
+                    btn.className = "w-full bg-green-500 text-white font-extrabold py-4 rounded-xl text-lg";
+                    
+                    setTimeout(() => {
+                        cart = [];
+                        updateCartUI();
+                        toggleModal('cartModal');
+                        btn.innerHTML = `Pay Securely & Download`;
+                        btn.className = "w-full bg-amber-500 text-slate-950 font-extrabold py-4 rounded-xl text-lg";
+                        showToast(`TXN: ${data.transactionId} - Files downloading!`, 'success');
+                    }, 2000);
+                }
+            } catch (err) {
+                showToast("Payment processing failed.", "error");
+                btn.innerHTML = `Pay Securely & Download`;
+            }
         }
     </script>
 </body>
