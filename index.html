@@ -491,6 +491,64 @@
             localStorage.setItem('msts_db_items', JSON.stringify(p));
             showAlert("Deleted!"); showAdminProd(); loadProducts();
         }
+        // --- ADMIN STRICT MODE UPDATE ---
+
+function refreshNav() {
+    let area = document.getElementById('navUserArea');
+    let cartBtn = document.querySelector('button[onclick="toggleView(\'cartView\')"]');
+    let mainStore = document.querySelector('main');
+
+    if(activeUser) {
+        let badge = activeUser.role === 'admin' ? 'bg-red-500' : 'bg-green-500';
+        area.innerHTML = '<button onclick="openDash()" class="bg-[#0f172a] border border-[#334155] text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:border-amber-500 transition"><span class="w-2 h-2 rounded-full '+badge+'"></span> '+activeUser.username.toUpperCase()+'</button>';
+        
+        if(activeUser.role === 'admin') {
+            // Admin ke liye Cart aur Customer Storefront hide kar do
+            if(cartBtn) cartBtn.style.display = 'none'; 
+            if(mainStore) mainStore.style.display = 'none'; 
+            
+            // Login hote hi seedha Admin Dashboard auto-open karo
+            document.getElementById('dashView').classList.remove('hidden'); 
+            document.getElementById('dashTabs').style.display = 'flex';
+            showAdminOrd();
+        } else {
+            // Normal Customer ke liye sab show karo
+            if(cartBtn) cartBtn.style.display = 'block';
+            if(mainStore) mainStore.style.display = 'block';
+        }
+    } else {
+        area.innerHTML = '<button onclick="toggleView(\'authView\')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</button>';
+        if(cartBtn) cartBtn.style.display = 'block';
+        if(mainStore) mainStore.style.display = 'block';
+    }
+}
+
+function openDetail(id) {
+    // Admin ko khud ke product khareedne se roko
+    if(activeUser && activeUser.role === 'admin') {
+        return showAlert("Admins cannot purchase items!", true);
+    }
+    
+    let items = JSON.parse(localStorage.getItem('msts_db_items'));
+    let p = items.find(function(x){ return x.id === id; });
+    if(!p) return;
+    document.getElementById('detImg').src = p.img;
+    document.getElementById('detTitle').innerText = p.name;
+    document.getElementById('detDesc').innerText = p.desc;
+    document.getElementById('detPrice').innerText = '₹' + p.price;
+    document.getElementById('detBtn').onclick = function(){ addCart(p.name, p.price); toggleView('detailView'); };
+    toggleView('detailView');
+}
+
+function logout() { 
+    activeUser = null; 
+    sessionStorage.removeItem('msts_session'); 
+    refreshNav(); 
+    // Logout karte hi dashboard force-close karo
+    document.getElementById('dashView').classList.add('hidden'); 
+    showAlert("Logged Out Successfully"); 
+}
+        
     </script>
 </body>
 </html>
