@@ -4,683 +4,613 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSTS RailHub | Premium Indian Add-ons</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Authentic Indian Railways Background */
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
+
+        /* Premium Dark Gaming Theme */
         body {
-            background-image: linear-gradient(rgba(10, 15, 30, 0.85), rgba(10, 15, 30, 0.95)), url('https://upload.wikimedia.org/wikipedia/commons/8/87/Indian_Railways_WAP-4_locomotive_with_a_passenger_train.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #f8fafc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #050b14;
+            background-image: radial-gradient(circle at top right, #112240 0%, #050b14 40%);
+            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        /* Sleek Navbar */
+        .premium-nav {
+            background: rgba(5, 11, 20, 0.95);
+            border-bottom: 1px solid #1e293b;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* 3D Product Card & Image Effects */
-        .glass-card {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-            cursor: pointer;
+        /* Modern Product Cards */
+        .pro-card {
+            background: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(245, 158, 11, 0.6);
-            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+        .pro-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.3);
         }
 
-        .img-3d-container { overflow: hidden; position: relative; }
-        .img-3d-inner {
-            transition: transform 0.5s ease;
+        /* Image Hover Zoom */
+        .img-container { overflow: hidden; height: 220px; width: 100%; position: relative; }
+        .img-container img {
             width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .glass-card:hover .img-3d-inner {
-            transform: scale(1.05);
+        .pro-card:hover .img-container img { transform: scale(1.08); }
+        .img-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, #0f172a 2%, transparent 50%);
         }
 
-        /* Paytm Button Styling */
-        .paytm-btn {
-            background: linear-gradient(90deg, #002970 0%, #00baef 100%);
-            transition: transform 0.2s ease;
+        /* Buttons & Gradients */
+        .btn-primary {
+            background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+            transition: all 0.2s ease;
         }
-        .paytm-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 186, 239, 0.4); }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.8); }
-        ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
-
-        .spinner { border: 3px solid rgba(255,255,255,0.2); border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite; width: 20px; height: 20px; display: inline-block; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-primary:active { transform: scale(0.96); box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4); }
         
-        .toast-show { animation: slideDown 0.4s ease forwards; }
-        @keyframes slideDown { from { transform: translate(-50%, -100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+        .paytm-btn {
+            background: #002970;
+            color: #fff;
+            border-left: 4px solid #00baef;
+        }
 
-        .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; }
-        .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; }
+        /* Modals & Inputs */
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+        .custom-input {
+            background: #050b14;
+            border: 1px solid #334155;
+            color: #fff;
+            transition: border 0.2s ease;
+        }
+        .custom-input:focus { border-color: #f59e0b; outline: none; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #050b14; }
+        ::-webkit-scrollbar-thumb { background: #ea580c; border-radius: 10px; }
+
+        .toast-animate { animation: slideIn 0.3s ease forwards; }
+        @keyframes slideIn { from { transform: translate(-50%, -20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col" onload="initApp()">
+<body onload="initSystem()">
 
-    <!-- Navbar -->
-    <nav class="glass-panel sticky top-0 z-40 px-6 py-4 shadow-2xl">
+    <!-- Sleek Header -->
+    <nav class="premium-nav sticky top-0 z-50 px-4 py-3">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                <div class="bg-gradient-to-br from-amber-400 to-orange-600 p-2 rounded-lg shadow-lg">
-                    <i class="fa-solid fa-train-subway text-slate-900 text-xl"></i>
+            <div class="flex items-center gap-3 cursor-pointer">
+                <div class="bg-gradient-to-br from-orange-500 to-amber-500 p-2.5 rounded-xl shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                    <i class="fa-solid fa-train-tram text-white text-xl"></i>
                 </div>
-                <span class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
-                    MSTS <span class="text-amber-500">RAILHUB</span>
-                </span>
+                <div>
+                    <h1 class="text-2xl font-black tracking-widest text-white leading-none">MSTS <span class="text-amber-500">HUB</span></h1>
+                    <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-0.5">Premium Indian Add-ons</p>
+                </div>
             </div>
             
-            <div class="flex items-center gap-4">
-                <button onclick="toggleModal('cartModal')" class="relative text-slate-300 hover:text-amber-400 transition group mr-2">
-                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
-                    <span id="cartCount" class="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg border border-red-400">0</span>
+            <div class="flex items-center gap-5">
+                <button onclick="toggleView('cartView')" class="relative text-slate-300 hover:text-amber-500 transition">
+                    <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-red-600 text-white text-[11px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-[#050b14]">0</span>
                 </button>
-                <div id="navAuthArea">
-                    <button onclick="toggleModal('authModal')" class="bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white px-5 py-2 rounded-lg font-bold transition">
-                        <i class="fa-solid fa-user-shield mr-2 text-amber-500"></i> Portal
+                <div id="navUserArea">
+                    <button onclick="toggleView('authView')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Toast Alerts -->
-    <div id="toastAlert" class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] hidden">
-        <div class="glass-panel px-6 py-3 rounded-full flex items-center gap-3 border-green-500/50 text-white font-medium shadow-2xl">
-            <i id="toastIcon" class="fa-solid fa-check-circle text-green-400 text-xl"></i>
-            <span id="toastMsg">Action successful</span>
+    <!-- Alert System -->
+    <div id="alertBox" class="fixed top-20 left-1/2 -translate-x-1/2 z-[100] hidden">
+        <div class="bg-[#111827] px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-amber-500 shadow-2xl text-white font-bold min-w-[280px]">
+            <i id="alertIcon" class="fa-solid fa-bell text-amber-500 text-xl"></i>
+            <span id="alertMsg">System Message</span>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <header class="max-w-7xl mx-auto px-6 py-12 text-center relative z-10">
-        <h1 class="text-4xl md:text-6xl font-black mb-4 leading-tight drop-shadow-2xl text-white">
-            Hyper-Realistic <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Add-ons</span>
-        </h1>
-        <p class="text-slate-300 text-lg">Click any product for a detailed 3D view and specifications.</p>
-    </header>
+    <!-- Main Storefront -->
+    <main class="max-w-7xl mx-auto px-4 py-10 relative z-10">
+        
+        <!-- Hero Section -->
+        <div class="mb-12 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6 bg-[#0f172a] p-8 rounded-2xl border border-[#1e293b] shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl"></div>
+            <div class="relative z-10 md:max-w-xl">
+                <span class="bg-amber-500/20 text-amber-500 font-bold px-3 py-1 rounded-md text-xs tracking-wider uppercase mb-4 inline-block">Exclusive Assets</span>
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">Elevate Your <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">MSTS Experience</span></h2>
+                <p class="text-slate-400 text-sm md:text-base mb-6">High-fidelity 3D models, custom sounds, and authentic Indian Railway routes designed for the ultimate simulation.</p>
+            </div>
+            <div class="relative z-10 hidden md:block">
+                <i class="fa-solid fa-gamepad text-9xl text-slate-800/50"></i>
+            </div>
+        </div>
 
-    <!-- Product Grid (Dynamic) -->
-    <main class="max-w-7xl mx-auto px-6 pb-24 flex-grow w-full relative z-10">
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Rendered via JS -->
+        <!-- Product Grid -->
+        <div class="flex justify-between items-end mb-6">
+            <h3 class="text-2xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Trending Now</h3>
+        </div>
+        
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Injected by JavaScript -->
         </div>
     </main>
 
-    <!-- PRODUCT DETAIL VIEW MODAL -->
-    <div id="productDetailModal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center hidden z-[70] p-4">
-        <div class="glass-panel rounded-2xl w-full max-w-4xl p-0 relative flex flex-col md:flex-row overflow-hidden shadow-2xl border-amber-500/30">
-            <button onclick="toggleModal('productDetailModal')" class="absolute top-4 right-4 text-white hover:text-amber-500 z-10 bg-black/50 p-2 rounded-full backdrop-blur"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <!-- ================= MODALS ================= -->
+
+    <!-- Product Detail Modal -->
+    <div id="detailView" class="fixed inset-0 bg-[#050b14]/90 backdrop-blur-sm flex items-center justify-center hidden z-[70] p-4">
+        <div class="modal-box rounded-2xl w-full max-w-4xl p-0 relative flex flex-col md:flex-row overflow-hidden">
+            <button onclick="toggleView('detailView')" class="absolute top-4 right-4 text-slate-400 hover:text-white z-20 bg-[#050b14]/50 p-2 rounded-full"><i class="fa-solid fa-xmark text-xl w-6 h-6 flex items-center justify-center"></i></button>
             
-            <div class="w-full md:w-1/2 h-64 md:h-auto img-3d-container bg-black relative">
-                <img id="detailImg" src="" class="img-3d-inner" alt="Product">
-                <span class="absolute top-4 left-4 z-10 bg-amber-500 text-black font-black text-xs px-3 py-1 rounded shadow-lg uppercase tracking-widest"><i class="fa-solid fa-image mr-1"></i> Showcase</span>
+            <div class="w-full md:w-1/2 img-container h-64 md:h-auto bg-black">
+                <img id="detImg" src="" alt="Product">
+                <div class="img-overlay"></div>
+                <span class="absolute top-4 left-4 z-10 bg-[#0f172a] border border-[#334155] text-white font-bold text-xs px-3 py-1 rounded shadow-lg uppercase"><i class="fa-solid fa-image mr-1 text-amber-500"></i> HD Preview</span>
             </div>
             
-            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center bg-slate-900/90">
-                <h2 id="detailTitle" class="text-3xl font-black text-white mb-4 leading-tight">Product Title</h2>
-                <div class="w-16 h-1 bg-amber-500 mb-6 rounded"></div>
-                <p id="detailDesc" class="text-slate-300 text-base leading-relaxed mb-8 h-24 overflow-y-auto pr-2">Description goes here</p>
+            <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                    <h2 id="detTitle" class="text-2xl md:text-3xl font-black text-white mb-2">Title</h2>
+                    <div class="w-12 h-1 bg-amber-500 mb-4 rounded"></div>
+                    <p id="detDesc" class="text-slate-400 text-sm leading-relaxed mb-6">Description</p>
+                    
+                    <div class="bg-[#050b14] border border-[#1e293b] rounded-lg p-3 mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-shield-check text-green-500 text-xl"></i>
+                        <span class="text-xs text-slate-300 font-bold">Verified Creator | Instant Access</span>
+                    </div>
+                </div>
                 
-                <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
-                    <span id="detailPrice" class="text-4xl font-black text-amber-500">₹0</span>
-                    <button id="detailAddBtn" class="bg-amber-500 hover:bg-amber-400 text-slate-900 px-8 py-4 rounded-xl font-black transition shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center">
-                        <i class="fa-solid fa-cart-plus mr-2"></i> Add to Cart
+                <div class="flex items-center justify-between border-t border-[#1e293b] pt-4 mt-auto">
+                    <span id="detPrice" class="text-3xl font-black text-white">₹0</span>
+                    <button id="detBtn" class="btn-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Add
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- AUTHENTICATION MODAL -->
-    <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
-        <div class="glass-panel rounded-2xl w-full max-w-md p-8 relative">
-            <button onclick="toggleModal('authModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h2 class="text-2xl font-black text-white mb-6 text-center" id="authTitle">Login to Portal</h2>
+    <!-- Auth Modal -->
+    <div id="authView" class="fixed inset-0 bg-[#050b14]/90 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
+        <div class="modal-box rounded-2xl w-full max-w-sm p-6 relative">
+            <button onclick="toggleView('authView')" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             
-            <div class="flex bg-slate-900/50 p-1 rounded-xl mb-6 border border-white/10">
-                <button id="tabLogin" onclick="switchAuthMode('login')" class="flex-1 py-2 rounded-lg font-bold text-slate-900 bg-amber-500 transition shadow-md">Login</button>
-                <button id="tabRegister" onclick="switchAuthMode('register')" class="flex-1 py-2 rounded-lg font-bold text-slate-400 hover:text-white transition">Register</button>
+            <div class="text-center mb-6">
+                <div class="inline-block bg-amber-500/20 p-3 rounded-full mb-3"><i class="fa-solid fa-user-astronaut text-2xl text-amber-500"></i></div>
+                <h2 id="authTitle" class="text-2xl font-black text-white">Welcome Back</h2>
+            </div>
+            
+            <div class="flex bg-[#050b14] p-1 rounded-lg border border-[#1e293b] mb-6">
+                <button id="btnLog" onclick="switchAuth('login')" class="flex-1 py-2 rounded-md font-bold bg-amber-500 text-[#050b14] transition">Login</button>
+                <button id="btnReg" onclick="switchAuth('register')" class="flex-1 py-2 rounded-md font-bold text-slate-400 transition">Register</button>
             </div>
 
-            <form onsubmit="handleAuth(event)" class="space-y-4">
+            <form onsubmit="runAuth(event)" class="space-y-4">
                 <input type="hidden" id="authMode" value="login">
                 <div>
-                    <input type="text" id="authUsername" placeholder="Username" required class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                    <label class="text-xs text-slate-400 font-bold uppercase mb-1 block">Username</label>
+                    <input type="text" id="inpUser" placeholder="e.g. lucky_nmrcy" required class="w-full custom-input rounded-lg px-4 py-3">
                 </div>
                 <div>
-                    <input type="password" id="authPassword" placeholder="Password" required class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
+                    <label class="text-xs text-slate-400 font-bold uppercase mb-1 block">Password</label>
+                    <input type="password" id="inpPass" placeholder="••••••••" required class="w-full custom-input rounded-lg px-4 py-3">
                 </div>
-                <button type="submit" id="authBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-black py-3 rounded-xl transition shadow-lg">Login</button>
+                <button type="submit" id="submitAuth" class="btn-primary w-full py-3 rounded-lg font-black text-lg mt-2">ACCESS ACCOUNT</button>
             </form>
-            <p class="text-xs text-amber-500/80 mt-4 text-center font-medium">Admin Access: admin / 123</p>
+            <div class="mt-4 p-3 bg-red-900/20 border border-red-500/30 rounded-lg text-center">
+                <p class="text-xs text-red-400 font-bold">Admin Details: admin / 123</p>
+            </div>
         </div>
     </div>
 
-    <!-- CART & PAYTM CHECKOUT MODAL -->
-    <div id="cartModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
-        <div class="glass-panel rounded-2xl w-full max-w-lg p-0 relative flex flex-col max-h-[90vh]">
-            <div class="p-5 border-b border-white/10 flex justify-between items-center bg-slate-900/40 rounded-t-2xl">
-                <h2 class="text-xl font-black text-white flex items-center"><i class="fa-solid fa-cart-shopping text-amber-500 mr-3"></i> Checkout</h2>
-                <button onclick="toggleModal('cartModal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <!-- Cart / Checkout Modal -->
+    <div id="cartView" class="fixed inset-0 bg-[#050b14]/90 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
+        <div class="modal-box rounded-2xl w-full max-w-md p-0 relative flex flex-col max-h-[90vh]">
+            <div class="p-5 border-b border-[#1e293b] flex justify-between items-center bg-[#0f172a] rounded-t-2xl">
+                <h2 class="text-xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-amber-500"></i> Secure Checkout</h2>
+                <button onclick="toggleView('cartView')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
-            <div id="cartContent" class="p-5 overflow-y-auto space-y-3 max-h-48"></div>
+            <div id="cartList" class="p-5 overflow-y-auto space-y-3 flex-grow bg-[#050b14]"></div>
             
-            <div id="checkoutFooter" class="p-5 border-t border-white/10 bg-slate-900/60 rounded-b-2xl overflow-y-auto" style="display:none;">
-                <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                    <span class="text-lg font-medium text-slate-300">Total Amount</span>
-                    <span id="finalTotal" class="text-3xl font-black text-amber-500">₹0</span>
+            <div id="paySection" class="p-5 border-t border-[#1e293b] bg-[#0f172a] rounded-b-2xl" style="display:none;">
+                <div class="flex justify-between items-center mb-5">
+                    <span class="text-slate-400 font-bold uppercase text-sm">Total Payable</span>
+                    <span id="cartTotal" class="text-3xl font-black text-amber-500">₹0</span>
                 </div>
                 
-                <div class="bg-slate-950 border border-amber-500/50 rounded-xl p-4 mb-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-sm font-bold text-white">Pay via UPI App / Paytm</span>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" class="h-4 bg-white px-1 rounded">
+                <!-- Cool Paytm Box -->
+                <div class="bg-[#050b14] border border-[#1e293b] rounded-xl p-4 mb-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm font-bold text-slate-300">UPI Payment Gateway</span>
+                        <span class="bg-white text-[#002970] font-black italic px-2 py-0.5 rounded text-xs">Paytm</span>
                     </div>
-                    <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-white/5">
-                        <span class="font-mono text-amber-400 font-bold text-lg">mstsrailhub@upi</span>
-                        <button onclick="copyUPI()" class="bg-slate-700 px-3 py-1.5 rounded text-white hover:bg-amber-500 hover:text-black font-bold transition text-xs">COPY</button>
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <div class="file-upload-wrapper bg-slate-800 border-2 border-dashed border-slate-500 rounded-xl text-center py-5 hover:border-amber-500 transition cursor-pointer">
-                        <input type="file" id="paymentScreenshot" accept="image/*" onchange="previewFile()">
-                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-amber-500 mb-2"></i>
-                        <p class="text-sm font-bold text-white">Upload Payment Screenshot</p>
-                        <p class="text-xs text-slate-400 mt-1" id="fileName">Tap here to select file</p>
+                    <div class="flex justify-between items-center bg-[#0f172a] p-3 rounded-lg border border-[#334155]">
+                        <span class="font-mono text-white font-bold tracking-wider">mstsrailhub@upi</span>
+                        <button onclick="copyUPI()" class="text-xs bg-amber-500 text-black px-3 py-1.5 rounded font-black hover:bg-amber-400 transition">COPY</button>
                     </div>
                 </div>
 
-                <button id="submitOrderBtn" onclick="submitOrder()" class="paytm-btn w-full text-white font-black py-4 rounded-xl text-lg flex justify-center items-center">
-                    Submit Order for Verification <i class="fa-solid fa-shield-check ml-2"></i>
+                <!-- File Upload Box -->
+                <div class="mb-5 relative border-2 border-dashed border-[#334155] rounded-xl text-center py-4 bg-[#050b14] hover:border-amber-500 transition cursor-pointer overflow-hidden">
+                    <input type="file" id="payImage" accept="image/*" onchange="previewFile()" class="absolute inset-0 opacity-0 z-10 cursor-pointer w-full h-full">
+                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-400 mb-1 block"></i>
+                    <span class="text-sm font-bold text-white block">Upload Payment Proof</span>
+                    <span class="text-xs text-amber-500 font-bold block mt-1" id="fileText">Tap to select image</span>
+                </div>
+
+                <button onclick="placeOrder()" class="paytm-btn w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2">
+                    VERIFY & COMPLETE ORDER <i class="fa-solid fa-shield-check"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- FULL ADMIN/CUSTOMER DASHBOARD MODAL -->
-    <div id="dashboardModal" class="fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center hidden z-[70] p-4">
-        <div class="glass-panel rounded-2xl w-full max-w-6xl p-0 relative flex flex-col h-[90vh]">
-            <div class="p-5 border-b border-white/10 flex justify-between items-center bg-slate-900/80 rounded-t-2xl">
-                <h2 class="text-2xl font-black text-white flex items-center" id="dashboardTitle">
-                    <i class="fa-solid fa-gauge-high text-amber-500 mr-3"></i> Dashboard
+    <!-- Dashboard Modal -->
+    <div id="dashView" class="fixed inset-0 bg-[#050b14]/95 flex items-center justify-center hidden z-[70] p-4">
+        <div class="modal-box rounded-2xl w-full max-w-5xl p-0 relative flex flex-col h-[90vh]">
+            <div class="p-5 border-b border-[#1e293b] flex justify-between items-center bg-[#0f172a] rounded-t-2xl">
+                <h2 class="text-2xl font-black text-white flex items-center gap-3" id="dashTitle">
+                    <i class="fa-solid fa-terminal text-amber-500"></i> System Portal
                 </h2>
-                <div class="flex gap-4 items-center">
-                    <button onclick="logout()" class="text-sm font-bold text-red-400 hover:text-red-300 border border-red-500/30 px-4 py-1.5 rounded-lg bg-red-500/10">Logout</button>
-                    <button onclick="toggleModal('dashboardModal')" class="text-slate-400 hover:text-white bg-slate-800 px-3 py-1 rounded-lg"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <div class="flex gap-3">
+                    <button onclick="logout()" class="text-xs font-bold text-red-500 border border-red-500/30 px-3 py-1.5 rounded bg-red-500/10 hover:bg-red-500 hover:text-white transition">LOGOUT</button>
+                    <button onclick="toggleView('dashView')" class="text-slate-400 hover:text-white bg-[#334155] px-2 py-1 rounded"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
             </div>
             
-            <div id="adminTabs" class="bg-slate-900 border-b border-white/10 flex px-6" style="display: none;">
-                <button onclick="switchAdminTab('orders')" id="tabAdminOrders" class="px-6 py-4 font-bold text-amber-500 border-b-2 border-amber-500 transition">Order Approvals</button>
-                <button onclick="switchAdminTab('products')" id="tabAdminProducts" class="px-6 py-4 font-bold text-slate-400 hover:text-white border-b-2 border-transparent transition">Manage Products</button>
+            <div id="dashTabs" class="bg-[#050b14] border-b border-[#1e293b] flex" style="display: none;">
+                <button onclick="switchDash('orders')" id="tabOrd" class="flex-1 py-4 font-black text-amber-500 border-b-2 border-amber-500 uppercase text-sm tracking-wider transition">Orders</button>
+                <button onclick="switchDash('products')" id="tabProd" class="flex-1 py-4 font-black text-slate-400 border-b-2 border-transparent hover:text-white uppercase text-sm tracking-wider transition">Products</button>
             </div>
 
-            <div class="p-6 overflow-y-auto flex-grow bg-slate-900/40 rounded-b-2xl relative" id="dashboardContent">
+            <div class="p-6 overflow-y-auto flex-grow bg-[#050b14] relative" id="dashContent">
+                <!-- Injected Code -->
             </div>
         </div>
     </div>
 
-    <!-- JavaScript - Safely formatted to prevent mobile render bugs -->
+    <!-- ================= JAVASCRIPT ================= -->
     <script>
-        let currentCart = [];
-        let currentUser = null; 
+        // Data Configuration
+        let userCart = [];
+        let activeUser = null; 
         
-        // Using real Indian Railways images from Wikimedia Commons
-        const defaultProducts = [
-            { 
-                id: 1, 
-                name: 'WAP-7 Premium HD Cab', 
-                price: 299, 
-                desc: 'Ultra-realistic 3D cab view, heavy traction motors sound, and 4K Indian Railways liveries. Includes fully functional Panto mechanics.', 
-                img: 'https://upload.wikimedia.org/wikipedia/commons/4/47/WAP-7_30209_at_Secunderabad.jpg' 
-            },
-            { 
-                id: 2, 
-                name: 'LHB Rajdhani Full Set', 
-                price: 399, 
-                desc: 'Complete 3D model set including 1AC, 2AC, 3AC, and Generator Van. Features highly detailed interiors and functional night lighting textures.', 
-                img: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/LHB_Coaches_of_Rajdhani_Express.jpg' 
-            },
-            { 
-                id: 3, 
-                name: 'WR V12 Mega Route', 
-                price: 599, 
-                desc: 'Over 1,500 km of high-speed trackwork, featuring custom 3D stations, authentic Indian signaling systems, and accurate terrain mapping.', 
-                img: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Indian_Railways_Train_in_Konkan_Railway.jpg' 
-            }
+        const starterProducts = [
+            { id: 1, name: 'WAP-7 High Definition cab', price: 299, desc: 'Ultra-realistic 3D cab view, heavy traction motors sound, and 4K Indian Railways liveries.', img: 'https://upload.wikimedia.org/wikipedia/commons/4/47/WAP-7_30209_at_Secunderabad.jpg' },
+            { id: 2, name: 'LHB Rajdhani Full Set', price: 399, desc: 'Complete 3D model set including 1AC, 2AC, 3AC, and Generator Van with night lighting.', img: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/LHB_Coaches_of_Rajdhani_Express.jpg' },
+            { id: 3, name: 'WR V12 Premium Route', price: 599, desc: 'Over 1,500 km of high-speed trackwork, featuring custom 3D stations and authentic Indian signaling.', img: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Indian_Railways_Train_in_Konkan_Railway.jpg' }
         ];
 
-        function initApp() {
-            if (!localStorage.getItem('msts_users')) localStorage.setItem('msts_users', JSON.stringify([{ username: 'admin', password: '123', role: 'admin' }]));
-            if (!localStorage.getItem('msts_orders')) localStorage.setItem('msts_orders', JSON.stringify([]));
-            if (!localStorage.getItem('msts_products')) localStorage.setItem('msts_products', JSON.stringify(defaultProducts));
+        // Core Functions
+        function initSystem() {
+            if (!localStorage.getItem('msts_db_users')) localStorage.setItem('msts_db_users', JSON.stringify([{ username: 'admin', password: '123', role: 'admin' }]));
+            if (!localStorage.getItem('msts_db_orders')) localStorage.setItem('msts_db_orders', JSON.stringify([]));
+            if (!localStorage.getItem('msts_db_items')) localStorage.setItem('msts_db_items', JSON.stringify(starterProducts));
             
-            if (sessionStorage.getItem('msts_current_user')) {
-                currentUser = JSON.parse(sessionStorage.getItem('msts_current_user'));
-                updateNavForUser();
+            if (sessionStorage.getItem('msts_session')) {
+                activeUser = JSON.parse(sessionStorage.getItem('msts_session'));
+                refreshNav();
             }
-            renderProducts();
+            loadProducts();
         }
 
-        function toggleModal(id) { 
-            document.getElementById(id).classList.toggle('hidden'); 
-        }
-
-        function triggerAlert(msg, type = 'success') {
-            const box = document.getElementById('toastAlert');
-            document.getElementById('toastMsg').innerText = msg;
+        function toggleView(id) { document.getElementById(id).classList.toggle('hidden'); }
+        
+        function showAlert(msg, error = false) {
+            let box = document.getElementById('alertBox');
+            document.getElementById('alertMsg').innerText = msg;
+            box.firstElementChild.className = error 
+                ? "bg-[#111827] px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-red-500 shadow-2xl text-white font-bold min-w-[280px]"
+                : "bg-[#111827] px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-green-500 shadow-2xl text-white font-bold min-w-[280px]";
+            document.getElementById('alertIcon').className = error ? "fa-solid fa-triangle-exclamation text-red-500 text-xl" : "fa-solid fa-check-circle text-green-500 text-xl";
             
-            if (type === 'success') {
-                box.firstElementChild.className = 'glass-panel px-6 py-3 rounded-full flex items-center gap-3 border border-green-500/50 text-white shadow-2xl';
-                document.getElementById('toastIcon').className = 'fa-solid fa-check-circle text-green-400 text-xl';
-            } else {
-                box.firstElementChild.className = 'glass-panel px-6 py-3 rounded-full flex items-center gap-3 border border-red-500/50 text-white shadow-2xl';
-                document.getElementById('toastIcon').className = 'fa-solid fa-triangle-exclamation text-red-400 text-xl';
+            box.classList.remove('hidden');
+            setTimeout(function(){ box.classList.add('hidden'); }, 3000);
+        }
+
+        // Storefront Rendering
+        function loadProducts() {
+            let items = JSON.parse(localStorage.getItem('msts_db_items'));
+            let html = "";
+            for(let i=0; i<items.length; i++) {
+                let p = items[i];
+                html += '<div class="pro-card group cursor-pointer" onclick="openDetail('+p.id+')">';
+                html += '<div class="img-container"><img src="'+p.img+'"><div class="img-overlay"></div>';
+                html += '<function loadProducts() {
+            let items = JSON.parse(localStorage.getItem('msts_db_items'));
+            let html = "";
+            for(let i=0; i<items.length; i++) {
+                let p = items[i];
+                html += '<div class="pro-card group cursor-pointer" onclick="openDetail('+p.id+')">';
+                html += '<div class="img-container"><img src="'+p.img+'"><div class="img-overlay"></div>';
+                html += '<div class="absolute bottom-4 left-4 z-10">';
+                html += '<h3 class="text-xl font-black text-white leading-tight">'+p.name+'</h3>';
+                html += '</div></div>';
+                html += '<div class="p-5 flex justify-between items-center border-t border-[#1e293b] bg-[#0f172a]">';
+                html += '<span class="text-2xl font-black text-amber-500">₹'+p.price+'</span>';
+                html += '<button class="bg-[#1e293b] text-white px-4 py-2 rounded-lg font-bold group-hover:bg-amber-500 group-hover:text-[#050b14] transition">View</button>';
+                html += '</div></div>';
+            }
+            document.getElementById('productGrid').innerHTML = html;
+        }
+
+        function openDetail(id) {
+            let items = JSON.parse(localStorage.getItem('msts_db_items'));
+            let p = items.find(function(x){ return x.id === id; });
+            document.getElementById('detImg').src = p.img;
+            document.getElementById('detTitle').innerText = p.name;
+            document.getElementById('detDesc').innerText = p.desc;
+            document.getElementById('detPrice').innerText = '₹' + p.price;
+            document.getElementById('detBtn').onclick = function(){ addCart(p.name, p.price); toggleView('detailView'); };
+            toggleView('detailView');
+        }
+
+        // Cart System
+        function addCart(name, price) {
+            userCart.push({ name: name, price: price });
+            updateCartUI();
+            showAlert(name + ' added to cart');
+        }
+        function remCart(idx) {
+            userCart.splice(idx, 1);
+            updateCartUI();
+        }
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = userCart.length;
+            let list = document.getElementById('cartList');
+            if(userCart.length === 0) {
+                document.getElementById('paySection').style.display = 'none';
+                list.innerHTML = '<div class="text-center py-10 text-slate-500"><i class="fa-solid fa-basket-shopping text-4xl mb-3"></i><p class="font-bold">Cart is empty</p></div>';
+                return;
             }
             
-            box.classList.remove('hidden'); 
-            box.classList.add('toast-show');
-            setTimeout(() => { 
-                box.classList.remove('toast-show'); 
-                box.classList.add('hidden'); 
-            }, 3000);
-        }
-
-        function renderProducts() {
-            const products = JSON.parse(localStorage.getItem('msts_products'));
-            let htmlString = "";
-            for (let i = 0; i < products.length; i++) {
-                let p = products[i];
-                htmlString += '<div class="glass-card rounded-2xl overflow-hidden flex flex-col" onclick="openProductDetail(' + p.id + ')">';
-                htmlString += '<div class="h-56 img-3d-container bg-slate-900/50 border-b border-white/5 relative">';
-                htmlString += '<img src="' + p.img + '" class="img-3d-inner object-cover opacity-90 hover:opacity-100">';
-                htmlString += '<div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>';
-                htmlString += '<span class="absolute bottom-4 left-4 text-white font-black text-xl z-10 drop-shadow-md">' + p.name + '</span>';
-                htmlString += '</div>';
-                htmlString += '<div class="p-6 pt-4 flex justify-between items-center bg-slate-900/80">';
-                htmlString += '<p class="text-3xl font-black text-amber-500">₹' + p.price + '</p>';
-                htmlString += '<button class="bg-white/10 hover:bg-amber-500 hover:text-black text-white px-5 py-2.5 rounded-xl font-bold transition">View Details</button>';
-                htmlString += '</div></div>';
-            }
-            document.getElementById('productGrid').innerHTML = htmlString;
-        }
-
-        function openProductDetail(id) {
-            const products = JSON.parse(localStorage.getItem('msts_products'));
-            const p = products.find(x => x.id === id);
-            document.getElementById('detailImg').src = p.img;
-            document.getElementById('detailTitle').innerText = p.name;
-            document.getElementById('detailDesc').innerText = p.desc;
-            document.getElementById('detailPrice').innerText = '₹' + p.price;
-            
-            const btn = document.getElementById('detailAddBtn');
-            btn.onclick = function() { 
-                addToCart(p.name, p.price); 
-                toggleModal('productDetailModal'); 
-            };
-            
-            toggleModal('productDetailModal');
-        }
-
-        function copyUPI() {
-            navigator.clipboard.writeText('mstsrailhub@upi');
-            triggerAlert('UPI ID Copied!');
-        }
-
-        function addToCart(name, price) {
-            currentCart.push({ name: name, price: price });
-            refreshCart();
-            document.getElementById('cartCount').innerText = currentCart.length;
-            triggerAlert(name + ' added to cart', 'success');
-        }
-
-        function removeCartItem(index) {
-            currentCart.splice(index, 1);
-            document.getElementById('cartCount').innerText = currentCart.length;
-            refreshCart();
-        }
-
-        function refreshCart() {
+            document.getElementById('paySection').style.display = 'block';
             let total = 0;
-            for(let i = 0; i < currentCart.length; i++) {
-                total += currentCart[i].price;
+            let html = "";
+            for(let i=0; i<userCart.length; i++) {
+                total += userCart[i].price;
+                html += '<div class="bg-[#0f172a] border border-[#1e293b] p-4 rounded-xl flex justify-between items-center">';
+                html += '<span class="font-bold text-white text-sm">'+userCart[i].name+'</span>';
+                html += '<div class="flex items-center gap-4">';
+                html += '<span class="text-amber-500 font-black">₹'+userCart[i].price+'</span>';
+                html += '<button onclick="remCart('+i+')" class="text-[#334155] hover:text-red-500 transition"><i class="fa-solid fa-trash"></i></button>';
+                html += '</div></div>';
             }
-            const container = document.getElementById('cartContent');
-            
-            if (currentCart.length === 0) {
-                document.getElementById('checkoutFooter').style.display = 'none';
-                container.innerHTML = '<div class="text-center text-slate-500 py-6"><p>Cart is empty.</p></div>';
-            } else {
-                document.getElementById('checkoutFooter').style.display = 'block';
-                document.getElementById('finalTotal').innerText = '₹' + total;
-                
-                let cartHtml = "";
-                for(let i = 0; i < currentCart.length; i++) {
-                    cartHtml += '<div class="bg-slate-900 border border-white/5 p-3 rounded-xl flex justify-between items-center mb-2">';
-                    cartHtml += '<span class="font-bold text-slate-200">' + currentCart[i].name + '</span>';
-                    cartHtml += '<div class="flex items-center gap-4">';
-                    cartHtml += '<span class="text-amber-400 font-bold">₹' + currentCart[i].price + '</span>';
-                    cartHtml += '<button onclick="removeCartItem(' + i + ')" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>';
-                    cartHtml += '</div></div>';
-                }
-                container.innerHTML = cartHtml;
-            }
+            document.getElementById('cartTotal').innerText = '₹' + total;
+            list.innerHTML = html;
         }
 
-        let base64Screen = null;
+        function copyUPI() { navigator.clipboard.writeText('mstsrailhub@upi'); showAlert('UPI Copied to Clipboard!'); }
+
+        let b64Img = null;
         function previewFile() {
-            const file = document.getElementById('paymentScreenshot').files[0];
-            if (file) {
-                document.getElementById('fileName').innerText = file.name;
-                const r = new FileReader(); 
-                r.onloadend = function() { base64Screen = r.result; };
-                r.readAsDataURL(file);
+            let file = document.getElementById('payImage').files[0];
+            if(file) {
+                document.getElementById('fileText').innerText = file.name;
+                document.getElementById('fileText').className = "text-xs text-green-500 font-bold block mt-1";
+                let reader = new FileReader();
+                reader.onloadend = function(){ b64Img = reader.result; };
+                reader.readAsDataURL(file);
             }
         }
 
-        function switchAuthMode(m) {
+        // Authentication
+        function switchAuth(m) {
             document.getElementById('authMode').value = m;
+            document.getElementById('authTitle').innerText = m==='login'?"Welcome Back":"Create Account";
+            document.getElementById('submitAuth').innerText = m==='login'?"ACCESS ACCOUNT":"REGISTER NOW";
             if(m === 'login') {
-                document.getElementById('tabLogin').className = "flex-1 py-2 rounded-lg font-bold transition bg-amber-500 text-slate-900";
-                document.getElementById('tabRegister').className = "flex-1 py-2 rounded-lg font-bold transition text-slate-400 hover:text-white bg-transparent";
-                document.getElementById('authTitle').innerText = "Login to Portal";
-                document.getElementById('authBtn').innerText = "Login";
+                document.getElementById('btnLog').className = "flex-1 py-2 rounded-md font-bold bg-amber-500 text-[#050b14] transition";
+                document.getElementById('btnReg').className = "flex-1 py-2 rounded-md font-bold text-slate-400 transition";
             } else {
-                document.getElementById('tabRegister').className = "flex-1 py-2 rounded-lg font-bold transition bg-amber-500 text-slate-900";
-                document.getElementById('tabLogin').className = "flex-1 py-2 rounded-lg font-bold transition text-slate-400 hover:text-white bg-transparent";
-                document.getElementById('authTitle').innerText = "Register Account";
-                document.getElementById('authBtn').innerText = "Register";
+                document.getElementById('btnReg').className = "flex-1 py-2 rounded-md font-bold bg-amber-500 text-[#050b14] transition";
+                document.getElementById('btnLog').className = "flex-1 py-2 rounded-md font-bold text-slate-400 transition";
             }
         }
-
-        function handleAuth(e) {
+        function runAuth(e) {
             e.preventDefault();
-            const mode = document.getElementById('authMode').value;
-            const u = document.getElementById('authUsername').value.trim();
-            const p = document.getElementById('authPassword').value.trim();
-            let users = JSON.parse(localStorage.getItem('msts_users'));
-            
-            if (mode === 'register') {
-                const userExists = users.find(x => x.username === u);
-                if(userExists) {
-                    triggerAlert("Username exists!", 'error');
-                    return;
-                }
-                const newUser = { username: u, password: p, role: 'customer' };
-                users.push(newUser); 
-                localStorage.setItem('msts_users', JSON.stringify(users));
-                triggerAlert("Registered! Logging in...", 'success');
-                loginUser(newUser);
+            let mode = document.getElementById('authMode').value;
+            let u = document.getElementById('inpUser').value.trim();
+            let p = document.getElementById('inpPass').value.trim();
+            let users = JSON.parse(localStorage.getItem('msts_db_users'));
+
+            if(mode === 'register') {
+                if(users.find(function(x){ return x.username === u; })) return showAlert("Username exists!", true);
+                let nu = { username: u, password: p, role: 'customer' };
+                users.push(nu);
+                localStorage.setItem('msts_db_users', JSON.stringify(users));
+                showAlert("Account Created!"); logIn(nu);
             } else {
-                const foundUser = users.find(x => x.username === u && x.password === p);
-                if(foundUser) { 
-                    triggerAlert('Welcome ' + u + '!', 'success'); 
-                    loginUser(foundUser); 
-                } else {
-                    triggerAlert("Invalid Details!", 'error');
-                }
+                let found = users.find(function(x){ return x.username === u && x.password === p; });
+                if(found) { showAlert("Welcome " + u + "!"); logIn(found); }
+                else showAlert("Wrong Details!", true);
             }
         }
-
-        function loginUser(user) {
-            currentUser = user; 
-            sessionStorage.setItem('msts_current_user', JSON.stringify(user));
-            toggleModal('authModal'); 
-            updateNavForUser();
+        function logIn(u) {
+            activeUser = u; sessionStorage.setItem('msts_session', JSON.stringify(u));
+            toggleView('authView'); refreshNav();
         }
-
-        function updateNavForUser() {
-            if(currentUser) {
-                let icon = currentUser.role === 'admin' ? 'fa-user-shield' : 'fa-user-check';
-                document.getElementById('navAuthArea').innerHTML = '<button onclick="openDashboard()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-2 rounded-lg font-bold shadow-lg"><i class="fa-solid ' + icon + ' mr-2"></i> ' + currentUser.username.toUpperCase() + '</button>';
+        function refreshNav() {
+            let area = document.getElementById('navUserArea');
+            if(activeUser) {
+                let badge = activeUser.role==='admin' ? 'bg-red-500' : 'bg-green-500';
+                area.innerHTML = '<button onclick="openDash()" class="bg-[#0f172a] border border-[#334155] text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:border-amber-500 transition"><span class="w-2 h-2 rounded-full '+badge+'"></span> '+activeUser.username.toUpperCase()+'</button>';
             } else {
-                document.getElementById('navAuthArea').innerHTML = '<button onclick="toggleModal(\'authModal\')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2 rounded-lg font-bold"><i class="fa-solid fa-user-shield mr-2 text-amber-500"></i> Portal</button>';
+                area.innerHTML = '<button onclick="toggleView(\'authView\')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</button>';
             }
         }
+        function logout() { activeUser = null; sessionStorage.removeItem('msts_session'); refreshNav(); toggleView('dashView'); showAlert("Logged Out"); }
 
-        function logout() { 
-            currentUser = null; 
-            sessionStorage.removeItem('msts_current_user'); 
-            updateNavForUser(); 
-            toggleModal('dashboardModal'); 
-            triggerAlert("Logged out"); 
+        // Ordering & Dashboard
+        function placeOrder() {
+            if(!activeUser) return showAlert("Login required!", true);
+            if(!b64Img) return showAlert("Upload Screenshot!", true);
+            
+            let total = 0; for(let i=0; i<userCart.length; i++) total += userCart[i].price;
+            let orders = JSON.parse(localStorage.getItem('msts_db_orders'));
+            orders.push({ id: 'TXN'+Math.floor(Math.random()*99999), user: activeUser.username, items: [...userCart], total: total, img: b64Img, status: 'Verifying', link: '' });
+            localStorage.setItem('msts_db_orders', JSON.stringify(orders));
+            
+            userCart = []; b64Img = null; updateCartUI();
+            document.getElementById('fileText').innerText = "Tap to select image";
+            document.getElementById('fileText').className = "text-xs text-amber-500 font-bold block mt-1";
+            document.getElementById('payImage').value = "";
+            toggleView('cartView'); showAlert("Order Sent to Admin!");
         }
 
-        function submitOrder() {
-            if(!currentUser) {
-                triggerAlert("Login to place order.", 'error');
-                return;
-            }
-            if(!base64Screen) {
-                triggerAlert("Upload screenshot!", 'error');
-                return;
-            }
-            
-            let total = 0;
-            for(let i = 0; i < currentCart.length; i++) {
-                total += currentCart[i].price;
-            }
-            
-            const btn = document.getElementById('submitOrderBtn');
-            btn.innerHTML = '<span class="spinner mr-2"></span> Processing...';
-            
-            setTimeout(() => {
-                let orders = JSON.parse(localStorage.getItem('msts_orders'));
-                let newOrder = { 
-                    id: 'ORD' + Math.floor(Math.random()*90000), 
-                    user: currentUser.username, 
-                    items: [...currentCart], 
-                    total: total, 
-                    img: base64Screen, 
-                    status: 'Pending', 
-                    link: '' 
-                };
-                orders.push(newOrder);
-                localStorage.setItem('msts_orders', JSON.stringify(orders));
-                
-                currentCart = []; 
-                document.getElementById('cartCount').innerText = '0'; 
-                base64Screen = null;
-                document.getElementById('paymentScreenshot').value = ''; 
-                document.getElementById('fileName').innerText = "Tap to select file";
-                
-                toggleModal('cartModal'); 
-                triggerAlert("Order Sent to Admin!", 'success'); 
-                btn.innerHTML = 'Submit Order for Verification <i class="fa-solid fa-shield-check ml-2"></i>';
-            }, 1000);
-        }
-
-        function openDashboard() {
-            if(currentUser.role === 'admin') {
-                document.getElementById('adminTabs').style.display = 'flex';
-                renderAdminOrders();
+        function openDash() {
+            if(activeUser.role === 'admin') {
+                document.getElementById('dashTabs').style.display = 'flex';
+                showAdminOrd();
             } else {
-                document.getElementById('adminTabs').style.display = 'none';
-                renderCustomerOrders();
+                document.getElementById('dashTabs').style.display = 'none';
+                showCustOrd();
             }
-            toggleModal('dashboardModal');
+            toggleView('dashView');
         }
 
-        function renderCustomerOrders() {
-            document.getElementById('dashboardTitle').innerHTML = '<i class="fa-solid fa-boxes-packing text-amber-500 mr-3"></i> My Orders';
-            
-            const orders = JSON.parse(localStorage.getItem('msts_orders'));
-            let myOrders = [];
-            for(let i = orders.length - 1; i >= 0; i--) {
-                if(orders[i].user === currentUser.username) {
-                    myOrders.push(orders[i]);
-                }
-            }
-            
-            if(myOrders.length === 0) {
-                document.getElementById('dashboardContent').innerHTML = '<p class="text-slate-400 text-center">No orders found.</p>';
-                return;
-            }
-            
+        function showCustOrd() {
+            document.getElementById('dashTitle').innerHTML = '<i class="fa-solid fa-box-open text-amber-500"></i> My Inventory';
+            let allOrd = JSON.parse(localStorage.getItem('msts_db_orders'));
             let html = "";
-            for(let i = 0; i < myOrders.length; i++) {
-                let o = myOrders[i];
-                let itemNames = o.items.map(function(item) { return item.name; }).join(', ');
-                let statusColor = o.status === 'Pending' ? 'text-amber-500' : 'text-green-400';
-                let borderColor = o.status === 'Pending' ? 'border-amber-500/30' : 'border-green-500/50';
-                
-                html += '<div class="bg-slate-800 border ' + borderColor + ' p-5 rounded-xl mb-4">';
-                html += '<div class="flex justify-between items-center mb-3 border-b border-white/10 pb-3">';
-                html += '<h3 class="font-bold text-white text-lg">' + o.id + '</h3>';
-                html += '<span class="font-bold ' + statusColor + '">' + o.status + '</span>';
-                html += '</div>';
-                html += '<p class="text-sm text-slate-300 mb-4">Items: ' + itemNames + ' | Total: ₹' + o.total + '</p>';
-                
-                if(o.status === 'Pending') {
-                    html += '<div class="text-amber-400 text-sm bg-amber-900/20 p-2 rounded">Admin is verifying your screenshot...</div>';
-                } else {
-                    html += '<a href="' + o.link + '" target="_blank" class="block text-center bg-green-500 text-black font-black py-3 rounded-lg"><i class="fa-solid fa-download mr-2"></i> Download Files</a>';
+            for(let i=allOrd.length-1; i>=0; i--) {
+                if(allOrd[i].user === activeUser.username) {
+                    let o = allOrd[i];
+                    let items = o.items.map(function(x){ return x.name; }).join(', ');
+                    let stCol = o.status==='Verifying' ? 'text-amber-500' : 'text-green-500';
+                    let stBg = o.status==='Verifying' ? 'bg-amber-500/10 border-amber-500/30' : 'bg-green-500/10 border-green-500/30';
+                    
+                    html += '<div class="bg-[#0f172a] border border-[#1e293b] p-5 rounded-xl mb-4">';
+                    html += '<div class="flex justify-between items-center mb-4 border-b border-[#1e293b] pb-3">';
+                    html += '<div><p class="text-xs text-slate-500 font-bold uppercase">Order ID</p><h3 class="text-white font-black text-lg">'+o.id+'</h3></div>';
+                    html += '<div class="px-3 py-1 rounded border '+stBg+' '+stCol+' font-black text-sm uppercase">'+o.status+'</div>';
+                    html += '</div>';
+                    html += '<p class="text-sm text-slate-300 mb-4"><strong>Purchased:</strong> '+items+' <br><strong>Amount:</strong> ₹'+o.total+'</p>';
+                    if(o.status === 'Verifying') {
+                        html += '<div class="text-sm text-slate-400 bg-[#050b14] p-3 rounded-lg border border-[#1e293b]"><i class="fa-solid fa-clock text-amber-500 mr-2"></i> Admin is verifying your payment screenshot.</div>';
+                    } else {
+                        html += '<a href="'+o.link+'" target="_blank" class="block w-full text-center bg-green-600 text-white font-black py-3 rounded-lg hover:bg-green-500 transition"><i class="fa-solid fa-download mr-2"></i> DOWNLOAD FILES</a>';
+                    }
+                    html += '</div>';
                 }
-                html += '</div>';
             }
-            document.getElementById('dashboardContent').innerHTML = html;
+            document.getElementById('dashContent').innerHTML = html === "" ? '<p class="text-center text-slate-500 font-bold mt-10">No orders found.</p>' : html;
         }
 
-        function switchAdminTab(tab) {
-            if(tab === 'orders') {
-                document.getElementById('tabAdminOrders').className = "px-6 py-4 font-bold transition text-amber-500 border-b-2 border-amber-500";
-                document.getElementById('tabAdminProducts').className = "px-6 py-4 font-bold transition text-slate-400 border-b-2 border-transparent";
-                renderAdminOrders();
+        // Admin Dash
+        function switchDash(t) {
+            if(t==='orders') {
+                document.getElementById('tabOrd').className = "flex-1 py-4 font-black text-amber-500 border-b-2 border-amber-500 uppercase text-sm tracking-wider transition";
+                document.getElementById('tabProd').className = "flex-1 py-4 font-black text-slate-400 border-b-2 border-transparent hover:text-white uppercase text-sm tracking-wider transition";
+                showAdminOrd();
             } else {
-                document.getElementById('tabAdminOrders').className = "px-6 py-4 font-bold transition text-slate-400 border-b-2 border-transparent";
-                document.getElementById('tabAdminProducts').className = "px-6 py-4 font-bold transition text-amber-500 border-b-2 border-amber-500";
-                renderAdminProducts();
+                document.getElementById('tabProd').className = "flex-1 py-4 font-black text-amber-500 border-b-2 border-amber-500 uppercase text-sm tracking-wider transition";
+                document.getElementById('tabOrd').className = "flex-1 py-4 font-black text-slate-400 border-b-2 border-transparent hover:text-white uppercase text-sm tracking-wider transition";
+                showAdminProd();
             }
         }
 
-        function renderAdminOrders() {
-            document.getElementById('dashboardTitle').innerHTML = '<i class="fa-solid fa-user-shield text-red-500 mr-3"></i> Order Approvals';
-            const orders = JSON.parse(localStorage.getItem('msts_orders'));
-            
-            if(orders.length === 0) {
-                document.getElementById('dashboardContent').innerHTML = '<p class="text-slate-400 text-center">No pending orders.</p>';
-                return;
-            }
-            
+        function showAdminOrd() {
+            document.getElementById('dashTitle').innerHTML = '<i class="fa-solid fa-shield-halved text-red-500"></i> Admin Panel - Orders';
+            let orders = JSON.parse(localStorage.getItem('msts_db_orders'));
             let html = "";
-            for(let i = orders.length - 1; i >= 0; i--) {
+            for(let i=orders.length-1; i>=0; i--) {
                 let o = orders[i];
-                let itemNames = o.items.map(function(item) { return item.name; }).join(', ');
-                
-                html += '<div class="bg-slate-800 border border-white/10 p-5 rounded-xl mb-4 flex flex-col md:flex-row gap-6">';
-                html += '<div class="w-full md:w-1/3"><img src="' + o.img + '" class="w-full rounded-lg bg-black h-40 object-cover cursor-pointer" onclick="window.open(\'' + o.img + '\')"></div>';
+                let itm = o.items.map(function(x){ return x.name; }).join(', ');
+                html += '<div class="bg-[#0f172a] border border-[#1e293b] p-5 rounded-xl mb-4 flex flex-col md:flex-row gap-6">';
+                html += '<div class="w-full md:w-1/3"><img src="'+o.img+'" class="w-full h-40 object-cover rounded-lg border border-[#334155] cursor-pointer" onclick="window.open(\''+o.img+'\')"></div>';
                 html += '<div class="w-full md:w-2/3 flex flex-col justify-between">';
-                html += '<div>';
-                html += '<h3 class="text-xl font-bold text-white mb-2">' + o.id + ' <span class="text-sm text-slate-400 ml-2">@' + o.user + '</span></h3>';
-                html += '<p class="text-sm text-slate-300">Items: ' + itemNames + '</p>';
-                html += '<p class="text-amber-400 font-bold mb-4">Total: ₹' + o.total + '</p>';
-                html += '</div>';
+                html += '<div><h3 class="text-xl font-black text-white">'+o.id+' <span class="text-amber-500 text-sm ml-2">@'+o.user+'</span></h3>';
+                html += '<p class="text-slate-400 text-sm my-2">Items: '+itm+'</p><p class="text-white font-black text-lg mb-4">₹'+o.total+'</p></div>';
                 
-                if(o.status === 'Pending') {
+                if(o.status === 'Verifying') {
                     html += '<div class="flex gap-2">';
-                    html += '<input type="text" id="link_' + i + '" placeholder="Enter Download Link" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white text-sm">';
-                    html += '<button onclick="approveOrder(' + i + ')" class="bg-green-500 text-black font-bold px-4 py-2 rounded">Deliver</button>';
+                    html += '<input type="text" id="lnk_'+i+'" placeholder="Enter Download Link" class="flex-1 custom-input rounded px-3 py-2 text-sm">';
+                    html += '<button onclick="approveOrd('+i+')" class="bg-green-600 text-white font-bold px-4 py-2 rounded hover:bg-green-500">Deliver</button>';
                     html += '</div>';
                 } else {
-                    html += '<div class="text-green-400 text-sm"><i class="fa-solid fa-check"></i> Delivered: ' + o.link + '</div>';
+                    html += '<div class="bg-green-500/10 border border-green-500/30 text-green-500 font-bold p-2 rounded text-sm"><i class="fa-solid fa-check mr-2"></i> Sent: '+o.link+'</div>';
                 }
                 html += '</div></div>';
             }
-            document.getElementById('dashboardContent').innerHTML = html;
+            document.getElementById('dashContent').innerHTML = html === "" ? '<p class="text-center text-slate-500 font-bold mt-10">No pending orders.</p>' : html;
         }
 
-        function approveOrder(i) {
-            const link = document.getElementById('link_' + i).value;
-            if(!link) {
-                triggerAlert("Link required!", 'error');
-                return;
-            }
-            let orders = JSON.parse(localStorage.getItem('msts_orders'));
-            orders[i].status = 'Approved'; 
-            orders[i].link = link;
-            localStorage.setItem('msts_orders', JSON.stringify(orders));
-            triggerAlert("Delivered to customer!", 'success'); 
-            renderAdminOrders();
+        function approveOrd(i) {
+            let lnk = document.getElementById('lnk_'+i).value;
+            if(!lnk) return showAlert("Link Required!", true);
+            let ord = JSON.parse(localStorage.getItem('msts_db_orders'));
+            ord[i].status = 'Delivered'; ord[i].link = lnk;
+            localStorage.setItem('msts_db_orders', JSON.stringify(ord));
+            showAlert("Order Delivered!"); showAdminOrd();
         }
 
-        function renderAdminProducts() {
-            document.getElementById('dashboardTitle').innerHTML = '<i class="fa-solid fa-cubes text-blue-400 mr-3"></i> Product Manager';
-            const products = JSON.parse(localStorage.getItem('msts_products'));
+        function showAdminProd() {
+            document.getElementById('dashTitle').innerHTML = '<i class="fa-solid fa-cubes text-blue-500"></i> Admin Panel - Products';
+            let prod = JSON.parse(localStorage.getItem('msts_db_items'));
             
-            let html = '<div class="bg-slate-950 p-6 rounded-xl border border-white/10 mb-8 shadow-inner">';
-            html += '<h3 class="text-white font-bold mb-4 border-b border-white/10 pb-2"><i class="fa-solid fa-plus text-amber-500 mr-2"></i> Add New Product</h3>';
+            let html = '<div class="bg-[#0f172a] border border-[#1e293b] p-6 rounded-xl mb-6 shadow-xl">';
+            html += '<h3 class="text-white font-black mb-4"><i class="fa-solid fa-plus text-amber-500 mr-2"></i> Publish New Asset</h3>';
             html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">';
-            html += '<input type="text" id="newPName" placeholder="Product Title" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">';
-            html += '<input type="number" id="newPPrice" placeholder="Price (₹)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">';
-            html += '<input type="text" id="newPImg" placeholder="Image URL (http://...)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 focus:border-amber-500">';
-            html += '<textarea id="newPDesc" placeholder="Description" class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 h-24 focus:border-amber-500"></textarea>';
+            html += '<input type="text" id="p_name" placeholder="Title (e.g. WAG-9)" class="custom-input rounded-lg p-3 text-sm">';
+            html += '<input type="number" id="p_price" placeholder="Price" class="custom-input rounded-lg p-3 text-sm">';
+            html += '<input type="text" id="p_img" placeholder="Image URL" class="custom-input rounded-lg p-3 text-sm md:col-span-2">';
+            html += '<textarea id="p_desc" placeholder="Description" class="custom-input rounded-lg p-3 text-sm md:col-span-2 h-20"></textarea>';
             html += '</div>';
-            html += '<button onclick="adminAddProduct()" class="bg-amber-500 text-black font-black px-6 py-3 rounded-lg shadow-lg hover:bg-amber-400"><i class="fa-solid fa-upload mr-2"></i> Publish Product</button>';
-            html += '</div><div class="space-y-4">';
+            html += '<button onclick="addProd()" class="btn-primary px-6 py-3 rounded-lg font-black w-full md:w-auto">UPLOAD PRODUCT</button>';
+            html += '</div>';
             
-            for(let i = 0; i < products.length; i++) {
-                let p = products[i];
-                html += '<div class="bg-slate-800 border border-white/5 p-4 rounded-xl flex justify-between items-center group">';
-                html += '<div class="flex items-center gap-4">';
-                html += '<img src="' + p.img + '" class="h-12 w-16 object-cover rounded bg-black">';
-                html += '<div>';
-                html += '<h4 class="text-white font-bold">' + p.name + '</h4>';
-                html += '<span class="text-amber-500 text-sm font-bold">₹' + p.price + '</span>';
-                html += '</div></div>';
-                html += '<button onclick="adminDeleteProduct(' + i + ')" class="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded transition"><i class="fa-solid fa-trash-can mr-2"></i> Delete</button>';
+            for(let i=0; i<prod.length; i++) {
+                html += '<div class="bg-[#0f172a] border border-[#1e293b] p-4 rounded-xl flex justify-between items-center mb-3">';
+                html += '<div class="flex items-center gap-4"><img src="'+prod[i].img+'" class="w-16 h-12 object-cover rounded border border-[#334155]">';
+                html += '<div><h4 class="text-white font-bold text-sm">'+prod[i].name+'</h4><span class="text-amber-500 font-black text-xs">₹'+prod[i].price+'</span></div></div>';
+                html += '<button onclick="delProd('+i+')" class="text-[#334155] hover:text-red-500 transition px-4 py-2"><i class="fa-solid fa-trash"></i></button>';
                 html += '</div>';
             }
-            
-            html += '</div>';
-            document.getElementById('dashboardContent').innerHTML = html;
+            document.getElementById('dashContent').innerHTML = html;
         }
 
-        function adminAddProduct() {
-            const name = document.getElementById('newPName').value;
-            const price = parseInt(document.getElementById('newPPrice').value);
-            const img = document.getElementById('newPImg').value;
-            const desc = document.getElementById('newPDesc').value;
+        function addProd() {
+            let n = document.getElementById('p_name').value;
+            let pr = parseInt(document.getElementById('p_price').value);
+            let img = document.getElementById('p_img').value;
+            let d = document.getElementById('p_desc').value;
+            if(!n || !pr || !img || !d) return showAlert("Fill all details!", true);
             
-            if(!name || !price || !img || !desc) {
-                triggerAlert("Fill all fields!", 'error');
-                return;
-            }
-            
-            let products = JSON.parse(localStorage.getItem('msts_products'));
-            products.push({ id: Date.now(), name: name, price: price, desc: desc, img: img });
-            localStorage.setItem('msts_products', JSON.stringify(products));
-            
-            triggerAlert("Product Published Live!", 'success');
-            renderAdminProducts(); 
-            renderProducts();
+            let p = JSON.parse(localStorage.getItem('msts_db_items'));
+            p.push({ id: Date.now(), name: n, price: pr, desc: d, img: img });
+            localStorage.setItem('msts_db_items', JSON.stringify(p));
+            showAlert("Product Added!"); showAdminProd(); loadProducts();
         }
 
-        function adminDeleteProduct(i) {
-            if(!confirm("Are you sure you want to delete this product?")) return;
-            let products = JSON.parse(localStorage.getItem('msts_products'));
-            products.splice(i, 1);
-            localStorage.setItem('msts_products', JSON.stringify(products));
-            triggerAlert("Product Deleted", 'success');
-            renderAdminProducts(); 
-            renderProducts();
+        function delProd(i) {
+            let p = JSON.parse(localStorage.getItem('msts_db_items'));
+            p.splice(i, 1);
+            localStorage.setItem('msts_db_items', JSON.stringify(p));
+            showAlert("Product Deleted!"); showAdminProd(); loadProducts();
         }
     </script>
 </body>
