@@ -2,70 +2,58 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// Middleware to parse JSON data from the frontend
+// This allows the server to read data sent from the website
 app.use(express.json());
 
-// Serve the frontend HTML files from the "public" folder
+// This tells the server to display your website from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ==========================================
-// 1. MOCK DATABASE
-// ==========================================
-// In a real app, this would be your MongoDB or MySQL database.
+// --- DATABASE (Mock) ---
 const usersDatabase = [
-    { username: 'lucky@gmail.com', password: 'password123', role: 'customer' },
-    { username: 'admin1', password: 'supersecret', role: 'admin' }
+    { username: 'lucky', password: 'password123', role: 'customer' },
+    { username: 'admin', password: 'adminpassword', role: 'admin' }
 ];
 
-// ==========================================
-// 2. AUTHENTICATION API
-// ==========================================
+// --- LOGIN API ---
 app.post('/api/login', (req, res) => {
     const { username, password, requestedRole } = req.body;
     
-    // Search our database for the user
     const user = usersDatabase.find(u => u.username === username && u.password === password);
     
     if (!user) {
-        return res.status(401).json({ message: "Invalid username or password!" });
+        return res.status(401).json({ success: false, message: "Wrong username or password" });
     }
     
-    // Security check: Don't let customers log in as admins
     if (requestedRole === 'admin' && user.role !== 'admin') {
-        return res.status(403).json({ message: "Access Denied: Admin privileges required." });
+        return res.status(403).json({ success: false, message: "You are not an admin!" });
     }
     
-    res.json({ message: `Welcome back, ${username}!`, role: user.role });
+    res.json({ success: true, message: `Welcome back, ${username}!`, role: user.role });
 });
 
-// ==========================================
-// 3. PAYMENT API (Paytm Checkout)
-// ==========================================
+// --- PAYMENT API ---
 app.post('/api/pay', (req, res) => {
     const { amount, items } = req.body;
     
     if (amount <= 0 || items.length === 0) {
-        return res.status(400).json({ message: "Cart is empty." });
+        return res.status(400).json({ success: false, message: "Cart is empty." });
     }
 
-    console.log(`Processing payment of ₹${amount} for ${items.length} items...`);
+    console.log(`Backend received payment request for ₹${amount}`);
 
-    // In a production app, you would contact the Paytm API here using your Merchant Key.
-    // For this fully functional demo, we will simulate a successful transaction after a 2-second delay.
+    // Simulate backend talking to Paytm API
     setTimeout(() => {
-        const fakeTransactionId = "TXN_" + Math.floor(Math.random() * 100000000);
-        
+        const transactionId = "TXN_" + Math.floor(Math.random() * 10000000);
         res.json({ 
             success: true, 
-            transactionId: fakeTransactionId,
-            message: "Payment verified successfully. Generating download links..." 
+            transactionId: transactionId,
+            message: "Payment verified by server!" 
         });
     }, 2000);
 });
 
-// Start the server
+// Start the Server
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 MSTS Store is live! Open your browser and go to http://localhost:${PORT}`);
+    console.log(`✅ Backend Server is RUNNING at http://localhost:${PORT}`);
 });
-
