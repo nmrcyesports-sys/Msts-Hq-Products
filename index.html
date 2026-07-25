@@ -612,6 +612,64 @@
             localStorage.setItem('msts_db_items', JSON.stringify(p));
             showAlert("Product Deleted!"); showAdminProd(); loadProducts();
         }
+// --- AUTO-RECOVERY & RESET UPDATE (Paste at the bottom, just above </script>) ---
+
+function initSystem() {
+    try {
+        // 1. Admin account recovery
+        let users = JSON.parse(localStorage.getItem('msts_db_users'));
+        if (!users || !Array.isArray(users) || users.length === 0) {
+            users = [{ username: 'admin', password: '123', role: 'admin' }];
+            localStorage.setItem('msts_db_users', JSON.stringify(users));
+        } else {
+            let adminExists = false;
+            for (let i = 0; i < users.length; i++) {
+                if (users[i].username === 'admin') adminExists = true;
+            }
+            if (!adminExists) {
+                users.push({ username: 'admin', password: '123', role: 'admin' });
+                localStorage.setItem('msts_db_users', JSON.stringify(users));
+            }
+        }
+
+        // 2. Products recovery
+        let items = JSON.parse(localStorage.getItem('msts_db_items'));
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            localStorage.setItem('msts_db_items', JSON.stringify(starterProducts));
+        }
+
+        // 3. Orders recovery
+        if (!localStorage.getItem('msts_db_orders')) {
+            localStorage.setItem('msts_db_orders', JSON.stringify([]));
+        }
+
+        // 4. Session recovery
+        if (sessionStorage.getItem('msts_session')) {
+            activeUser = JSON.parse(sessionStorage.getItem('msts_session'));
+            refreshNav();
+        }
+        
+        loadProducts();
+    } catch(e) {
+        console.error("Storage Error:", e);
+        localStorage.setItem('msts_db_items', JSON.stringify(starterProducts));
+        loadProducts();
+    }
+}
+
+function hardResetSystem() {
+    if(confirm("DANGER: This will delete all products, users, and orders, and restore original settings. Are you sure?")) {
+        localStorage.clear();
+        sessionStorage.clear();
+        activeUser = null;
+        initSystem();
+        showAlert("System Reset Successful!", false);
+        toggleView('dashView');
+        refreshNav();
+    }
+}
+
+                
     </script>
 </body>
 </html>
