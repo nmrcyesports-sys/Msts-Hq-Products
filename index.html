@@ -4,240 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MSTS RailHub - Premium Marketplace</title>
+    <!-- Styling Tools -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* 3D Animations */
         .card-3d-wrap { perspective: 1000px; }
         .card-3d { transition: transform 0.4s ease, box-shadow 0.4s ease; transform-style: preserve-3d; }
         .card-3d:hover { transform: translateY(-10px) rotateX(5deg) rotateY(-5deg); box-shadow: 0 25px 40px rgba(0, 0, 0, 0.6); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        .toast-animate { animation: slideIn 0.3s ease forwards; }
+        
+        /* Loading Spinner */
         .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s linear infinite; width: 20px; height: 20px; display: inline-block; }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
-
-    <div id="toastContainer" class="fixed top-20 right-4 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
 
     <!-- NAVBAR -->
-    <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md bg-opacity-90 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <i class="fa-solid fa-train-subway text-2xl text-amber-500"></i>
-                <span class="text-xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">MSTS RailHub</span>
+    <nav class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                <i class="fa-solid fa-train-subway text-amber-500 mr-2"></i>MSTS RailHub
             </div>
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleModal('cartModal')" class="relative p-2 text-slate-300 hover:text-amber-400">
-                    <i class="fa-solid fa-cart-shopping text-xl"></i>
-                    <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            <div class="flex gap-4 items-center">
+                <button onclick="toggleModal('cartModal')" class="relative text-white text-xl p-2">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCount" class="absolute top-0 right-0 bg-amber-500 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                 </button>
-                <button id="navLoginBtn" onclick="toggleModal('loginModal')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-5 py-2 rounded-lg">
-                    <i class="fa-solid fa-user mr-2"></i>Login
+                <button id="navLoginBtn" onclick="toggleModal('loginModal')" class="bg-amber-500 hover:bg-amber-400 text-black px-4 py-2 rounded-lg font-bold transition">
+                    Login
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- PRODUCTS SECTION -->
-    <main class="max-w-7xl mx-auto px-4 py-12 flex-grow w-full">
-        <h2 class="text-3xl font-bold border-l-4 border-amber-500 pl-4 mb-10">Featured Assets</h2>
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 card-3d-wrap">
-            <!-- Injected via JS -->
+    <!-- PRODUCTS GALLERY -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold border-l-4 border-amber-500 pl-4 mb-8">Premium Add-ons</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 card-3d-wrap">
+            
+            <!-- Product 1: WAP-7 -->
+            <div class="card-3d bg-slate-900 border border-slate-700 rounded-xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-slate-800 flex items-center justify-center text-7xl text-slate-600"><i class="fa-solid fa-train"></i></div>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold mb-2">WAP-7 High Definition Pack</h3>
+                    <p class="text-slate-400 text-sm">Ultra-realistic 3D cab view, real panto sparking, and heavy traction sounds.</p>
+                </div>
+                <div class="p-6 pt-0 flex justify-between items-center">
+                    <span class="text-2xl font-black text-amber-500">₹299</span>
+                    <button onclick="addToCart('WAP-7 HD Pack', 299)" class="bg-slate-800 hover:bg-amber-500 hover:text-black border border-slate-600 px-4 py-2 rounded-lg font-bold transition">Add</button>
+                </div>
+            </div>
+
+            <!-- Product 2: LHB Coach -->
+            <div class="card-3d bg-slate-900 border border-slate-700 rounded-xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-slate-800 flex items-center justify-center text-7xl text-slate-600"><i class="fa-solid fa-train-subway"></i></div>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold mb-2">LHB Rajdhani Full Set</h3>
+                    <p class="text-slate-400 text-sm">Includes 1AC, 2AC, 3AC, and Generator Van with detailed night textures.</p>
+                </div>
+                <div class="p-6 pt-0 flex justify-between items-center">
+                    <span class="text-2xl font-black text-amber-500">₹399</span>
+                    <button onclick="addToCart('LHB Rajdhani Set', 399)" class="bg-slate-800 hover:bg-amber-500 hover:text-black border border-slate-600 px-4 py-2 rounded-lg font-bold transition">Add</button>
+                </div>
+            </div>
+
+            <!-- Product 3: Route -->
+            <div class="card-3d bg-slate-900 border border-slate-700 rounded-xl overflow-hidden flex flex-col">
+                <div class="h-48 bg-slate-800 flex items-center justify-center text-7xl text-slate-600"><i class="fa-solid fa-route"></i></div>
+                <div class="p-6 flex-grow">
+                    <h3 class="text-xl font-bold mb-2">Western Railways V12</h3>
+                    <p class="text-slate-400 text-sm">Over 1,500 km of trackwork with authentic Indian signals.</p>
+                </div>
+                <div class="p-6 pt-0 flex justify-between items-center">
+                    <span class="text-2xl font-black text-amber-500">₹599</span>
+                    <button onclick="addToCart('WR V12 Route', 599)" class="bg-slate-800 hover:bg-amber-500 hover:text-black border border-slate-600 px-4 py-2 rounded-lg font-bold transition">Add</button>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <!-- LOGIN MODAL -->
-    <div id="loginModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-8 relative">
-            <button onclick="toggleModal('loginModal')" class="absolute top-5 right-5 text-slate-500 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
-            
-            <div class="flex border-b border-slate-800 mb-8">
-                <button id="custTab" onclick="switchTab('customer')" class="flex-1 pb-4 text-center font-bold text-amber-400 border-b-2 border-amber-400">Customer</button>
-                <button id="adminTab" onclick="switchTab('admin')" class="flex-1 pb-4 text-center font-bold text-slate-500 border-b-2 border-transparent">Admin</button>
-            </div>
-
-            <form id="authForm" onsubmit="handleAuth(event)" class="space-y-5">
-                <input type="hidden" id="roleType" value="customer">
-                <div>
-                    <label class="block text-sm font-medium text-slate-400 mb-2">Username / ID</label>
-                    <input type="text" id="username" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 focus:border-amber-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-400 mb-2">Password</label>
-                    <input type="password" id="password" required class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 focus:border-amber-500">
-                </div>
-                <button type="submit" id="authBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-lg">Login</button>
-            </form>
-            
-            <!-- Quick Test Credentials Note -->
-            <p class="text-xs text-slate-500 mt-4 text-center">Try Customer: lucky@gmail.com / password123<br>Try Admin: admin1 / supersecret</p>
+    <!-- FAKE LOGIN MODAL -->
+    <div id="loginModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 p-8 rounded-xl border border-slate-700 w-full max-w-md relative">
+            <button onclick="toggleModal('loginModal')" class="absolute top-4 right-4 text-slate-400 text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-2xl font-bold mb-6">Login to Account</h2>
+            <input type="text" id="username" placeholder="Enter any Name" class="w-full mb-4 p-3 bg-slate-950 border border-slate-700 text-white rounded-lg focus:border-amber-500">
+            <input type="password" placeholder="Enter any Password" class="w-full mb-6 p-3 bg-slate-950 border border-slate-700 text-white rounded-lg focus:border-amber-500">
+            <button id="authBtn" onclick="simulateLogin()" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold p-3 rounded-lg text-lg">Login</button>
         </div>
     </div>
 
-    <!-- CART MODAL -->
-    <div id="cartModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 relative flex flex-col max-h-[90vh]">
-            <button onclick="toggleModal('cartModal')" class="absolute top-5 right-5 text-slate-500 hover:text-white"><i class="fa-solid fa-xmark text-2xl"></i></button>
-            <h3 class="text-2xl font-bold mb-6 border-b border-slate-800 pb-4"><i class="fa-solid fa-bag-shopping text-amber-500 mr-3"></i> Your Cart</h3>
-            <div id="cartItems" class="space-y-3 mb-6 overflow-y-auto flex-grow"></div>
+    <!-- CART & FAKE PAYTM CHECKOUT MODAL -->
+    <div id="cartModal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 w-full max-w-md relative flex flex-col max-h-[90vh]">
+            <button onclick="toggleModal('cartModal')" class="absolute top-4 right-4 text-slate-400 text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-2xl font-bold mb-4 border-b border-slate-800 pb-2"><i class="fa-solid fa-bag-shopping text-amber-500 mr-2"></i> Your Cart</h2>
             
-            <div id="checkoutSection" class="mt-auto pt-4 border-t border-slate-800">
-                <div class="flex justify-between font-extrabold text-xl mb-6">
-                    <span>Total Amount:</span><span id="cartTotal" class="text-amber-400">₹0</span>
+            <div id="cartItems" class="overflow-y-auto flex-grow mb-4 space-y-2">
+                <p class="text-slate-500 text-center mt-4">Cart is empty</p>
+            </div>
+            
+            <div id="checkoutSection" style="display:none;">
+                <div class="flex justify-between font-bold text-xl mb-4">
+                    <span>Total:</span><span id="cartTotal" class="text-amber-500">₹0</span>
                 </div>
-                <button id="payBtn" onclick="processPayment()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold py-4 rounded-xl text-lg">Pay Securely & Download</button>
+                
+                <!-- Paytm UI Style -->
+                <div class="bg-slate-950 border border-amber-500 p-3 rounded-lg mb-6 flex justify-between items-center cursor-pointer">
+                    <span class="font-bold">Paytm / UPI Direct</span>
+                    <span class="bg-white text-blue-900 font-black italic px-2 py-1 rounded text-sm tracking-tighter">Paytm</span>
+                </div>
+
+                <button id="payBtn" onclick="simulatePayment()" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-extrabold p-4 rounded-xl text-lg">Pay Securely & Download</button>
             </div>
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        const products = [
-            { id: 1, title: 'WAP-7 High Definition Pack', desc: 'Ultra-detailed 3D cab view, custom traction sounds.', price: 299, icon: 'fa-train' },
-            { id: 2, title: 'LHB Rajdhani Complete Coach Set', desc: 'Includes 1AC, 2AC, 3AC, Generator Van.', price: 399, icon: 'fa-train-subway' },
-            { id: 3, title: 'Western Railways V12 Mega Route', desc: 'Over 1,500 km of trackwork and custom stations.', price: 599, icon: 'fa-route' }
-        ];
-
         let cart = [];
-        let isLoggedIn = false;
-        let cartTotalValue = 0;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('productGrid').innerHTML = products.map(p => `
-                <div class="card-3d bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden flex flex-col group">
-                    <div class="h-48 bg-slate-950 flex items-center justify-center"><i class="fa-solid ${p.icon} text-7xl text-slate-800"></i></div>
-                    <div class="p-6 flex-grow">
-                        <h3 class="text-xl font-bold text-slate-100 mb-2">${p.title}</h3>
-                        <p class="text-slate-400 text-sm">${p.desc}</p>
-                    </div>
-                    <div class="p-6 pt-0 flex justify-between items-center">
-                        <span class="text-2xl font-black text-amber-500">₹${p.price}</span>
-                        <button onclick="addToCart(${p.id})" class="bg-slate-800 text-slate-300 px-5 py-2 rounded-lg"><i class="fa-solid fa-plus mr-1"></i> Add</button>
-                    </div>
-                </div>
-            `).join('');
-            updateCartUI();
-        });
-
-        function showToast(msg, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            const icon = type === 'success' ? 'fa-circle-check text-green-400' : 'fa-circle-xmark text-red-400';
-            toast.className = `toast-animate bg-slate-800 border border-slate-600 text-white px-6 py-4 rounded shadow-xl mb-2 flex items-center space-x-3`;
-            toast.innerHTML = `<i class="fa-solid ${icon}"></i><span>${msg}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3000);
-        }
+        let total = 0;
+        let loggedIn = false;
 
         function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
 
-        function switchTab(role) {
-            document.getElementById('roleType').value = role;
-            document.getElementById('custTab').className = `flex-1 pb-4 text-center font-bold ${role === 'customer' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 border-b-2 border-transparent'}`;
-            document.getElementById('adminTab').className = `flex-1 pb-4 text-center font-bold ${role === 'admin' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 border-b-2 border-transparent'}`;
-            document.getElementById('authBtn').className = `w-full font-bold py-3 rounded-lg ${role === 'admin' ? 'bg-red-600 text-white hover:bg-red-500' : 'bg-amber-500 text-slate-950 hover:bg-amber-400'}`;
+        // Cart Logic
+        function addToCart(title, price) {
+            cart.push({ title, price });
+            total += price;
+            updateCart();
+            alert(`Added ${title} to cart!`);
         }
 
-        function addToCart(id) {
-            cart.push(products.find(p => p.id === id));
-            updateCartUI();
-            showToast('Added to cart');
-        }
-
-        function removeFromCart(index) {
+        function remove(index) {
+            total -= cart[index].price;
             cart.splice(index, 1);
-            updateCartUI();
+            updateCart();
         }
 
-        function updateCartUI() {
+        function updateCart() {
             document.getElementById('cartCount').innerText = cart.length;
-            cartTotalValue = cart.reduce((sum, item) => sum + item.price, 0);
+            const container = document.getElementById('cartItems');
+            const checkout = document.getElementById('checkoutSection');
             
             if (cart.length === 0) {
-                document.getElementById('cartItems').innerHTML = `<p class="text-center text-slate-500 mt-10">Cart is empty</p>`;
-                document.getElementById('checkoutSection').style.display = 'none';
+                container.innerHTML = `<p class="text-slate-500 text-center mt-4">Cart is empty</p>`;
+                checkout.style.display = 'none';
             } else {
-                document.getElementById('checkoutSection').style.display = 'block';
-                document.getElementById('cartTotal').innerText = `₹${cartTotalValue}`;
-                document.getElementById('cartItems').innerHTML = cart.map((item, i) => `
-                    <div class="flex justify-between items-center bg-slate-950 p-3 rounded border border-slate-800">
+                checkout.style.display = 'block';
+                document.getElementById('cartTotal').innerText = `₹${total}`;
+                container.innerHTML = cart.map((item, i) => `
+                    <div class="flex justify-between bg-slate-950 p-3 rounded border border-slate-800">
                         <span>${item.title}</span>
-                        <div class="flex items-center"><span class="text-amber-500 font-bold mr-4">₹${item.price}</span><i onclick="removeFromCart(${i})" class="fa-solid fa-trash text-red-500 cursor-pointer"></i></div>
+                        <div class="flex items-center">
+                            <span class="text-amber-500 font-bold mr-3">₹${item.price}</span>
+                            <i onclick="remove(${i})" class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                        </div>
                     </div>`).join('');
             }
         }
 
-        // FULL-STACK CONNECTION: Sending login data to the Node.js backend
-        async function handleAuth(e) {
-            e.preventDefault();
+        // Fake Login Animation
+        function simulateLogin() {
             const btn = document.getElementById('authBtn');
-            btn.innerHTML = `<span class="spinner"></span>`;
+            const name = document.getElementById('username').value || 'User';
             
-            const payload = {
-                username: document.getElementById('username').value,
-                password: document.getElementById('password').value,
-                requestedRole: document.getElementById('roleType').value
-            };
-
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-
-                if (response.ok) {
-                    isLoggedIn = true;
-                    toggleModal('loginModal');
-                    document.getElementById('navLoginBtn').innerHTML = `<i class="fa-solid fa-user-check mr-2 text-amber-500"></i>${data.role.toUpperCase()}`;
-                    showToast(data.message);
-                } else {
-                    showToast(data.message, 'error');
-                }
-            } catch (err) {
-                showToast("Server connection failed.", "error");
-            }
-            btn.innerHTML = 'Login';
+            btn.innerHTML = `<span class="spinner"></span> Logging in...`;
+            
+            setTimeout(() => {
+                loggedIn = true;
+                toggleModal('loginModal');
+                document.getElementById('navLoginBtn').innerHTML = `<i class="fa-solid fa-user-check mr-2"></i> ${name}`;
+                alert(`Welcome back, ${name}!`);
+                btn.innerHTML = 'Login';
+            }, 1000);
         }
 
-        // FULL-STACK CONNECTION: Sending payment request to the Node.js backend
-        async function processPayment() {
-            if (!isLoggedIn) return showToast('Please login first', 'error');
-
+        // Fake Paytm Checkout Animation
+        function simulatePayment() {
+            if (!loggedIn) return alert("Please Login first!");
+            
             const btn = document.getElementById('payBtn');
             btn.innerHTML = `<span class="spinner mr-2"></span> Connecting to Paytm...`;
             
-            try {
-                const response = await fetch('/api/pay', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ amount: cartTotalValue, items: cart })
-                });
-                const data = await response.json();
-
-                if (response.ok) {
-                    btn.innerHTML = `<i class="fa-solid fa-check-double mr-2"></i> Payment Successful`;
-                    btn.className = "w-full bg-green-500 text-white font-extrabold py-4 rounded-xl text-lg";
-                    
-                    setTimeout(() => {
-                        cart = [];
-                        updateCartUI();
-                        toggleModal('cartModal');
-                        btn.innerHTML = `Pay Securely & Download`;
-                        btn.className = "w-full bg-amber-500 text-slate-950 font-extrabold py-4 rounded-xl text-lg";
-                        showToast(`TXN: ${data.transactionId} - Files downloading!`, 'success');
-                    }, 2000);
-                }
-            } catch (err) {
-                showToast("Payment processing failed.", "error");
-                btn.innerHTML = `Pay Securely & Download`;
-            }
+            setTimeout(() => {
+                btn.innerHTML = `<i class="fa-solid fa-check-double mr-2"></i> Payment Successful`;
+                btn.className = "w-full bg-green-500 text-white font-extrabold p-4 rounded-xl text-lg";
+                
+                setTimeout(() => {
+                    alert("Transaction Successful! Your MSTS files are downloading...");
+                    cart = [];
+                    total = 0;
+                    updateCart();
+                    toggleModal('cartModal');
+                    btn.innerHTML = `Pay Securely & Download`;
+                    btn.className = "w-full bg-amber-500 text-black font-extrabold p-4 rounded-xl text-lg";
+                }, 1500);
+            }, 2000);
         }
     </script>
 </body>
 </html>
-
