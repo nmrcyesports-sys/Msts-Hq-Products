@@ -548,6 +548,79 @@ function logout() {
     document.getElementById('dashView').classList.add('hidden'); 
     showAlert("Logged Out Successfully"); 
 }
+        // --- FULL DEDICATED ADMIN PAGE FIX ---
+
+function refreshNav() {
+    let area = document.getElementById('navUserArea');
+    let cartBtn = document.querySelector('button[onclick="toggleView(\'cartView\')"]');
+    let mainStore = document.querySelector('main');
+    let dashModal = document.getElementById('dashView');
+    
+    // Dashboard ke close (X) button ko dhoondhna
+    let closeBtn = dashModal.querySelector('.fa-xmark').parentElement;
+
+    if(activeUser) {
+        let badge = activeUser.role === 'admin' ? 'bg-red-500' : 'bg-green-500';
+        area.innerHTML = '<button onclick="openDash()" class="bg-[#0f172a] border border-[#334155] text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:border-amber-500 transition"><span class="w-2 h-2 rounded-full '+badge+'"></span> '+activeUser.username.toUpperCase()+'</button>';
+        
+        if(activeUser.role === 'admin') {
+            // Admin ke liye store aur cart hata do
+            if(cartBtn) cartBtn.style.display = 'none'; 
+            if(mainStore) mainStore.style.display = 'none'; 
+            
+            // Modal ko solid full-page bana do
+            dashModal.classList.remove('hidden');
+            dashModal.classList.remove('bg-[#050b14]/95'); // Transparency hata do
+            dashModal.classList.add('bg-[#050b14]'); // Solid color daal do
+            
+            // X (Close) button hide kar do taaki blank screen pe na jaaye
+            if(closeBtn) closeBtn.style.display = 'none';
+
+            document.getElementById('dashTabs').style.display = 'flex';
+            showAdminOrd();
+        } else {
+            // Customer ke liye sab kuch wapas normal kar do
+            if(cartBtn) cartBtn.style.display = 'block';
+            if(mainStore) mainStore.style.display = 'block';
+            if(closeBtn) closeBtn.style.display = 'block';
+        }
+    } else {
+        area.innerHTML = '<button onclick="toggleView(\'authView\')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</button>';
+        if(cartBtn) cartBtn.style.display = 'block';
+        if(mainStore) mainStore.style.display = 'block';
+        if(closeBtn) closeBtn.style.display = 'block';
+    }
+}
+
+function openDash() {
+    let dashModal = document.getElementById('dashView');
+    if(activeUser.role === 'admin') {
+        document.getElementById('dashTabs').style.display = 'flex';
+        showAdminOrd();
+        dashModal.classList.remove('hidden');
+    } else {
+        document.getElementById('dashTabs').style.display = 'none';
+        showCustOrd();
+        dashModal.classList.toggle('hidden');
+    }
+}
+
+function logout() { 
+    activeUser = null; 
+    sessionStorage.removeItem('msts_session'); 
+    
+    let dashModal = document.getElementById('dashView');
+    dashModal.classList.add('hidden'); 
+    dashModal.classList.remove('bg-[#050b14]'); 
+    dashModal.classList.add('bg-[#050b14]/95'); // Logout par styles reset karna
+    
+    let mainStore = document.querySelector('main');
+    if(mainStore) mainStore.style.display = 'block'; // Store wapas laana
+    
+    refreshNav(); 
+    showAlert("Logged Out Successfully"); 
+}
+        
         
     </script>
 </body>
