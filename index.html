@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Premium Train Background */
+        /* Authentic Indian Railways Background */
         body {
-            /* MSTS WAP7/LHB Style Background */
-            background-image: linear-gradient(rgba(10, 15, 30, 0.85), rgba(10, 15, 30, 0.95)), url('https://images.unsplash.com/photo-1496316239169-959c5d19bf74?q=80&w=2000&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(10, 15, 30, 0.85), rgba(10, 15, 30, 0.95)), url('https://upload.wikimedia.org/wikipedia/commons/8/87/Indian_Railways_WAP-4_locomotive_with_a_passenger_train.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -21,19 +20,19 @@
         }
 
         .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         /* 3D Product Card & Image Effects */
         .glass-card {
-            background: rgba(30, 41, 59, 0.7);
+            background: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
             cursor: pointer;
         }
         .glass-card:hover {
@@ -42,20 +41,19 @@
             box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
         }
 
-        .img-3d-container { perspective: 1000px; overflow: hidden; }
+        .img-3d-container { overflow: hidden; position: relative; }
         .img-3d-inner {
             transition: transform 0.5s ease;
-            transform-style: preserve-3d;
             width: 100%; height: 100%; object-fit: cover;
         }
-        .img-3d-container:hover .img-3d-inner {
-            transform: scale(1.1) rotateX(2deg) rotateY(-2deg);
+        .glass-card:hover .img-3d-inner {
+            transform: scale(1.05);
         }
 
         /* Paytm Button Styling */
         .paytm-btn {
             background: linear-gradient(90deg, #002970 0%, #00baef 100%);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease;
         }
         .paytm-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0, 186, 239, 0.4); }
 
@@ -89,7 +87,7 @@
             
             <div class="flex items-center gap-4">
                 <button onclick="toggleModal('cartModal')" class="relative text-slate-300 hover:text-amber-400 transition group mr-2">
-                    <i class="fa-solid fa-cart-shopping text-2xl group-hover:scale-110 transition-transform"></i>
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
                     <span id="cartCount" class="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg border border-red-400">0</span>
                 </button>
                 <div id="navAuthArea">
@@ -124,20 +122,17 @@
         </div>
     </main>
 
-    <!-- PRODUCT DETAIL VIEW MODAL (Simulated 3D Showcase) -->
+    <!-- PRODUCT DETAIL VIEW MODAL -->
     <div id="productDetailModal" class="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center hidden z-[70] p-4">
         <div class="glass-panel rounded-2xl w-full max-w-4xl p-0 relative flex flex-col md:flex-row overflow-hidden shadow-2xl border-amber-500/30">
             <button onclick="toggleModal('productDetailModal')" class="absolute top-4 right-4 text-white hover:text-amber-500 z-10 bg-black/50 p-2 rounded-full backdrop-blur"><i class="fa-solid fa-xmark text-xl"></i></button>
             
-            <!-- 3D Image Showcase -->
             <div class="w-full md:w-1/2 h-64 md:h-auto img-3d-container bg-black relative">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent z-10 pointer-events-none"></div>
                 <img id="detailImg" src="" class="img-3d-inner" alt="Product">
-                <span class="absolute top-4 left-4 z-10 bg-amber-500 text-black font-black text-xs px-3 py-1 rounded shadow-lg uppercase tracking-widest"><i class="fa-solid fa-cube mr-1"></i> Showcase</span>
+                <span class="absolute top-4 left-4 z-10 bg-amber-500 text-black font-black text-xs px-3 py-1 rounded shadow-lg uppercase tracking-widest"><i class="fa-solid fa-image mr-1"></i> Showcase</span>
             </div>
             
-            <!-- Details -->
-            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center bg-slate-900/80">
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center bg-slate-900/90">
                 <h2 id="detailTitle" class="text-3xl font-black text-white mb-4 leading-tight">Product Title</h2>
                 <div class="w-16 h-1 bg-amber-500 mb-6 rounded"></div>
                 <p id="detailDesc" class="text-slate-300 text-base leading-relaxed mb-8 h-24 overflow-y-auto pr-2">Description goes here</p>
@@ -163,7 +158,7 @@
                 <button id="tabRegister" onclick="switchAuthMode('register')" class="flex-1 py-2 rounded-lg font-bold text-slate-400 hover:text-white transition">Register</button>
             </div>
 
-            <form id="authForm" onsubmit="handleAuth(event)" class="space-y-4">
+            <form onsubmit="handleAuth(event)" class="space-y-4">
                 <input type="hidden" id="authMode" value="login">
                 <div>
                     <input type="text" id="authUsername" placeholder="Username" required class="w-full bg-slate-900/60 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500">
@@ -200,7 +195,7 @@
                     </div>
                     <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-white/5">
                         <span class="font-mono text-amber-400 font-bold text-lg">mstsrailhub@upi</span>
-                        <button onclick="navigator.clipboard.writeText('mstsrailhub@upi'); triggerAlert('UPI Copied!');" class="bg-slate-700 px-3 py-1.5 rounded text-white hover:bg-amber-500 hover:text-black font-bold transition text-xs">COPY</button>
+                        <button onclick="copyUPI()" class="bg-slate-700 px-3 py-1.5 rounded text-white hover:bg-amber-500 hover:text-black font-bold transition text-xs">COPY</button>
                     </div>
                 </div>
 
@@ -223,7 +218,6 @@
     <!-- FULL ADMIN/CUSTOMER DASHBOARD MODAL -->
     <div id="dashboardModal" class="fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center hidden z-[70] p-4">
         <div class="glass-panel rounded-2xl w-full max-w-6xl p-0 relative flex flex-col h-[90vh]">
-            
             <div class="p-5 border-b border-white/10 flex justify-between items-center bg-slate-900/80 rounded-t-2xl">
                 <h2 class="text-2xl font-black text-white flex items-center" id="dashboardTitle">
                     <i class="fa-solid fa-gauge-high text-amber-500 mr-3"></i> Dashboard
@@ -234,37 +228,51 @@
                 </div>
             </div>
             
-            <!-- Admin Tabs (Only visible for admin) -->
             <div id="adminTabs" class="bg-slate-900 border-b border-white/10 flex px-6" style="display: none;">
                 <button onclick="switchAdminTab('orders')" id="tabAdminOrders" class="px-6 py-4 font-bold text-amber-500 border-b-2 border-amber-500 transition">Order Approvals</button>
                 <button onclick="switchAdminTab('products')" id="tabAdminProducts" class="px-6 py-4 font-bold text-slate-400 hover:text-white border-b-2 border-transparent transition">Manage Products</button>
             </div>
 
             <div class="p-6 overflow-y-auto flex-grow bg-slate-900/40 rounded-b-2xl relative" id="dashboardContent">
-                <!-- Content injected dynamically -->
             </div>
         </div>
     </div>
 
+    <!-- JavaScript - Safely formatted to prevent mobile render bugs -->
     <script>
-        // --- System State & Default Data ---
         let currentCart = [];
         let currentUser = null; 
         
-        // Default High-Quality Products with Train Images
+        // Using real Indian Railways images from Wikimedia Commons
         const defaultProducts = [
-            { id: 1, name: 'WAP-7 Premium HD Cab', price: 299, desc: 'Ultra-realistic 3D cab view, heavy traction motors sound, and 4K Indian Railways liveries. Includes fully functional Panto mechanics.', img: 'https://images.unsplash.com/photo-1541706698651-789a7444c4fa?auto=format&fit=crop&w=800&q=80' },
-            { id: 2, name: 'LHB Rajdhani Full Set', price: 399, desc: 'Complete 3D model set including 1AC, 2AC, 3AC, and Generator Van. Features highly detailed interiors and functional night lighting textures.', img: 'https://images.unsplash.com/photo-1596484552993-9c869fb8bc76?auto=format&fit=crop&w=800&q=80' },
-            { id: 3, name: 'WR V12 Mega Route', price: 599, desc: 'Over 1,500 km of high-speed trackwork, featuring custom 3D stations, authentic Indian signaling systems, and accurate terrain mapping.', img: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80' }
+            { 
+                id: 1, 
+                name: 'WAP-7 Premium HD Cab', 
+                price: 299, 
+                desc: 'Ultra-realistic 3D cab view, heavy traction motors sound, and 4K Indian Railways liveries. Includes fully functional Panto mechanics.', 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/4/47/WAP-7_30209_at_Secunderabad.jpg' 
+            },
+            { 
+                id: 2, 
+                name: 'LHB Rajdhani Full Set', 
+                price: 399, 
+                desc: 'Complete 3D model set including 1AC, 2AC, 3AC, and Generator Van. Features highly detailed interiors and functional night lighting textures.', 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/LHB_Coaches_of_Rajdhani_Express.jpg' 
+            },
+            { 
+                id: 3, 
+                name: 'WR V12 Mega Route', 
+                price: 599, 
+                desc: 'Over 1,500 km of high-speed trackwork, featuring custom 3D stations, authentic Indian signaling systems, and accurate terrain mapping.', 
+                img: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Indian_Railways_Train_in_Konkan_Railway.jpg' 
+            }
         ];
 
         function initApp() {
-            // DB Setup
             if (!localStorage.getItem('msts_users')) localStorage.setItem('msts_users', JSON.stringify([{ username: 'admin', password: '123', role: 'admin' }]));
             if (!localStorage.getItem('msts_orders')) localStorage.setItem('msts_orders', JSON.stringify([]));
             if (!localStorage.getItem('msts_products')) localStorage.setItem('msts_products', JSON.stringify(defaultProducts));
             
-            // Auth Check
             if (sessionStorage.getItem('msts_current_user')) {
                 currentUser = JSON.parse(sessionStorage.getItem('msts_current_user'));
                 updateNavForUser();
@@ -272,226 +280,377 @@
             renderProducts();
         }
 
-        // --- Core UI ---
-        function toggleModal(id) { document.getElementById(id).classList.toggle('hidden'); }
+        function toggleModal(id) { 
+            document.getElementById(id).classList.toggle('hidden'); 
+        }
+
         function triggerAlert(msg, type = 'success') {
             const box = document.getElementById('toastAlert');
             document.getElementById('toastMsg').innerText = msg;
-            box.firstElementChild.className = `glass-panel px-6 py-3 rounded-full flex items-center gap-3 border ${type==='success'?'border-green-500/50':'border-red-500/50'} text-white shadow-2xl`;
-            document.getElementById('toastIcon').className = `fa-solid ${type==='success'?'fa-check-circle text-green-400':'fa-triangle-exclamation text-red-400'} text-xl`;
-            box.classList.remove('hidden'); box.classList.add('toast-show');
-            setTimeout(() => { box.classList.remove('toast-show'); box.classList.add('hidden'); }, 3000);
+            
+            if (type === 'success') {
+                box.firstElementChild.className = 'glass-panel px-6 py-3 rounded-full flex items-center gap-3 border border-green-500/50 text-white shadow-2xl';
+                document.getElementById('toastIcon').className = 'fa-solid fa-check-circle text-green-400 text-xl';
+            } else {
+                box.firstElementChild.className = 'glass-panel px-6 py-3 rounded-full flex items-center gap-3 border border-red-500/50 text-white shadow-2xl';
+                document.getElementById('toastIcon').className = 'fa-solid fa-triangle-exclamation text-red-400 text-xl';
+            }
+            
+            box.classList.remove('hidden'); 
+            box.classList.add('toast-show');
+            setTimeout(() => { 
+                box.classList.remove('toast-show'); 
+                box.classList.add('hidden'); 
+            }, 3000);
         }
 
-        // --- Render Storefront ---
         function renderProducts() {
             const products = JSON.parse(localStorage.getItem('msts_products'));
-            document.getElementById('productGrid').innerHTML = products.map(p => `
-                <div class="glass-card rounded-2xl overflow-hidden flex flex-col" onclick="openProductDetail(${p.id})">
-                    <div class="h-56 img-3d-container bg-slate-900/50 border-b border-white/5 relative">
-                        <img src="${p.img}" class="img-3d-inner object-cover opacity-90 hover:opacity-100" a </div>
-                </div>
-            `).join('');
+            let htmlString = "";
+            for (let i = 0; i < products.length; i++) {
+                let p = products[i];
+                htmlString += '<div class="glass-card rounded-2xl overflow-hidden flex flex-col" onclick="openProductDetail(' + p.id + ')">';
+                htmlString += '<div class="h-56 img-3d-container bg-slate-900/50 border-b border-white/5 relative">';
+                htmlString += '<img src="' + p.img + '" class="img-3d-inner object-cover opacity-90 hover:opacity-100">';
+                htmlString += '<div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>';
+                htmlString += '<span class="absolute bottom-4 left-4 text-white font-black text-xl z-10 drop-shadow-md">' + p.name + '</span>';
+                htmlString += '</div>';
+                htmlString += '<div class="p-6 pt-4 flex justify-between items-center bg-slate-900/80">';
+                htmlString += '<p class="text-3xl font-black text-amber-500">₹' + p.price + '</p>';
+                htmlString += '<button class="bg-white/10 hover:bg-amber-500 hover:text-black text-white px-5 py-2.5 rounded-xl font-bold transition">View Details</button>';
+                htmlString += '</div></div>';
+            }
+            document.getElementById('productGrid').innerHTML = htmlString;
         }
 
-        // --- Product Detail View ---
         function openProductDetail(id) {
-            const p = JSON.parse(localStorage.getItem('msts_products')).find(x => x.id === id);
+            const products = JSON.parse(localStorage.getItem('msts_products'));
+            const p = products.find(x => x.id === id);
             document.getElementById('detailImg').src = p.img;
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailDesc').innerText = p.desc;
-            document.getElementById('detailPrice').innerText = `₹${p.price}`;
+            document.getElementById('detailPrice').innerText = '₹' + p.price;
             
             const btn = document.getElementById('detailAddBtn');
-            btn.onclick = () => { addToCart(p.name, p.price); toggleModal('productDetailModal'); };
+            btn.onclick = function() { 
+                addToCart(p.name, p.price); 
+                toggleModal('productDetailModal'); 
+            };
             
             toggleModal('productDetailModal');
         }
 
-        // --- Cart System ---
+        function copyUPI() {
+            navigator.clipboard.writeText('mstsrailhub@upi');
+            triggerAlert('UPI ID Copied!');
+        }
+
         function addToCart(name, price) {
-            currentCart.push({ name, price });
+            currentCart.push({ name: name, price: price });
             refreshCart();
             document.getElementById('cartCount').innerText = currentCart.length;
-            triggerAlert(`${name} added to cart`, 'success');
+            triggerAlert(name + ' added to cart', 'success');
         }
+
+        function removeCartItem(index) {
+            currentCart.splice(index, 1);
+            document.getElementById('cartCount').innerText = currentCart.length;
+            refreshCart();
+        }
+
         function refreshCart() {
-            const total = currentCart.reduce((sum, item) => sum + item.price, 0);
+            let total = 0;
+            for(let i = 0; i < currentCart.length; i++) {
+                total += currentCart[i].price;
+            }
             const container = document.getElementById('cartContent');
-            document.getElementById('checkoutFooter').style.display = currentCart.length ? 'block' : 'none';
-            if (!currentCart.length) {
-                container.innerHTML = `<div class="text-center text-slate-500 py-6"><i class="fa-solid fa-basket-shopping text-4xl mb-2 opacity-50"></i><p>Cart is empty.</p></div>`;
+            
+            if (currentCart.length === 0) {
+                document.getElementById('checkoutFooter').style.display = 'none';
+                container.innerHTML = '<div class="text-center text-slate-500 py-6"><p>Cart is empty.</p></div>';
             } else {
-                document.getElementById('finalTotal').innerText = `₹${total}`;
-                container.innerHTML = currentCart.map((item, i) => `
-                    <div class="bg-slate-900 border border-white/5 p-3 rounded-xl flex justify-between items-center">
-                        <span class="font-bold text-slate-200">${item.name}</span>
-                        <div class="flex items-center gap-4">
-                            <span class="text-amber-400 font-bold">₹${item.price}</span>
-                            <button onclick="currentCart.splice(${i},1); document.getElementById('cartCount').innerText=currentCart.length; refreshCart();" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </div>`).join('');
+                document.getElementById('checkoutFooter').style.display = 'block';
+                document.getElementById('finalTotal').innerText = '₹' + total;
+                
+                let cartHtml = "";
+                for(let i = 0; i < currentCart.length; i++) {
+                    cartHtml += '<div class="bg-slate-900 border border-white/5 p-3 rounded-xl flex justify-between items-center mb-2">';
+                    cartHtml += '<span class="font-bold text-slate-200">' + currentCart[i].name + '</span>';
+                    cartHtml += '<div class="flex items-center gap-4">';
+                    cartHtml += '<span class="text-amber-400 font-bold">₹' + currentCart[i].price + '</span>';
+                    cartHtml += '<button onclick="removeCartItem(' + i + ')" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>';
+                    cartHtml += '</div></div>';
+                }
+                container.innerHTML = cartHtml;
             }
         }
 
-        // File Preview
         let base64Screen = null;
         function previewFile() {
             const file = document.getElementById('paymentScreenshot').files[0];
             if (file) {
                 document.getElementById('fileName').innerText = file.name;
-                const r = new FileReader(); r.onloadend = () => base64Screen = r.result;
+                const r = new FileReader(); 
+                r.onloadend = function() { base64Screen = r.result; };
                 r.readAsDataURL(file);
             }
         }
 
-        // --- Auth System ---
         function switchAuthMode(m) {
             document.getElementById('authMode').value = m;
-            document.getElementById('tabLogin').className = `flex-1 py-2 rounded-lg font-bold transition ${m==='login'?'bg-amber-500 text-slate-900':'text-slate-400 hover:text-white bg-transparent'}`;
-            document.getElementById('tabRegister').className = `flex-1 py-2 rounded-lg font-bold transition ${m==='register'?'bg-amber-500 text-slate-900':'text-slate-400 hover:text-white bg-transparent'}`;
-            document.getElementById('authTitle').innerText = m==='login'?"Login to Portal":"Register Account";
-            document.getElementById('authBtn').innerText = m==='login'?"Login":"Register";
+            if(m === 'login') {
+                document.getElementById('tabLogin').className = "flex-1 py-2 rounded-lg font-bold transition bg-amber-500 text-slate-900";
+                document.getElementById('tabRegister').className = "flex-1 py-2 rounded-lg font-bold transition text-slate-400 hover:text-white bg-transparent";
+                document.getElementById('authTitle').innerText = "Login to Portal";
+                document.getElementById('authBtn').innerText = "Login";
+            } else {
+                document.getElementById('tabRegister').className = "flex-1 py-2 rounded-lg font-bold transition bg-amber-500 text-slate-900";
+                document.getElementById('tabLogin').className = "flex-1 py-2 rounded-lg font-bold transition text-slate-400 hover:text-white bg-transparent";
+                document.getElementById('authTitle').innerText = "Register Account";
+                document.getElementById('authBtn').innerText = "Register";
+            }
         }
+
         function handleAuth(e) {
             e.preventDefault();
             const mode = document.getElementById('authMode').value;
             const u = document.getElementById('authUsername').value.trim();
             const p = document.getElementById('authPassword').value.trim();
             let users = JSON.parse(localStorage.getItem('msts_users'));
+            
             if (mode === 'register') {
-                if(users.find(x => x.username === u)) return triggerAlert("Username exists!", 'error');
-                const user = { username: u, password: p, role: 'customer' };
-                users.push(user); localStorage.setItem('msts_users', JSON.stringify(users));
+                const userExists = users.find(x => x.username === u);
+                if(userExists) {
+                    triggerAlert("Username exists!", 'error');
+                    return;
+                }
+                const newUser = { username: u, password: p, role: 'customer' };
+                users.push(newUser); 
+                localStorage.setItem('msts_users', JSON.stringify(users));
                 triggerAlert("Registered! Logging in...", 'success');
-                loginUser(user);
+                loginUser(newUser);
             } else {
-                const user = users.find(x => x.username === u && x.password === p);
-                if(user) { triggerAlert(`Welcome ${u}!`, 'success'); loginUser(user); }
-                else triggerAlert("Invalid Details!", 'error');
+                const foundUser = users.find(x => x.username === u && x.password === p);
+                if(foundUser) { 
+                    triggerAlert('Welcome ' + u + '!', 'success'); 
+                    loginUser(foundUser); 
+                } else {
+                    triggerAlert("Invalid Details!", 'error');
+                }
             }
         }
-        function loginUser(user) {
-            currentUser = user; sessionStorage.setItem('msts_current_user', JSON.stringify(user));
-            toggleModal('authModal'); updateNavForUser();
-        }
-        function updateNavForUser() {
-            document.getElementById('navAuthArea').innerHTML = currentUser 
-                ? `<button onclick="openDashboard()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-2 rounded-lg font-bold shadow-lg"><i class="fa-solid ${currentUser.role==='admin'?'fa-user-shield':'fa-user-check'} mr-2"></i> ${currentUser.username.toUpperCase()}</button>`
-                : `<button onclick="toggleModal('authModal')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2 rounded-lg font-bold"><i class="fa-solid fa-user-shield mr-2 text-amber-500"></i> Portal</button>`;
-        }
-        function logout() { currentUser = null; sessionStorage.removeItem('msts_current_user'); updateNavForUser(); toggleModal('dashboardModal'); triggerAlert("Logged out"); }
 
-        // --- Order Placement ---
+        function loginUser(user) {
+            currentUser = user; 
+            sessionStorage.setItem('msts_current_user', JSON.stringify(user));
+            toggleModal('authModal'); 
+            updateNavForUser();
+        }
+
+        function updateNavForUser() {
+            if(currentUser) {
+                let icon = currentUser.role === 'admin' ? 'fa-user-shield' : 'fa-user-check';
+                document.getElementById('navAuthArea').innerHTML = '<button onclick="openDashboard()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-2 rounded-lg font-bold shadow-lg"><i class="fa-solid ' + icon + ' mr-2"></i> ' + currentUser.username.toUpperCase() + '</button>';
+            } else {
+                document.getElementById('navAuthArea').innerHTML = '<button onclick="toggleModal(\'authModal\')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2 rounded-lg font-bold"><i class="fa-solid fa-user-shield mr-2 text-amber-500"></i> Portal</button>';
+            }
+        }
+
+        function logout() { 
+            currentUser = null; 
+            sessionStorage.removeItem('msts_current_user'); 
+            updateNavForUser(); 
+            toggleModal('dashboardModal'); 
+            triggerAlert("Logged out"); 
+        }
+
         function submitOrder() {
-            if(!currentUser) return triggerAlert("Login to place order.", 'error');
-            if(!base64Screen) return triggerAlert("Upload screenshot!", 'error');
-            const total = currentCart.reduce((sum, item) => sum + item.price, 0);
+            if(!currentUser) {
+                triggerAlert("Login to place order.", 'error');
+                return;
+            }
+            if(!base64Screen) {
+                triggerAlert("Upload screenshot!", 'error');
+                return;
+            }
+            
+            let total = 0;
+            for(let i = 0; i < currentCart.length; i++) {
+                total += currentCart[i].price;
+            }
+            
             const btn = document.getElementById('submitOrderBtn');
-            btn.innerHTML = `<span class="spinner mr-2"></span> Processing...`;
+            btn.innerHTML = '<span class="spinner mr-2"></span> Processing...';
+            
             setTimeout(() => {
                 let orders = JSON.parse(localStorage.getItem('msts_orders'));
-                orders.push({ id: 'ORD'+Math.floor(Math.random()*90000), user: currentUser.username, items: [...currentCart], total, img: base64Screen, status: 'Pending', link: '' });
+                let newOrder = { 
+                    id: 'ORD' + Math.floor(Math.random()*90000), 
+                    user: currentUser.username, 
+                    items: [...currentCart], 
+                    total: total, 
+                    img: base64Screen, 
+                    status: 'Pending', 
+                    link: '' 
+                };
+                orders.push(newOrder);
                 localStorage.setItem('msts_orders', JSON.stringify(orders));
-                currentCart = []; document.getElementById('cartCount').innerText='0'; base64Screen = null;
-                document.getElementById('paymentScreenshot').value=''; document.getElementById('fileName').innerText="Tap to select";
-                toggleModal('cartModal'); triggerAlert("Order Sent to Admin!", 'success'); btn.innerHTML = `Submit Order`;
+                
+                currentCart = []; 
+                document.getElementById('cartCount').innerText = '0'; 
+                base64Screen = null;
+                document.getElementById('paymentScreenshot').value = ''; 
+                document.getElementById('fileName').innerText = "Tap to select file";
+                
+                toggleModal('cartModal'); 
+                triggerAlert("Order Sent to Admin!", 'success'); 
+                btn.innerHTML = 'Submit Order for Verification <i class="fa-solid fa-shield-check ml-2"></i>';
             }, 1000);
         }
 
-        // --- Dashboard Engine ---
         function openDashboard() {
-            document.getElementById('adminTabs').style.display = currentUser.role === 'admin' ? 'flex' : 'none';
-            if(currentUser.role === 'admin') renderAdminOrders();
-            else renderCustomerOrders();
+            if(currentUser.role === 'admin') {
+                document.getElementById('adminTabs').style.display = 'flex';
+                renderAdminOrders();
+            } else {
+                document.getElementById('adminTabs').style.display = 'none';
+                renderCustomerOrders();
+            }
             toggleModal('dashboardModal');
         }
 
         function renderCustomerOrders() {
-            document.getElementById('dashboardTitle').innerHTML = `<i class="fa-solid fa-boxes-packing text-amber-500 mr-3"></i> My Orders`;
-            const myOrders = JSON.parse(localStorage.getItem('msts_orders')).filter(o => o.user === currentUser.username).reverse();
-            document.getElementById('dashboardContent').innerHTML = myOrders.length ? myOrders.map(o => `
-                <div class="bg-slate-800 border ${o.status==='Pending'?'border-amber-500/30':'border-green-500/50'} p-5 rounded-xl mb-4">
-                    <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-3">
-                        <h3 class="font-bold text-white text-lg">${o.id}</h3>
-                        <span class="font-bold ${o.status==='Pending'?'text-amber-500':'text-green-400'}">${o.status}</span>
-                    </div>
-                    <p class="text-sm text-slate-300 mb-4">Items: ${o.items.map(i=>i.name).join(', ')} | Total: ₹${o.total}</p>
-                    ${o.status==='Pending'?'<div class="text-amber-400 text-sm bg-amber-900/20 p-2 rounded">Verifying screenshot...</div>':`<a href="${o.link}" target="_blank" class="block text-center bg-green-500 text-black font-black py-3 rounded-lg"><i class="fa-solid fa-download mr-2"></i> Download Files</a>`}
-                </div>`).join('') : '<p class="text-slate-400 text-center">No orders found.</p>';
+            document.getElementById('dashboardTitle').innerHTML = '<i class="fa-solid fa-boxes-packing text-amber-500 mr-3"></i> My Orders';
+            
+            const orders = JSON.parse(localStorage.getItem('msts_orders'));
+            let myOrders = [];
+            for(let i = orders.length - 1; i >= 0; i--) {
+                if(orders[i].user === currentUser.username) {
+                    myOrders.push(orders[i]);
+                }
+            }
+            
+            if(myOrders.length === 0) {
+                document.getElementById('dashboardContent').innerHTML = '<p class="text-slate-400 text-center">No orders found.</p>';
+                return;
+            }
+            
+            let html = "";
+            for(let i = 0; i < myOrders.length; i++) {
+                let o = myOrders[i];
+                let itemNames = o.items.map(function(item) { return item.name; }).join(', ');
+                let statusColor = o.status === 'Pending' ? 'text-amber-500' : 'text-green-400';
+                let borderColor = o.status === 'Pending' ? 'border-amber-500/30' : 'border-green-500/50';
+                
+                html += '<div class="bg-slate-800 border ' + borderColor + ' p-5 rounded-xl mb-4">';
+                html += '<div class="flex justify-between items-center mb-3 border-b border-white/10 pb-3">';
+                html += '<h3 class="font-bold text-white text-lg">' + o.id + '</h3>';
+                html += '<span class="font-bold ' + statusColor + '">' + o.status + '</span>';
+                html += '</div>';
+                html += '<p class="text-sm text-slate-300 mb-4">Items: ' + itemNames + ' | Total: ₹' + o.total + '</p>';
+                
+                if(o.status === 'Pending') {
+                    html += '<div class="text-amber-400 text-sm bg-amber-900/20 p-2 rounded">Admin is verifying your screenshot...</div>';
+                } else {
+                    html += '<a href="' + o.link + '" target="_blank" class="block text-center bg-green-500 text-black font-black py-3 rounded-lg"><i class="fa-solid fa-download mr-2"></i> Download Files</a>';
+                }
+                html += '</div>';
+            }
+            document.getElementById('dashboardContent').innerHTML = html;
         }
 
-        // Admin Toggles
         function switchAdminTab(tab) {
-            document.getElementById('tabAdminOrders').className = `px-6 py-4 font-bold transition ${tab==='orders'?'text-amber-500 border-b-2 border-amber-500':'text-slate-400 border-b-2 border-transparent'}`;
-            document.getElementById('tabAdminProducts').className = `px-6 py-4 font-bold transition ${tab==='products'?'text-amber-500 border-b-2 border-amber-500':'text-slate-400 border-b-2 border-transparent'}`;
-            tab === 'orders' ? renderAdminOrders() : renderAdminProducts();
+            if(tab === 'orders') {
+                document.getElementById('tabAdminOrders').className = "px-6 py-4 font-bold transition text-amber-500 border-b-2 border-amber-500";
+                document.getElementById('tabAdminProducts').className = "px-6 py-4 font-bold transition text-slate-400 border-b-2 border-transparent";
+                renderAdminOrders();
+            } else {
+                document.getElementById('tabAdminOrders').className = "px-6 py-4 font-bold transition text-slate-400 border-b-2 border-transparent";
+                document.getElementById('tabAdminProducts').className = "px-6 py-4 font-bold transition text-amber-500 border-b-2 border-amber-500";
+                renderAdminProducts();
+            }
         }
 
         function renderAdminOrders() {
-            document.getElementById('dashboardTitle').innerHTML = `<i class="fa-solid fa-user-shield text-red-500 mr-3"></i> Order Approvals`;
+            document.getElementById('dashboardTitle').innerHTML = '<i class="fa-solid fa-user-shield text-red-500 mr-3"></i> Order Approvals';
             const orders = JSON.parse(localStorage.getItem('msts_orders'));
-            document.getElementById('dashboardContent').innerHTML = orders.length ? orders.slice().reverse().map((o, idx) => {
-                const i = orders.length - 1 - idx;
-                return `
-                <div class="bg-slate-800 border border-white/10 p-5 rounded-xl mb-4 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/3"><img src="${o.img}" class="w-full rounded-lg bg-black h-40 object-cover cursor-pointer" onclick="window.open('${o.img}')"></div>
-                    <div class="w-full md:w-2/3 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white mb-2">${o.id} <span class="text-sm text-slate-400 ml-2">@${o.user}</span></h3>
-                            <p class="text-sm text-slate-300">Items: ${o.items.map(x=>x.name).join(', ')}</p>
-                            <p class="text-amber-400 font-bold mb-4">Total: ₹${o.total}</p>
-                        </div>
-                        ${o.status === 'Pending' ? `
-                            <div class="flex gap-2">
-                                <input type="text" id="link_${i}" placeholder="Enter MSTS Download Link" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white text-sm focus:border-amber-500">
-                                <button onclick="approveOrder(${i})" class="bg-green-500 text-black font-bold px-4 py-2 rounded">Deliver</button>
-                            </div>` : `<div class="text-green-400 text-sm"><i class="fa-solid fa-check"></i> Delivered: ${o.link}</div>`}
-                    </div>
-                </div>`;
-            }).join('') : '<p class="text-slate-400 text-center">No pending orders.</p>';
+            
+            if(orders.length === 0) {
+                document.getElementById('dashboardContent').innerHTML = '<p class="text-slate-400 text-center">No pending orders.</p>';
+                return;
+            }
+            
+            let html = "";
+            for(let i = orders.length - 1; i >= 0; i--) {
+                let o = orders[i];
+                let itemNames = o.items.map(function(item) { return item.name; }).join(', ');
+                
+                html += '<div class="bg-slate-800 border border-white/10 p-5 rounded-xl mb-4 flex flex-col md:flex-row gap-6">';
+                html += '<div class="w-full md:w-1/3"><img src="' + o.img + '" class="w-full rounded-lg bg-black h-40 object-cover cursor-pointer" onclick="window.open(\'' + o.img + '\')"></div>';
+                html += '<div class="w-full md:w-2/3 flex flex-col justify-between">';
+                html += '<div>';
+                html += '<h3 class="text-xl font-bold text-white mb-2">' + o.id + ' <span class="text-sm text-slate-400 ml-2">@' + o.user + '</span></h3>';
+                html += '<p class="text-sm text-slate-300">Items: ' + itemNames + '</p>';
+                html += '<p class="text-amber-400 font-bold mb-4">Total: ₹' + o.total + '</p>';
+                html += '</div>';
+                
+                if(o.status === 'Pending') {
+                    html += '<div class="flex gap-2">';
+                    html += '<input type="text" id="link_' + i + '" placeholder="Enter Download Link" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white text-sm">';
+                    html += '<button onclick="approveOrder(' + i + ')" class="bg-green-500 text-black font-bold px-4 py-2 rounded">Deliver</button>';
+                    html += '</div>';
+                } else {
+                    html += '<div class="text-green-400 text-sm"><i class="fa-solid fa-check"></i> Delivered: ' + o.link + '</div>';
+                }
+                html += '</div></div>';
+            }
+            document.getElementById('dashboardContent').innerHTML = html;
         }
 
         function approveOrder(i) {
-            const link = document.getElementById(`link_${i}`).value;
-            if(!link) return triggerAlert("Link required!", 'error');
+            const link = document.getElementById('link_' + i).value;
+            if(!link) {
+                triggerAlert("Link required!", 'error');
+                return;
+            }
             let orders = JSON.parse(localStorage.getItem('msts_orders'));
-            orders[i].status = 'Approved'; orders[i].link = link;
+            orders[i].status = 'Approved'; 
+            orders[i].link = link;
             localStorage.setItem('msts_orders', JSON.stringify(orders));
-            triggerAlert("Delivered to customer!", 'success'); renderAdminOrders();
+            triggerAlert("Delivered to customer!", 'success'); 
+            renderAdminOrders();
         }
 
         function renderAdminProducts() {
-            document.getElementById('dashboardTitle').innerHTML = `<i class="fa-solid fa-cubes text-blue-400 mr-3"></i> Product Manager`;
+            document.getElementById('dashboardTitle').innerHTML = '<i class="fa-solid fa-cubes text-blue-400 mr-3"></i> Product Manager';
             const products = JSON.parse(localStorage.getItem('msts_products'));
             
-            let html = `
-            <div class="bg-slate-950 p-6 rounded-xl border border-white/10 mb-8 shadow-inner">
-                <h3 class="text-white font-bold mb-4 border-b border-white/10 pb-2"><i class="fa-solid fa-plus text-amber-500 mr-2"></i> Add New Product</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input type="text" id="newPName" placeholder="Product Title (e.g. WAG-9 Loco)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">
-                    <input type="number" id="newPPrice" placeholder="Price (₹)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">
-                    <input type="text" id="newPImg" placeholder="Image URL (http://...)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 focus:border-amber-500">
-                    <textarea id="newPDesc" placeholder="Description & Features..." class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 h-24 focus:border-amber-500"></textarea>
-                </div>
-                <button onclick="adminAddProduct()" class="bg-amber-500 text-black font-black px-6 py-3 rounded-lg shadow-lg hover:bg-amber-400"><i class="fa-solid fa-upload mr-2"></i> Publish Product</button>
-            </div>
-            <div class="space-y-4">`;
+            let html = '<div class="bg-slate-950 p-6 rounded-xl border border-white/10 mb-8 shadow-inner">';
+            html += '<h3 class="text-white font-bold mb-4 border-b border-white/10 pb-2"><i class="fa-solid fa-plus text-amber-500 mr-2"></i> Add New Product</h3>';
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">';
+            html += '<input type="text" id="newPName" placeholder="Product Title" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">';
+            html += '<input type="number" id="newPPrice" placeholder="Price (₹)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">';
+            html += '<input type="text" id="newPImg" placeholder="Image URL (http://...)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 focus:border-amber-500">';
+            html += '<textarea id="newPDesc" placeholder="Description" class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 h-24 focus:border-amber-500"></textarea>';
+            html += '</div>';
+            html += '<button onclick="adminAddProduct()" class="bg-amber-500 text-black font-black px-6 py-3 rounded-lg shadow-lg hover:bg-amber-400"><i class="fa-solid fa-upload mr-2"></i> Publish Product</button>';
+            html += '</div><div class="space-y-4">';
             
-            html += products.map((p, i) => `
-                <div class="bg-slate-800 border border-white/5 p-4 rounded-xl flex justify-between items-center group">
-                    <div class="flex items-center gap-4">
-                        <img src="${p.img}" class="h-12 w-16 object-cover rounded bg-black">
-                        <div>
-                            <h4 class="text-white font-bold">${p.name}</h4>
-                            <span class="text-amber-500 text-sm font-bold">₹${p.price}</span>
-                        </div>
-                    </div>
-                    <button onclick="adminDeleteProduct(${i})" class="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded transition"><i class="fa-solid fa-trash-can mr-2"></i> Delete</button>
-                </div>
-            `).join('');
+            for(let i = 0; i < products.length; i++) {
+                let p = products[i];
+                html += '<div class="bg-slate-800 border border-white/5 p-4 rounded-xl flex justify-between items-center group">';
+                html += '<div class="flex items-center gap-4">';
+                html += '<img src="' + p.img + '" class="h-12 w-16 object-cover rounded bg-black">';
+                html += '<div>';
+                html += '<h4 class="text-white font-bold">' + p.name + '</h4>';
+                html += '<span class="text-amber-500 text-sm font-bold">₹' + p.price + '</span>';
+                html += '</div></div>';
+                html += '<button onclick="adminDeleteProduct(' + i + ')" class="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded transition"><i class="fa-solid fa-trash-can mr-2"></i> Delete</button>';
+                html += '</div>';
+            }
             
-            document.getElementById('dashboardContent').innerHTML = html + '</div>';
+            html += '</div>';
+            document.getElementById('dashboardContent').innerHTML = html;
         }
 
         function adminAddProduct() {
@@ -499,14 +658,19 @@
             const price = parseInt(document.getElementById('newPPrice').value);
             const img = document.getElementById('newPImg').value;
             const desc = document.getElementById('newPDesc').value;
-            if(!name || !price || !img || !desc) return triggerAlert("Fill all fields!", 'error');
+            
+            if(!name || !price || !img || !desc) {
+                triggerAlert("Fill all fields!", 'error');
+                return;
+            }
             
             let products = JSON.parse(localStorage.getItem('msts_products'));
-            products.push({ id: Date.now(), name, price, desc, img });
+            products.push({ id: Date.now(), name: name, price: price, desc: desc, img: img });
             localStorage.setItem('msts_products', JSON.stringify(products));
             
             triggerAlert("Product Published Live!", 'success');
-            renderAdminProducts(); renderProducts();
+            renderAdminProducts(); 
+            renderProducts();
         }
 
         function adminDeleteProduct(i) {
@@ -515,233 +679,9 @@
             products.splice(i, 1);
             localStorage.setItem('msts_products', JSON.stringify(products));
             triggerAlert("Product Deleted", 'success');
-            renderAdminProducts(); renderProducts();
-        }
-    </script>
-</body>
-</html>function openProductDetail(id) {
-            const p = JSON.parse(localStorage.getItem('msts_products')).find(x => x.id === id);
-            document.getElementById('detailImg').src = p.img;
-            document.getElementById('detailTitle').innerText = p.name;
-            document.getElementById('detailDesc').innerText = p.desc;
-            document.getElementById('detailPrice').innerText = `₹${p.price}`;
-            
-            const btn = document.getElementById('detailAddBtn');
-            btn.onclick = () => { addToCart(p.name, p.price); toggleModal('productDetailModal'); };
-            
-            toggleModal('productDetailModal');
-        }
-
-        // --- Cart System ---
-        function addToCart(name, price) {
-            currentCart.push({ name, price });
-            refreshCart();
-            document.getElementById('cartCount').innerText = currentCart.length;
-            triggerAlert(`${name} added to cart`, 'success');
-        }
-        function refreshCart() {
-            const total = currentCart.reduce((sum, item) => sum + item.price, 0);
-            const container = document.getElementById('cartContent');
-            document.getElementById('checkoutFooter').style.display = currentCart.length ? 'block' : 'none';
-            if (!currentCart.length) {
-                container.innerHTML = `<div class="text-center text-slate-500 py-6"><i class="fa-solid fa-basket-shopping text-4xl mb-2 opacity-50"></i><p>Cart is empty.</p></div>`;
-            } else {
-                document.getElementById('finalTotal').innerText = `₹${total}`;
-                container.innerHTML = currentCart.map((item, i) => `
-                    <div class="bg-slate-900 border border-white/5 p-3 rounded-xl flex justify-between items-center">
-                        <span class="font-bold text-slate-200">${item.name}</span>
-                        <div class="flex items-center gap-4">
-                            <span class="text-amber-400 font-bold">₹${item.price}</span>
-                            <button onclick="currentCart.splice(${i},1); document.getElementById('cartCount').innerText=currentCart.length; refreshCart();" class="text-red-500"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-                    </div>`).join('');
-            }
-        }
-
-        // File Preview
-        let base64Screen = null;
-        function previewFile() {
-            const file = document.getElementById('paymentScreenshot').files[0];
-            if (file) {
-                document.getElementById('fileName').innerText = file.name;
-                const r = new FileReader(); r.onloadend = () => base64Screen = r.result;
-                r.readAsDataURL(file);
-            }
-        }
-
-        // --- Auth System ---
-        function switchAuthMode(m) {
-            document.getElementById('authMode').value = m;
-            document.getElementById('tabLogin').className = `flex-1 py-2 rounded-lg font-bold transition ${m==='login'?'bg-amber-500 text-slate-900':'text-slate-400 hover:text-white bg-transparent'}`;
-            document.getElementById('tabRegister').className = `flex-1 py-2 rounded-lg font-bold transition ${m==='register'?'bg-amber-500 text-slate-900':'text-slate-400 hover:text-white bg-transparent'}`;
-            document.getElementById('authTitle').innerText = m==='login'?"Login to Portal":"Register Account";
-            document.getElementById('authBtn').innerText = m==='login'?"Login":"Register";
-        }
-        function handleAuth(e) {
-            e.preventDefault();
-            const mode = document.getElementById('authMode').value;
-            const u = document.getElementById('authUsername').value.trim();
-            const p = document.getElementById('authPassword').value.trim();
-            let users = JSON.parse(localStorage.getItem('msts_users'));
-            if (mode === 'register') {
-                if(users.find(x => x.username === u)) return triggerAlert("Username exists!", 'error');
-                const user = { username: u, password: p, role: 'customer' };
-                users.push(user); localStorage.setItem('msts_users', JSON.stringify(users));
-                triggerAlert("Registered! Logging in...", 'success');
-                loginUser(user);
-            } else {
-                const user = users.find(x => x.username === u && x.password === p);
-                if(user) { triggerAlert(`Welcome ${u}!`, 'success'); loginUser(user); }
-                else triggerAlert("Invalid Details!", 'error');
-            }
-        }
-        function loginUser(user) {
-            currentUser = user; sessionStorage.setItem('msts_current_user', JSON.stringify(user));
-            toggleModal('authModal'); updateNavForUser();
-        }
-        function updateNavForUser() {
-            document.getElementById('navAuthArea').innerHTML = currentUser 
-                ? `<button onclick="openDashboard()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-5 py-2 rounded-lg font-bold shadow-lg"><i class="fa-solid ${currentUser.role==='admin'?'fa-user-shield':'fa-user-check'} mr-2"></i> ${currentUser.username.toUpperCase()}</button>`
-                : `<button onclick="toggleModal('authModal')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2 rounded-lg font-bold"><i class="fa-solid fa-user-shield mr-2 text-amber-500"></i> Portal</button>`;
-        }
-        function logout() { currentUser = null; sessionStorage.removeItem('msts_current_user'); updateNavForUser(); toggleModal('dashboardModal'); triggerAlert("Logged out"); }
-
-        // --- Order Placement ---
-        function submitOrder() {
-            if(!currentUser) return triggerAlert("Login to place order.", 'error');
-            if(!base64Screen) return triggerAlert("Upload screenshot!", 'error');
-            const total = currentCart.reduce((sum, item) => sum + item.price, 0);
-            const btn = document.getElementById('submitOrderBtn');
-            btn.innerHTML = `<span class="spinner mr-2"></span> Processing...`;
-            setTimeout(() => {
-                let orders = JSON.parse(localStorage.getItem('msts_orders'));
-                orders.push({ id: 'ORD'+Math.floor(Math.random()*90000), user: currentUser.username, items: [...currentCart], total, img: base64Screen, status: 'Pending', link: '' });
-                localStorage.setItem('msts_orders', JSON.stringify(orders));
-                currentCart = []; document.getElementById('cartCount').innerText='0'; base64Screen = null;
-                document.getElementById('paymentScreenshot').value=''; document.getElementById('fileName').innerText="Tap to select";
-                toggleModal('cartModal'); triggerAlert("Order Sent to Admin!", 'success'); btn.innerHTML = `Submit Order`;
-            }, 1000);
-        }
-
-        // --- Dashboard Engine ---
-        function openDashboard() {
-            document.getElementById('adminTabs').style.display = currentUser.role === 'admin' ? 'flex' : 'none';
-            if(currentUser.role === 'admin') renderAdminOrders();
-            else renderCustomerOrders();
-            toggleModal('dashboardModal');
-        }
-
-        function renderCustomerOrders() {
-            document.getElementById('dashboardTitle').innerHTML = `<i class="fa-solid fa-boxes-packing text-amber-500 mr-3"></i> My Orders`;
-            const myOrders = JSON.parse(localStorage.getItem('msts_orders')).filter(o => o.user === currentUser.username).reverse();
-            document.getElementById('dashboardContent').innerHTML = myOrders.length ? myOrders.map(o => `
-                <div class="bg-slate-800 border ${o.status==='Pending'?'border-amber-500/30':'border-green-500/50'} p-5 rounded-xl mb-4">
-                    <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-3">
-                        <h3 class="font-bold text-white text-lg">${o.id}</h3>
-                        <span class="font-bold ${o.status==='Pending'?'text-amber-500':'text-green-400'}">${o.status}</span>
-                    </div>
-                    <p class="text-sm text-slate-300 mb-4">Items: ${o.items.map(i=>i.name).join(', ')} | Total: ₹${o.total}</p>
-                    ${o.status==='Pending'?'<div class="text-amber-400 text-sm bg-amber-900/20 p-2 rounded">Verifying screenshot...</div>':`<a href="${o.link}" target="_blank" class="block text-center bg-green-500 text-black font-black py-3 rounded-lg"><i class="fa-solid fa-download mr-2"></i> Download Files</a>`}
-                </div>`).join('') : '<p class="text-slate-400 text-center">No orders found.</p>';
-        }
-
-        // Admin Toggles
-        function switchAdminTab(tab) {
-            document.getElementById('tabAdminOrders').className = `px-6 py-4 font-bold transition ${tab==='orders'?'text-amber-500 border-b-2 border-amber-500':'text-slate-400 border-b-2 border-transparent'}`;
-            document.getElementById('tabAdminProducts').className = `px-6 py-4 font-bold transition ${tab==='products'?'text-amber-500 border-b-2 border-amber-500':'text-slate-400 border-b-2 border-transparent'}`;
-            tab === 'orders' ? renderAdminOrders() : renderAdminProducts();
-        }
-
-        function renderAdminOrders() {
-            document.getElementById('dashboardTitle').innerHTML = `<i class="fa-solid fa-user-shield text-red-500 mr-3"></i> Order Approvals`;
-            const orders = JSON.parse(localStorage.getItem('msts_orders'));
-            document.getElementById('dashboardContent').innerHTML = orders.length ? orders.slice().reverse().map((o, idx) => {
-                const i = orders.length - 1 - idx;
-                return `
-                <div class="bg-slate-800 border border-white/10 p-5 rounded-xl mb-4 flex flex-col md:flex-row gap-6">
-                    <div class="w-full md:w-1/3"><img src="${o.img}" class="w-full rounded-lg bg-black h-40 object-cover cursor-pointer" onclick="window.open('${o.img}')"></div>
-                    <div class="w-full md:w-2/3 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold text-white mb-2">${o.id} <span class="text-sm text-slate-400 ml-2">@${o.user}</span></h3>
-                            <p class="text-sm text-slate-300">Items: ${o.items.map(x=>x.name).join(', ')}</p>
-                            <p class="text-amber-400 font-bold mb-4">Total: ₹${o.total}</p>
-                        </div>
-                        ${o.status === 'Pending' ? `
-                            <div class="flex gap-2">
-                                <input type="text" id="link_${i}" placeholder="Enter MSTS Download Link" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-white text-sm focus:border-amber-500">
-                                <button onclick="approveOrder(${i})" class="bg-green-500 text-black font-bold px-4 py-2 rounded">Deliver</button>
-                            </div>` : `<div class="text-green-400 text-sm"><i class="fa-solid fa-check"></i> Delivered: ${o.link}</div>`}
-                    </div>
-                </div>`;
-            }).join('') : '<p class="text-slate-400 text-center">No pending orders.</p>';
-        }
-
-        function approveOrder(i) {
-            const link = document.getElementById(`link_${i}`).value;
-            if(!link) return triggerAlert("Link required!", 'error');
-            let orders = JSON.parse(localStorage.getItem('msts_orders'));
-            orders[i].status = 'Approved'; orders[i].link = link;
-            localStorage.setItem('msts_orders', JSON.stringify(orders));
-            triggerAlert("Delivered to customer!", 'success'); renderAdminOrders();
-        }
-
-        function renderAdminProducts() {
-            document.getElementById('dashboardTitle').innerHTML = `<i class="fa-solid fa-cubes text-blue-400 mr-3"></i> Product Manager`;
-            const products = JSON.parse(localStorage.getItem('msts_products'));
-            
-            let html = `
-            <div class="bg-slate-950 p-6 rounded-xl border border-white/10 mb-8 shadow-inner">
-                <h3 class="text-white font-bold mb-4 border-b border-white/10 pb-2"><i class="fa-solid fa-plus text-amber-500 mr-2"></i> Add New Product</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <input type="text" id="newPName" placeholder="Product Title (e.g. WAG-9 Loco)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">
-                    <input type="number" id="newPPrice" placeholder="Price (₹)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white focus:border-amber-500">
-                    <input type="text" id="newPImg" placeholder="Image URL (http://...)" class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 focus:border-amber-500">
-                    <textarea id="newPDesc" placeholder="Description & Features..." class="bg-slate-900 border border-slate-700 rounded p-3 text-white md:col-span-2 h-24 focus:border-amber-500"></textarea>
-                </div>
-                <button onclick="adminAddProduct()" class="bg-amber-500 text-black font-black px-6 py-3 rounded-lg shadow-lg hover:bg-amber-400"><i class="fa-solid fa-upload mr-2"></i> Publish Product</button>
-            </div>
-            <div class="space-y-4">`;
-            
-            html += products.map((p, i) => `
-                <div class="bg-slate-800 border border-white/5 p-4 rounded-xl flex justify-between items-center group">
-                    <div class="flex items-center gap-4">
-                        <img src="${p.img}" class="h-12 w-16 object-cover rounded bg-black">
-                        <div>
-                            <h4 class="text-white font-bold">${p.name}</h4>
-                            <span class="text-amber-500 text-sm font-bold">₹${p.price}</span>
-                        </div>
-                    </div>
-                    <button onclick="adminDeleteProduct(${i})" class="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded transition"><i class="fa-solid fa-trash-can mr-2"></i> Delete</button>
-                </div>
-            `).join('');
-            
-            document.getElementById('dashboardContent').innerHTML = html + '</div>';
-        }
-
-        function adminAddProduct() {
-            const name = document.getElementById('newPName').value;
-            const price = parseInt(document.getElementById('newPPrice').value);
-            const img = document.getElementById('newPImg').value;
-            const desc = document.getElementById('newPDesc').value;
-            if(!name || !price || !img || !desc) return triggerAlert("Fill all fields!", 'error');
-            
-            let products = JSON.parse(localStorage.getItem('msts_products'));
-            products.push({ id: Date.now(), name, price, desc, img });
-            localStorage.setItem('msts_products', JSON.stringify(products));
-            
-            triggerAlert("Product Published Live!", 'success');
-            renderAdminProducts(); renderProducts();
-        }
-
-        function adminDeleteProduct(i) {
-            if(!confirm("Are you sure you want to delete this product?")) return;
-            let products = JSON.parse(localStorage.getItem('msts_products'));
-            products.splice(i, 1);
-            localStorage.setItem('msts_products', JSON.stringify(products));
-            triggerAlert("Product Deleted", 'success');
-            renderAdminProducts(); renderProducts();
+            renderAdminProducts(); 
+            renderProducts();
         }
     </script>
 </body>
 </html>
-                                                
