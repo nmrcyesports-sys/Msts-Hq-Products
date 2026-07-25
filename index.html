@@ -3,71 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MSTS RailHub | Premium Indian Add-ons</title>
+    <title>MSTS HUB | Indian Railway Simulation</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
-
         body {
-            background-color: #050b14;
-            background-image: radial-gradient(circle at top right, #112240 0%, #050b14 40%);
-            color: #e2e8f0;
-            font-family: 'Outfit', sans-serif;
+            background-color: #080c16;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .premium-nav { background: rgba(5, 11, 20, 0.95); border-bottom: 1px solid #1e293b; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
-        
-        .pro-card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .pro-card:hover { transform: translateY(-5px); border-color: #f59e0b; box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.3); }
+        .glass-nav {
+            background: rgba(8, 12, 22, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
 
-        .img-container { overflow: hidden; height: 220px; width: 100%; position: relative; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .pro-card:hover .img-container img { transform: scale(1.08); }
-        .img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, #0f172a 2%, transparent 50%); }
+        .btn-blue { background-color: #3b82f6; color: white; transition: background 0.2s; }
+        .btn-blue:hover { background-color: #2563eb; }
+        .btn-outline { background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: white; transition: background 0.2s; }
+        .btn-outline:hover { background-color: rgba(255,255,255,0.05); }
+        .btn-purple { background-color: #6366f1; color: white; transition: background 0.2s; }
+        .btn-purple:hover { background-color: #4f46e5; }
 
-        .btn-primary { background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%); color: #fff; box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4); transition: all 0.2s ease; }
-        .btn-primary:active { transform: scale(0.96); box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4); }
-        
-        .paytm-btn { background: #002970; color: #fff; border-left: 4px solid #00baef; }
+        .product-card {
+            background-color: #111827;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s;
+        }
+        .product-card:hover { transform: translateY(-4px); border-color: rgba(59, 130, 246, 0.5); }
+        .product-img { width: 100%; height: 180px; object-fit: cover; }
 
-        .modal-box { background: #0f172a; border: 1px solid #334155; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); }
-        .custom-input { background: #050b14; border: 1px solid #334155; color: #fff; transition: border 0.2s ease; }
-        .custom-input:focus { border-color: #f59e0b; outline: none; }
+        .input-dark {
+            background-color: #111827;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 8px;
+        }
+        .input-dark:focus { border-color: #6366f1; outline: none; }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #050b14; }
-        ::-webkit-scrollbar-thumb { background: #ea580c; border-radius: 10px; }
-
-        .toast-animate { animation: slideIn 0.3s ease forwards; }
-        @keyframes slideIn { from { transform: translate(-50%, -20px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #080c16; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
     </style>
 </head>
 <body onload="initSystem()">
 
     <!-- Navbar -->
-    <nav class="premium-nav sticky top-0 z-50 px-4 py-3">
+    <nav class="glass-nav sticky top-0 z-40 px-4 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer">
-                <div class="bg-gradient-to-br from-orange-500 to-amber-500 p-2.5 rounded-xl shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                    <i class="fa-solid fa-train-tram text-white text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-black tracking-widest text-white leading-none">MSTS <span class="text-amber-500">HUB</span></h1>
-                    <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase mt-0.5">Premium Indian Add-ons</p>
-                </div>
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <h1 class="text-2xl font-extrabold tracking-tight text-white">MSTS<span class="text-blue-500">.IN</span></h1>
             </div>
-            <div class="flex items-center gap-5">
-                <button onclick="toggleView('cartView')" class="relative text-slate-300 hover:text-amber-500 transition">
-                    <i class="fa-solid fa-bag-shopping text-2xl"></i>
-                    <span id="cartCount" class="absolute -top-2 -right-2 bg-red-600 text-white text-[11px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-[#050b14]">0</span>
+            
+            <div class="flex items-center gap-4">
+                <button onclick="toggleView('cartView')" class="relative text-slate-300 hover:text-white transition">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-blue-500 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
                 </button>
                 <div id="navUserArea">
-                    <button onclick="toggleView('authView')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2">
-                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                    <button onclick="toggleView('authView')" class="text-slate-300 hover:text-white transition">
+                        <i class="fa-solid fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
@@ -76,127 +81,167 @@
 
     <!-- Alerts -->
     <div id="alertBox" class="fixed top-20 left-1/2 -translate-x-1/2 z-[100] hidden">
-        <div class="bg-[#111827] px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-amber-500 shadow-2xl text-white font-bold min-w-[280px]">
-            <i id="alertIcon" class="fa-solid fa-bell text-amber-500 text-xl"></i>
-            <span id="alertMsg">System Message</span>
+        <div class="bg-blue-900/95 backdrop-blur px-6 py-3 rounded-lg flex items-center gap-3 border border-blue-500 shadow-xl text-white font-medium min-w-[280px]">
+            <i id="alertIcon" class="fa-solid fa-circle-info text-blue-400"></i>
+            <span id="alertMsg">Message</span>
         </div>
     </div>
 
-    <!-- Main Storefront -->
-    <main class="max-w-7xl mx-auto px-4 py-10 relative z-10">
-        <div class="flex justify-between items-end mb-6">
-            <h3 class="text-2xl font-black text-white flex items-center gap-2"><i class="fa-solid fa-fire text-orange-500"></i> Trending Now</h3>
+    <!-- Hero Section -->
+    <main class="max-w-7xl mx-auto px-4 pt-12 pb-20 relative z-10 text-center">
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <div class="h-[1px] w-8 bg-yellow-500"></div>
+            <span class="text-yellow-500 text-xs font-bold tracking-widest uppercase">MADE IN INDIA — BUILT FOR RAILFANS</span>
+            <div class="h-[1px] w-8 bg-yellow-500"></div>
         </div>
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Products Injected Here -->
+        
+        <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+            India's Premier<br>
+            <span class="text-blue-400">Railway Simulation</span><br>
+            Marketplace
+        </h2>
+        
+        <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed">
+            Discover, download, and share routes, rolling stock, and activities for Microsoft Train Simulator. Thousands of Indian railfans, one platform.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+            <button onclick="document.getElementById('productsSection').scrollIntoView({behavior: 'smooth'})" class="btn-blue w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Get Started
+            </button>
+            <button onclick="document.getElementById('productsSection').scrollIntoView({behavior: 'smooth'})" class="btn-outline w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2">
+                <i class="fa-solid fa-layer-group"></i> Browse Products
+            </button>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 max-w-4xl mx-auto border-t border-slate-800 pt-12">
+            <div>
+                <div class="text-3xl font-extrabold text-white mb-1">112.5k+</div>
+                <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase">Downloads</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-white mb-1">301</div>
+                <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase">Products</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-white mb-1">714</div>
+                <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase">Activities</div>
+            </div>
+            <div>
+                <div class="text-3xl font-extrabold text-white mb-1">32.2k+</div>
+                <div class="text-xs text-slate-500 font-semibold tracking-wider uppercase">Users</div>
+            </div>
         </div>
     </main>
 
-    <!-- Product Detail Modal -->
-    <div id="detailView" class="fixed inset-0 bg-[#050b14]/90 backdrop-blur-sm flex items-center justify-center hidden z-[70] p-4">
-        <div class="modal-box rounded-2xl w-full max-w-4xl p-0 relative flex flex-col md:flex-row overflow-hidden">
-            <button onclick="toggleView('detailView')" class="absolute top-4 right-4 text-slate-400 hover:text-white z-20 bg-[#050b14]/50 p-2 rounded-full"><i class="fa-solid fa-xmark text-xl w-6 h-6 flex items-center justify-center"></i></button>
-            <div class="w-full md:w-1/2 img-container h-64 md:h-auto bg-black">
-                <img id="detImg" src="" alt="Product">
-                <div class="img-overlay"></div>
+    <!-- Products Section -->
+    <section id="productsSection" class="bg-[#0b101d] py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-end mb-8">
+                <h3 class="text-2xl font-bold text-white">Featured Products</h3>
+                <span class="text-sm text-slate-400 hover:text-white cursor-pointer">View All &rarr;</span>
             </div>
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="detailView" class="fixed inset-0 bg-[#080c16]/95 backdrop-blur-sm flex items-center justify-center hidden z-[70] p-4">
+        <div class="bg-[#111827] border border-slate-800 rounded-xl w-full max-w-4xl p-0 relative flex flex-col md:flex-row overflow-hidden shadow-2xl">
+            <button onclick="toggleView('detailView')" class="absolute top-4 right-4 text-slate-400 hover:text-white z-20 bg-[#080c16]/50 p-2 rounded-full"><i class="fa-solid fa-xmark text-xl w-6 h-6 flex items-center justify-center"></i></button>
+            <div class="w-full md:w-1/2 h-64 md:h-auto bg-black"><img id="detImg" src="" alt="Product" class="w-full h-full object-cover"></div>
             <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
                 <div>
-                    <h2 id="detTitle" class="text-2xl md:text-3xl font-black text-white mb-2">Title</h2>
-                    <div class="w-12 h-1 bg-amber-500 mb-4 rounded"></div>
+                    <h2 id="detTitle" class="text-2xl font-bold text-white mb-2">Title</h2>
+                    <p class="text-sm text-slate-500 mb-4 font-medium">By MSTS Community</p>
                     <p id="detDesc" class="text-slate-400 text-sm leading-relaxed mb-6">Description</p>
                 </div>
-                <div class="flex items-center justify-between border-t border-[#1e293b] pt-4 mt-auto">
-                    <span id="detPrice" class="text-3xl font-black text-white">₹0</span>
-                    <button id="detBtn" class="btn-primary px-6 py-3 rounded-xl font-bold flex items-center gap-2">
-                        <i class="fa-solid fa-cart-plus"></i> Add
-                    </button>
+                <div class="flex items-center justify-between border-t border-slate-800 pt-6 mt-auto">
+                    <span id="detPrice" class="text-2xl font-bold text-white">₹0</span>
+                    <button id="detBtn" class="btn-blue px-6 py-3 rounded-lg font-semibold">Add to Cart</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Auth Modal -->
-    <div id="authView" class="fixed inset-0 bg-[#050b14]/90 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
-        <div class="modal-box rounded-2xl w-full max-w-sm p-6 relative">
+    <div id="authView" class="fixed inset-0 bg-[#080c16]/95 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
+        <div class="bg-[#0b101d] w-full max-w-md relative p-8 rounded-2xl border border-slate-800 shadow-2xl">
             <button onclick="toggleView('authView')" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <div class="text-center mb-6">
-                <h2 id="authTitle" class="text-2xl font-black text-white">Welcome Back</h2>
+            <div class="mb-8 flex flex-col items-center">
+                <div class="bg-[#111827] p-3 rounded-xl mb-4 border border-slate-800"><i class="fa-solid fa-train-subway text-indigo-500 text-2xl"></i></div>
+                <h2 id="authTitle" class="text-3xl font-bold text-white mb-2">Welcome back</h2>
+                <p id="authSubtitle" class="text-sm text-slate-400">Sign in to your account to continue</p>
             </div>
-            <div class="flex bg-[#050b14] p-1 rounded-lg border border-[#1e293b] mb-6">
-                <button id="btnLog" onclick="switchAuth('login')" class="flex-1 py-2 rounded-md font-bold bg-amber-500 text-[#050b14] transition">Login</button>
-                <button id="btnReg" onclick="switchAuth('register')" class="flex-1 py-2 rounded-md font-bold text-slate-400 transition">Register</button>
+            <div class="flex bg-[#111827] p-1 rounded-lg border border-slate-800 mb-6">
+                <button id="btnLog" onclick="switchAuth('login')" class="flex-1 py-2 rounded-md font-semibold bg-indigo-600 text-white transition">Sign in</button>
+                <button id="btnReg" onclick="switchAuth('register')" class="flex-1 py-2 rounded-md font-semibold text-slate-400 transition">Create account</button>
             </div>
-            <form onsubmit="runAuth(event)" class="space-y-4">
+            <form onsubmit="runAuth(event)" class="space-y-5">
                 <input type="hidden" id="authMode" value="login">
-                <input type="text" id="inpUser" placeholder="Username" required class="w-full custom-input rounded-lg px-4 py-3">
-                <input type="password" id="inpPass" placeholder="Password" required class="w-full custom-input rounded-lg px-4 py-3">
-                <button type="submit" id="submitAuth" class="btn-primary w-full py-3 rounded-lg font-black text-lg mt-2">ACCESS</button>
+                <div>
+                    <label class="text-xs font-bold text-slate-400 tracking-wider mb-2 block uppercase">Username / Email</label>
+                    <input type="text" id="inpUser" placeholder="you@example.com" required class="w-full input-dark px-4 py-3 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-slate-400 tracking-wider mb-2 uppercase block">Password</label>
+                    <input type="password" id="inpPass" placeholder="••••••••" required class="w-full input-dark px-4 py-3 text-sm">
+                </div>
+                <button type="submit" id="submitAuth" class="btn-purple w-full py-3 rounded-lg font-semibold text-base mt-2">Sign in</button>
             </form>
+            <div class="mt-6 text-center"><p class="text-sm text-slate-400">Admin Bypass: <span class="text-indigo-400 font-medium">admin / 123</span></p></div>
         </div>
     </div>
 
     <!-- Cart Modal -->
-    <div id="cartView" class="fixed inset-0 bg-[#050b14]/90 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
-        <div class="modal-box rounded-2xl w-full max-w-md p-0 relative flex flex-col max-h-[90vh]">
-            <div class="p-5 border-b border-[#1e293b] flex justify-between items-center bg-[#0f172a] rounded-t-2xl">
-                <h2 class="text-xl font-black text-white"><i class="fa-solid fa-cart-shopping text-amber-500 mr-2"></i> Checkout</h2>
-                <button onclick="toggleView('cartView')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <div id="cartView" class="fixed inset-0 bg-[#080c16]/95 backdrop-blur-sm flex items-center justify-center hidden z-[60] p-4">
+        <div class="bg-[#111827] border border-slate-800 rounded-xl w-full max-w-md p-0 relative flex flex-col max-h-[90vh]">
+            <div class="p-5 border-b border-slate-800 flex justify-between items-center bg-[#0b101d] rounded-t-xl">
+                <h2 class="text-lg font-bold text-white">Your Cart</h2>
+                <button onclick="toggleView('cartView')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div id="cartList" class="p-5 overflow-y-auto space-y-3 flex-grow bg-[#050b14]"></div>
-            <div id="paySection" class="p-5 border-t border-[#1e293b] bg-[#0f172a] rounded-b-2xl" style="display:none;">
-                <div class="flex justify-between items-center mb-5">
-                    <span class="text-slate-400 font-bold">Total Payable</span>
-                    <span id="cartTotal" class="text-3xl font-black text-amber-500">₹0</span>
+            <div id="cartList" class="p-5 overflow-y-auto space-y-3 flex-grow bg-[#0b101d]"></div>
+            <div id="paySection" class="p-5 border-t border-slate-800 bg-[#111827] rounded-b-xl" style="display:none;">
+                <div class="flex justify-between items-center mb-5"><span class="text-slate-400 text-sm">Total</span><span id="cartTotal" class="text-2xl font-bold text-white">₹0</span></div>
+                <div class="bg-[#080c16] border border-slate-800 rounded-lg p-4 mb-4 text-center">
+                    <span class="text-xs text-slate-400 block mb-1 uppercase font-bold">UPI ID for Payment</span>
+                    <span class="font-mono text-blue-400 font-bold text-lg">mstsrailhub@upi</span>
                 </div>
-                <div class="bg-[#050b14] border border-[#1e293b] rounded-xl p-4 mb-4 text-center">
-                    <span class="text-sm font-bold text-slate-300 block mb-2">Pay via UPI App / Paytm</span>
-                    <span class="font-mono text-white font-black text-lg">mstsrailhub@upi</span>
-                </div>
-                <div class="mb-5 relative border-2 border-dashed border-[#334155] rounded-xl text-center py-4 bg-[#050b14] hover:border-amber-500 transition">
+                <div class="mb-5 relative border border-dashed border-slate-600 rounded-lg text-center py-4 bg-[#080c16]">
                     <input type="file" id="payImage" accept="image/*" onchange="previewFile()" class="absolute inset-0 opacity-0 z-10 cursor-pointer w-full h-full">
-                    <span class="text-sm font-bold text-white block">Upload Payment Proof</span>
+                    <span class="text-sm font-medium text-white block">Upload Payment Screenshot</span>
                 </div>
-                <button onclick="placeOrder()" class="paytm-btn w-full py-4 rounded-xl font-black text-lg">VERIFY & COMPLETE</button>
+                <button onclick="placeOrder()" class="btn-blue w-full py-3 rounded-lg font-semibold">Checkout Securely</button>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard Modal -->
-    <div id="dashView" class="fixed inset-0 bg-[#050b14]/95 flex items-center justify-center hidden z-[70] p-4">
-        <div class="modal-box rounded-2xl w-full max-w-5xl p-0 relative flex flex-col h-[90vh]">
-            <div class="p-5 border-b border-[#1e293b] flex justify-between items-center bg-[#0f172a] rounded-t-2xl">
-                <h2 class="text-2xl font-black text-white" id="dashTitle"><i class="fa-solid fa-terminal text-amber-500 mr-2"></i> Portal</h2>
-                <div class="flex gap-3">
-                    <button onclick="logout()" class="text-xs font-bold text-red-500 border border-red-500/30 px-3 py-1.5 rounded hover:bg-red-500 hover:text-white transition">LOGOUT</button>
-                    <button onclick="toggleView('dashView')" class="text-slate-400 hover:text-white bg-[#334155] px-2 py-1 rounded"><i class="fa-solid fa-xmark text-lg"></i></button>
-                </div>
+    <!-- Dashboard -->
+    <div id="dashView" class="fixed inset-0 bg-[#080c16] hidden z-[70] overflow-y-auto">
+        <div class="max-w-7xl mx-auto p-4 md:p-8">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-6 mb-8">
+                <h2 class="text-2xl font-bold text-white" id="dashTitle">Portal</h2>
+                <button onclick="logout()" class="text-sm font-semibold text-red-400 bg-red-500/10 hover:bg-red-500 hover:text-white px-4 py-2 rounded-lg transition border border-red-500/20">Sign Out</button>
             </div>
-            
-            <div id="dashTabs" class="bg-[#050b14] border-b border-[#1e293b] flex" style="display: none;">
-                <button onclick="switchDash('orders')" id="tabOrd" class="flex-1 py-4 font-black text-amber-500 border-b-2 border-amber-500 transition">ORDERS</button>
-                <button onclick="switchDash('products')" id="tabProd" class="flex-1 py-4 font-black text-slate-400 border-b-2 border-transparent transition">PRODUCTS</button>
-                <button onclick="hardResetSystem()" class="py-4 px-6 font-black text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-white transition"><i class="fa-solid fa-rotate"></i> FACTORY RESET</button>
+            <div id="dashTabs" class="flex gap-4 border-b border-slate-800 mb-8" style="display: none;">
+                <button onclick="switchDash('orders')" id="tabOrd" class="pb-3 px-2 font-semibold text-blue-400 border-b-2 border-blue-400">Order Approvals</button>
+                <button onclick="switchDash('products')" id="tabProd" class="pb-3 px-2 font-semibold text-slate-400 border-b-2 border-transparent hover:text-white">Manage Products</button>
             </div>
-
-            <div class="p-6 overflow-y-auto flex-grow bg-[#050b14]" id="dashContent"></div>
+            <div id="dashContent" class="space-y-4"></div>
         </div>
     </div>
-
-    <!-- JAVASCRIPT FIXED FOR MOBILE -->
-    <script>
+        <script>
         let userCart = [];
         let activeUser = null; 
         
         const starterProducts = [
-            { id: 1, name: 'WAP-7 High Definition cab', price: 299, desc: 'Ultra-realistic 3D cab view, heavy traction motors sound, and 4K Indian Railways liveries.', img: 'https://upload.wikimedia.org/wikipedia/commons/4/47/WAP-7_30209_at_Secunderabad.jpg' },
-            { id: 2, name: 'LHB Rajdhani Full Set', price: 399, desc: 'Complete 3D model set including 1AC, 2AC, 3AC, and Generator Van with night lighting.', img: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/LHB_Coaches_of_Rajdhani_Express.jpg' },
-            { id: 3, name: 'WR V12 Premium Route', price: 599, desc: 'Over 1,500 km of high-speed trackwork, featuring custom 3D stations and authentic Indian signaling.', img: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Indian_Railways_Train_in_Konkan_Railway.jpg' }
+            { id: 1, name: 'Khandesh Route Monsoon Offer', price: 525, desc: 'Highly detailed western railway route spanning across major junctions. Price drop offer active.', img: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/Indian_Railways_Train_in_Konkan_Railway.jpg' },
+            { id: 2, name: 'WAP-7 High Definition cab', price: 299, desc: 'Ultra-realistic 3D cab view, heavy traction motors sound, and 4K Indian Railways liveries.', img: 'https://upload.wikimedia.org/wikipedia/commons/4/47/WAP-7_30209_at_Secunderabad.jpg' },
+            { id: 3, name: 'LHB Rajdhani Full Set', price: 399, desc: 'Complete 3D model set including 1AC, 2AC, 3AC, and Generator Van with night lighting.', img: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/LHB_Coaches_of_Rajdhani_Express.jpg' }
         ];
 
         function initSystem() {
             try {
-                // 1. Admin account recovery
                 let users = JSON.parse(localStorage.getItem('msts_db_users'));
                 if (!users || !Array.isArray(users) || users.length === 0) {
                     users = [{ username: 'admin', password: '123', role: 'admin' }];
@@ -212,40 +257,24 @@
                     }
                 }
 
-                // 2. Products recovery
                 let items = JSON.parse(localStorage.getItem('msts_db_items'));
                 if (!items || !Array.isArray(items) || items.length === 0) {
                     localStorage.setItem('msts_db_items', JSON.stringify(starterProducts));
                 }
 
-                // 3. Orders recovery
                 if (!localStorage.getItem('msts_db_orders')) {
                     localStorage.setItem('msts_db_orders', JSON.stringify([]));
                 }
 
-                // 4. Session recovery
                 if (sessionStorage.getItem('msts_session')) {
                     activeUser = JSON.parse(sessionStorage.getItem('msts_session'));
                     refreshNav();
                 }
-                
                 loadProducts();
             } catch(e) {
-                console.error("Storage Error:", e);
+                console.error(e);
                 localStorage.setItem('msts_db_items', JSON.stringify(starterProducts));
                 loadProducts();
-            }
-        }
-
-        function hardResetSystem() {
-            if(confirm("DANGER: This will delete all products, users, and orders, and restore original settings. Are you sure?")) {
-                localStorage.clear();
-                sessionStorage.clear();
-                activeUser = null;
-                initSystem();
-                showAlert("System Reset Successful!", false);
-                toggleView('dashView');
-                refreshNav();
             }
         }
 
@@ -255,9 +284,8 @@
             let box = document.getElementById('alertBox');
             document.getElementById('alertMsg').innerText = msg;
             box.firstElementChild.className = error 
-                ? "bg-[#111827] px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-red-500 shadow-2xl text-white font-bold min-w-[280px]"
-                : "bg-[#111827] px-6 py-4 rounded-xl flex items-center gap-4 border-l-4 border-green-500 shadow-2xl text-white font-bold min-w-[280px]";
-            document.getElementById('alertIcon').className = error ? "fa-solid fa-triangle-exclamation text-red-500 text-xl" : "fa-solid fa-check-circle text-green-500 text-xl";
+                ? "bg-red-900/95 backdrop-blur px-6 py-3 rounded-lg flex items-center gap-3 border border-red-500 shadow-xl text-white font-medium min-w-[280px]"
+                : "bg-blue-900/95 backdrop-blur px-6 py-3 rounded-lg flex items-center gap-3 border border-blue-500 shadow-xl text-white font-medium min-w-[280px]";
             box.classList.remove('hidden');
             setTimeout(function(){ box.classList.add('hidden'); }, 3000);
         }
@@ -265,24 +293,21 @@
         function loadProducts() {
             let items = JSON.parse(localStorage.getItem('msts_db_items')) || starterProducts;
             let html = "";
-            if(items.length === 0) {
-                document.getElementById('productGrid').innerHTML = "<p class='text-white'>No products available.</p>";
-                return;
-            }
             for(let i=0; i<items.length; i++) {
                 let p = items[i];
-                html += '<div class="pro-card group cursor-pointer" onclick="openDetail('+p.id+')">';
-                html += '<div class="img-container"><img src="'+p.img+'"><div class="img-overlay"></div>';
-                html += '<div class="absolute bottom-4 left-4 z-10"><h3 class="text-xl font-black text-white leading-tight">'+p.name+'</h3></div></div>';
-                html += '<div class="p-5 flex justify-between items-center border-t border-[#1e293b] bg-[#0f172a]">';
-                html += '<span class="text-2xl font-black text-amber-500">₹'+p.price+'</span>';
-                html += '<button class="bg-[#1e293b] text-white px-4 py-2 rounded-lg font-bold group-hover:bg-amber-500 group-hover:text-[#050b14] transition">View</button>';
+                html += '<div class="product-card cursor-pointer" onclick="openDetail('+p.id+')">';
+                html += '<img src="'+p.img+'" class="product-img">';
+                html += '<div class="p-5">';
+                html += '<h3 class="text-lg font-bold text-white mb-1">'+p.name+'</h3>';
+                html += '<p class="text-sm text-slate-500 mb-4">By Community</p>';
+                html += '<div class="flex items-center justify-between"><span class="text-xl font-bold text-white">₹'+p.price+'</span><button class="btn-outline px-3 py-1.5 rounded text-sm">View</button></div>';
                 html += '</div></div>';
             }
             document.getElementById('productGrid').innerHTML = html;
         }
 
         function openDetail(id) {
+            if(activeUser && activeUser.role === 'admin') return showAlert("Admins cannot purchase items!", true);
             let items = JSON.parse(localStorage.getItem('msts_db_items'));
             let p = items.find(function(x){ return x.id === id; });
             if(!p) return;
@@ -306,16 +331,14 @@
             let list = document.getElementById('cartList');
             if(userCart.length === 0) {
                 document.getElementById('paySection').style.display = 'none';
-                list.innerHTML = '<div class="text-center py-10 text-slate-500"><i class="fa-solid fa-basket-shopping text-4xl mb-3"></i><p class="font-bold">Cart is empty</p></div>';
+                list.innerHTML = '<p class="text-center text-sm text-slate-500 py-6">Your cart is empty.</p>';
                 return;
             }
             document.getElementById('paySection').style.display = 'block';
             let total = 0; let html = "";
             for(let i=0; i<userCart.length; i++) {
                 total += userCart[i].price;
-                html += '<div class="bg-[#0f172a] border border-[#1e293b] p-4 rounded-xl flex justify-between items-center mb-2">';
-                html += '<span class="font-bold text-white text-sm">'+userCart[i].name+'</span>';
-                html += '<div class="flex items-center gap-4"><span class="text-amber-500 font-black">₹'+userCart[i].price+'</span><button onclick="remCart('+i+')" class="text-[#334155] hover:text-red-500 transition"><i class="fa-solid fa-trash"></i></button></div></div>';
+                html += '<div class="bg-[#111827] border border-slate-800 p-4 rounded-lg flex justify-between items-center mb-2"><span class="font-medium text-white text-sm">'+userCart[i].name+'</span><div class="flex items-center gap-4"><span class="text-slate-300 font-bold text-sm">₹'+userCart[i].price+'</span><button onclick="remCart('+i+')" class="text-slate-500 hover:text-red-400"><i class="fa-solid fa-trash text-sm"></i></button></div></div>';
             }
             document.getElementById('cartTotal').innerText = '₹' + total;
             list.innerHTML = html;
@@ -326,17 +349,18 @@
             let file = document.getElementById('payImage').files[0];
             if(file) {
                 let reader = new FileReader();
-                reader.onloadend = function(){ b64Img = reader.result; };
+                reader.onloadend = function(){ b64Img = reader.result; showAlert("Image selected."); };
                 reader.readAsDataURL(file);
             }
         }
 
         function switchAuth(m) {
             document.getElementById('authMode').value = m;
-            document.getElementById('authTitle').innerText = m==='login'?"Welcome Back":"Create Account";
-            document.getElementById('submitAuth').innerText = m==='login'?"ACCESS":"REGISTER";
-            document.getElementById('btnLog').className = m==='login' ? "flex-1 py-2 rounded-md font-bold bg-amber-500 text-[#050b14] transition" : "flex-1 py-2 rounded-md font-bold text-slate-400 transition";
-            document.getElementById('btnReg').className = m==='register' ? "flex-1 py-2 rounded-md font-bold bg-amber-500 text-[#050b14] transition" : "flex-1 py-2 rounded-md font-bold text-slate-400 transition";
+            document.getElementById('authTitle').innerText = m==='login'?"Welcome back":"Create account";
+            document.getElementById('authSubtitle').innerText = m==='login'?"Sign in to your account to continue":"Register to join community";
+            document.getElementById('submitAuth').innerText = m==='login'?"Sign in":"Register";
+            document.getElementById('btnLog').className = m==='login' ? "flex-1 py-2 rounded-md font-semibold bg-indigo-600 text-white transition" : "flex-1 py-2 rounded-md font-semibold text-slate-400 transition";
+            document.getElementById('btnReg').className = m==='register' ? "flex-1 py-2 rounded-md font-semibold bg-indigo-600 text-white transition" : "flex-1 py-2 rounded-md font-semibold text-slate-400 transition";
         }
         
         function runAuth(e) {
@@ -354,122 +378,134 @@
                 showAlert("Account Created!"); logIn(nu);
             } else {
                 let found = users.find(function(x){ return x.username === u && x.password === p; });
-                if(found) { showAlert("Welcome " + u + "!"); logIn(found); }
-                else showAlert("Wrong Details!", true);
+                if(found) { showAlert("Sign in successful!"); logIn(found); }
+                else showAlert("Invalid credentials!", true);
             }
         }
-        function logIn(u) { activeUser = u; sessionStorage.setItem('msts_session', JSON.stringify(u)); toggleView('authView'); refreshNav(); }
-        
+
         function refreshNav() {
             let area = document.getElementById('navUserArea');
+            let cartBtn = document.querySelector('button[onclick="toggleView(\'cartView\')"]');
+            let mainHero = document.querySelector('main');
+            let prodSection = document.getElementById('productsSection');
+            let dashModal = document.getElementById('dashView');
+
             if(activeUser) {
-                let badge = activeUser.role==='admin' ? 'bg-red-500' : 'bg-green-500';
-                area.innerHTML = '<button onclick="openDash()" class="bg-[#0f172a] border border-[#334155] text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:border-amber-500 transition"><span class="w-2 h-2 rounded-full '+badge+'"></span> '+activeUser.username.toUpperCase()+'</button>';
+                let badge = activeUser.role === 'admin' ? 'bg-indigo-500' : 'bg-blue-500';
+                area.innerHTML = '<button onclick="openDash()" class="flex items-center gap-2 text-sm font-medium text-slate-300 hover:text-white"><div class="w-6 h-6 rounded-full '+badge+' flex items-center justify-center text-white font-bold text-xs">'+activeUser.username.charAt(0).toUpperCase()+'</div></button>';
+                
+                if(activeUser.role === 'admin') {
+                    if(cartBtn) cartBtn.style.display = 'none'; 
+                    if(mainHero) mainHero.style.display = 'none'; 
+                    if(prodSection) prodSection.style.display = 'none'; 
+                    dashModal.classList.remove('hidden');
+                    document.getElementById('dashTabs').style.display = 'flex';
+                    showAdminOrd();
+                } else {
+                    if(cartBtn) cartBtn.style.display = 'block';
+                    if(mainHero) mainHero.style.display = 'block';
+                    if(prodSection) prodSection.style.display = 'block';
+                }
             } else {
-                area.innerHTML = '<button onclick="toggleView(\'authView\')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</button>';
+                area.innerHTML = '<button onclick="toggleView(\'authView\')" class="btn-blue px-4 py-2 rounded text-sm font-medium">Sign In</button>';
+                if(cartBtn) cartBtn.style.display = 'block';
+                if(mainHero) mainHero.style.display = 'block';
+                if(prodSection) prodSection.style.display = 'block';
             }
         }
-        function logout() { activeUser = null; sessionStorage.removeItem('msts_session'); refreshNav(); toggleView('dashView'); showAlert("Logged Out"); }
+
+        function logIn(u) { activeUser = u; sessionStorage.setItem('msts_session', JSON.stringify(u)); toggleView('authView'); refreshNav(); }
+        
+        function logout() { 
+            activeUser = null; 
+            sessionStorage.removeItem('msts_session'); 
+            document.getElementById('dashView').classList.add('hidden'); 
+            refreshNav(); 
+            showAlert("Signed out."); 
+        }
 
         function placeOrder() {
-            if(!activeUser) return showAlert("Login required!", true);
-            if(!b64Img) return showAlert("Upload Screenshot!", true);
+            if(!activeUser) return showAlert("Please sign in first.", true);
+            if(!b64Img) return showAlert("Upload Payment Screenshot!", true);
             let total = 0; for(let i=0; i<userCart.length; i++) total += userCart[i].price;
             let orders = JSON.parse(localStorage.getItem('msts_db_orders'));
-            orders.push({ id: 'TXN'+Math.floor(Math.random()*99999), user: activeUser.username, items: [...userCart], total: total, img: b64Img, status: 'Verifying', link: '' });
+            orders.push({ id: 'ORD'+Math.floor(Math.random()*99999), user: activeUser.username, items: [...userCart], total: total, img: b64Img, status: 'Verifying', link: '' });
             localStorage.setItem('msts_db_orders', JSON.stringify(orders));
             userCart = []; b64Img = null; updateCartUI();
-            toggleView('cartView'); showAlert("Order Sent to Admin!");
+            toggleView('cartView'); showAlert("Order submitted!");
         }
 
         function openDash() {
+            let dashModal = document.getElementById('dashView');
             if(activeUser.role === 'admin') {
                 document.getElementById('dashTabs').style.display = 'flex';
                 showAdminOrd();
+                dashModal.classList.remove('hidden');
             } else {
                 document.getElementById('dashTabs').style.display = 'none';
                 showCustOrd();
+                dashModal.classList.toggle('hidden');
             }
-            toggleView('dashView');
         }
 
         function showCustOrd() {
-            document.getElementById('dashTitle').innerHTML = '<i class="fa-solid fa-box-open text-amber-500 mr-2"></i> My Inventory';
+            document.getElementById('dashTitle').innerHTML = 'My Inventory';
             let allOrd = JSON.parse(localStorage.getItem('msts_db_orders'));
             let html = "";
             for(let i=allOrd.length-1; i>=0; i--) {
                 if(allOrd[i].user === activeUser.username) {
                     let o = allOrd[i];
                     let items = o.items.map(function(x){ return x.name; }).join(', ');
-                    html += '<div class="bg-[#0f172a] border border-[#1e293b] p-5 rounded-xl mb-4">';
-                    html += '<div class="flex justify-between items-center mb-4 border-b border-[#1e293b] pb-3">';
-                    html += '<div><h3 class="text-white font-black text-lg">'+o.id+'</h3></div>';
-                    html += '<div class="px-3 py-1 rounded border border-amber-500/30 text-amber-500 font-black text-sm">'+o.status+'</div>';
-                    html += '</div><p class="text-sm text-slate-300 mb-4">Items: '+items+'</p>';
+                    html += '<div class="bg-[#111827] border border-slate-800 p-6 rounded-xl mb-4"><div class="flex justify-between items-center mb-4 pb-4 border-b border-slate-800"><h3 class="text-white font-bold text-lg">#'+o.id+'</h3><span class="px-3 py-1 rounded border border-blue-500/30 text-blue-400 text-xs uppercase">'+o.status+'</span></div><p class="text-sm text-slate-400 mb-4">Items: '+items+'</p>';
                     if(o.status === 'Verifying') {
-                        html += '<div class="text-sm text-slate-400">Admin is verifying payment...</div>';
+                        html += '<div class="text-sm text-slate-500">Pending verification...</div>';
                     } else {
-                        html += '<a href="'+o.link+'" target="_blank" class="block w-full text-center bg-green-600 text-white font-black py-3 rounded-lg">DOWNLOAD</a>';
+                        html += '<a href="'+o.link+'" target="_blank" class="block w-full text-center bg-blue-600 text-white font-semibold py-3 rounded-lg">Download Files</a>';
                     }
                     html += '</div>';
                 }
             }
-            document.getElementById('dashContent').innerHTML = html === "" ? '<p class="text-slate-500 text-center">No orders.</p>' : html;
+            document.getElementById('dashContent').innerHTML = html === "" ? '<p class="text-slate-500">No orders found.</p>' : html;
         }
 
         function switchDash(t) {
-            document.getElementById('tabOrd').className = t==='orders' ? "flex-1 py-4 font-black text-amber-500 border-b-2 border-amber-500 transition" : "flex-1 py-4 font-black text-slate-400 border-b-2 border-transparent transition";
-            document.getElementById('tabProd').className = t==='products' ? "flex-1 py-4 font-black text-amber-500 border-b-2 border-amber-500 transition" : "flex-1 py-4 font-black text-slate-400 border-b-2 border-transparent transition";
+            document.getElementById('tabOrd').className = t==='orders' ? "pb-3 px-2 font-semibold text-blue-400 border-b-2 border-blue-400" : "pb-3 px-2 font-semibold text-slate-400 border-b-2 border-transparent";
+            document.getElementById('tabProd').className = t==='products' ? "pb-3 px-2 font-semibold text-blue-400 border-b-2 border-blue-400" : "pb-3 px-2 font-semibold text-slate-400 border-b-2 border-transparent";
             t==='orders' ? showAdminOrd() : showAdminProd();
         }
 
         function showAdminOrd() {
-            document.getElementById('dashTitle').innerHTML = '<i class="fa-solid fa-shield-halved text-red-500 mr-2"></i> Admin - Orders';
+            document.getElementById('dashTitle').innerHTML = 'System Administration';
             let orders = JSON.parse(localStorage.getItem('msts_db_orders'));
             let html = "";
             for(let i=orders.length-1; i>=0; i--) {
                 let o = orders[i];
                 let itm = o.items.map(function(x){ return x.name; }).join(', ');
-                html += '<div class="bg-[#0f172a] border border-[#1e293b] p-5 rounded-xl mb-4 flex flex-col md:flex-row gap-6">';
-                html += '<div class="w-full md:w-1/3"><img src="'+o.img+'" class="w-full h-40 object-cover rounded-lg border border-[#334155]" onclick="window.open(\''+o.img+'\')"></div>';
-                html += '<div class="w-full md:w-2/3 flex flex-col justify-between">';
-                html += '<div><h3 class="text-xl font-black text-white">'+o.id+' @'+o.user+'</h3><p class="text-slate-400 text-sm my-2">Items: '+itm+'</p></div>';
+                html += '<div class="bg-[#111827] border border-slate-800 p-6 rounded-xl mb-4 flex flex-col md:flex-row gap-6"><div class="w-full md:w-1/3"><img src="'+o.img+'" class="w-full h-40 object-cover rounded-lg border border-slate-800" onclick="window.open(\''+o.img+'\')"></div><div class="w-full md:w-2/3 flex flex-col justify-between"><div><h3 class="text-lg font-bold text-white">#'+o.id+' <span class="text-slate-500 text-sm font-normal ml-2">'+o.user+'</span></h3><p class="text-slate-400 text-sm my-2">Items: '+itm+'</p></div>';
                 if(o.status === 'Verifying') {
-                    html += '<div class="flex gap-2"><input type="text" id="lnk_'+i+'" placeholder="Link" class="flex-1 custom-input rounded px-3 py-2 text-sm"><button onclick="approveOrd('+i+')" class="bg-green-600 text-white font-bold px-4 py-2 rounded">Deliver</button></div>';
+                    html += '<div class="flex gap-2"><input type="text" id="lnk_'+i+'" placeholder="Paste download link..." class="flex-1 input-dark rounded-lg px-3 py-2 text-sm"><button onclick="approveOrd('+i+')" class="btn-blue font-medium px-4 py-2 rounded-lg">Approve</button></div>';
                 } else {
-                    html += '<div class="text-green-500">Delivered: '+o.link+'</div>';
+                    html += '<div class="text-slate-500 text-sm">Status: Approved</div>';
                 }
                 html += '</div></div>';
             }
-            document.getElementById('dashContent').innerHTML = html === "" ? '<p class="text-slate-500 text-center">No orders.</p>' : html;
+            document.getElementById('dashContent').innerHTML = html === "" ? '<p class="text-slate-500">No pending orders.</p>' : html;
         }
 
         function approveOrd(i) {
             let lnk = document.getElementById('lnk_'+i).value;
             if(!lnk) return showAlert("Link Required!", true);
             let ord = JSON.parse(localStorage.getItem('msts_db_orders'));
-            ord[i].status = 'Delivered'; ord[i].link = lnk;
+            ord[i].status = 'Approved'; ord[i].link = lnk;
             localStorage.setItem('msts_db_orders', JSON.stringify(ord));
-            showAlert("Delivered!"); showAdminOrd();
+            showAlert("Order Approved!"); showAdminOrd();
         }
 
         function showAdminProd() {
-            document.getElementById('dashTitle').innerHTML = '<i class="fa-solid fa-cubes text-blue-500 mr-2"></i> Admin - Products';
             let prod = JSON.parse(localStorage.getItem('msts_db_items')) || [];
-            
-            let html = '<div class="bg-[#0f172a] border border-[#1e293b] p-6 rounded-xl mb-6">';
-            html += '<h3 class="text-white font-black mb-4">Add Asset</h3>';
-            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">';
-            html += '<input type="text" id="p_name" placeholder="Title" class="custom-input rounded-lg p-3 text-sm">';
-            html += '<input type="number" id="p_price" placeholder="Price" class="custom-input rounded-lg p-3 text-sm">';
-            html += '<input type="text" id="p_img" placeholder="Image URL" class="custom-input rounded-lg p-3 text-sm md:col-span-2">';
-            html += '<textarea id="p_desc" placeholder="Description" class="custom-input rounded-lg p-3 text-sm md:col-span-2 h-20"></textarea>';
-            html += '</div><button onclick="addProd()" class="btn-primary px-6 py-3 rounded-lg font-black w-full">UPLOAD PRODUCT</button></div>';
-            
+            let html = '<div class="bg-[#111827] border border-slate-800 p-6 rounded-xl mb-6"><h3 class="text-white font-bold mb-4">Add New Product</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"><input type="text" id="p_name" placeholder="Title" class="input-dark rounded-lg p-3 text-sm"><input type="number" id="p_price" placeholder="Price" class="input-dark rounded-lg p-3 text-sm"><input type="text" id="p_img" placeholder="Image URL" class="input-dark rounded-lg p-3 text-sm md:col-span-2"><textarea id="p_desc" placeholder="Description" class="input-dark rounded-lg p-3 text-sm md:col-span-2 h-20"></textarea></div><button onclick="addProd()" class="btn-blue px-6 py-3 rounded-lg font-semibold w-full md:w-auto">Publish Product</button></div>';
             for(let i=0; i<prod.length; i++) {
-                html += '<div class="bg-[#0f172a] border border-[#1e293b] p-4 rounded-xl flex justify-between items-center mb-3">';
-                html += '<div class="flex items-center gap-4"><img src="'+prod[i].img+'" class="w-16 h-12 object-cover rounded"><h4 class="text-white font-bold text-sm">'+prod[i].name+'</h4></div>';
-                html += '<button onclick="delProd('+i+')" class="text-red-500 px-4 py-2"><i class="fa-solid fa-trash"></i></button></div>';
+                html += '<div class="bg-[#111827] border border-slate-800 p-4 rounded-xl flex justify-between items-center mb-3"><div class="flex items-center gap-4"><img src="'+prod[i].img+'" class="w-16 h-12 object-cover rounded border border-slate-800"><h4 class="text-white font-medium text-sm">'+prod[i].name+'</h4></div><button onclick="delProd('+i+')" class="text-slate-500 hover:text-red-400 px-3 py-2"><i class="fa-solid fa-trash"></i></button></div>';
             }
             document.getElementById('dashContent').innerHTML = html;
         }
@@ -477,151 +513,19 @@
         function addProd() {
             let n = document.getElementById('p_name').value; let pr = parseInt(document.getElementById('p_price').value);
             let img = document.getElementById('p_img').value; let d = document.getElementById('p_desc').value;
-            if(!n || !pr || !img || !d) return showAlert("Fill all details!", true);
-            
+            if(!n || !pr || !img || !d) return showAlert("Fill all fields!", true);
             let p = JSON.parse(localStorage.getItem('msts_db_items')) || [];
             p.push({ id: Date.now(), name: n, price: pr, desc: d, img: img });
             localStorage.setItem('msts_db_items', JSON.stringify(p));
-            showAlert("Added!"); showAdminProd(); loadProducts();
+            showAlert("Product Added!"); showAdminProd(); loadProducts();
         }
 
         function delProd(i) {
             let p = JSON.parse(localStorage.getItem('msts_db_items'));
             p.splice(i, 1);
             localStorage.setItem('msts_db_items', JSON.stringify(p));
-            showAlert("Deleted!"); showAdminProd(); loadProducts();
+            showAlert("Product Removed"); showAdminProd(); loadProducts();
         }
-        // --- ADMIN STRICT MODE UPDATE ---
-
-function refreshNav() {
-    let area = document.getElementById('navUserArea');
-    let cartBtn = document.querySelector('button[onclick="toggleView(\'cartView\')"]');
-    let mainStore = document.querySelector('main');
-
-    if(activeUser) {
-        let badge = activeUser.role === 'admin' ? 'bg-red-500' : 'bg-green-500';
-        area.innerHTML = '<button onclick="openDash()" class="bg-[#0f172a] border border-[#334155] text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:border-amber-500 transition"><span class="w-2 h-2 rounded-full '+badge+'"></span> '+activeUser.username.toUpperCase()+'</button>';
-        
-        if(activeUser.role === 'admin') {
-            // Admin ke liye Cart aur Customer Storefront hide kar do
-            if(cartBtn) cartBtn.style.display = 'none'; 
-            if(mainStore) mainStore.style.display = 'none'; 
-            
-            // Login hote hi seedha Admin Dashboard auto-open karo
-            document.getElementById('dashView').classList.remove('hidden'); 
-            document.getElementById('dashTabs').style.display = 'flex';
-            showAdminOrd();
-        } else {
-            // Normal Customer ke liye sab show karo
-            if(cartBtn) cartBtn.style.display = 'block';
-            if(mainStore) mainStore.style.display = 'block';
-        }
-    } else {
-        area.innerHTML = '<button onclick="toggleView(\'authView\')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</button>';
-        if(cartBtn) cartBtn.style.display = 'block';
-        if(mainStore) mainStore.style.display = 'block';
-    }
-}
-
-function openDetail(id) {
-    // Admin ko khud ke product khareedne se roko
-    if(activeUser && activeUser.role === 'admin') {
-        return showAlert("Admins cannot purchase items!", true);
-    }
-    
-    let items = JSON.parse(localStorage.getItem('msts_db_items'));
-    let p = items.find(function(x){ return x.id === id; });
-    if(!p) return;
-    document.getElementById('detImg').src = p.img;
-    document.getElementById('detTitle').innerText = p.name;
-    document.getElementById('detDesc').innerText = p.desc;
-    document.getElementById('detPrice').innerText = '₹' + p.price;
-    document.getElementById('detBtn').onclick = function(){ addCart(p.name, p.price); toggleView('detailView'); };
-    toggleView('detailView');
-}
-
-function logout() { 
-    activeUser = null; 
-    sessionStorage.removeItem('msts_session'); 
-    refreshNav(); 
-    // Logout karte hi dashboard force-close karo
-    document.getElementById('dashView').classList.add('hidden'); 
-    showAlert("Logged Out Successfully"); 
-}
-        // --- FULL DEDICATED ADMIN PAGE FIX ---
-
-function refreshNav() {
-    let area = document.getElementById('navUserArea');
-    let cartBtn = document.querySelector('button[onclick="toggleView(\'cartView\')"]');
-    let mainStore = document.querySelector('main');
-    let dashModal = document.getElementById('dashView');
-    
-    // Dashboard ke close (X) button ko dhoondhna
-    let closeBtn = dashModal.querySelector('.fa-xmark').parentElement;
-
-    if(activeUser) {
-        let badge = activeUser.role === 'admin' ? 'bg-red-500' : 'bg-green-500';
-        area.innerHTML = '<button onclick="openDash()" class="bg-[#0f172a] border border-[#334155] text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:border-amber-500 transition"><span class="w-2 h-2 rounded-full '+badge+'"></span> '+activeUser.username.toUpperCase()+'</button>';
-        
-        if(activeUser.role === 'admin') {
-            // Admin ke liye store aur cart hata do
-            if(cartBtn) cartBtn.style.display = 'none'; 
-            if(mainStore) mainStore.style.display = 'none'; 
-            
-            // Modal ko solid full-page bana do
-            dashModal.classList.remove('hidden');
-            dashModal.classList.remove('bg-[#050b14]/95'); // Transparency hata do
-            dashModal.classList.add('bg-[#050b14]'); // Solid color daal do
-            
-            // X (Close) button hide kar do taaki blank screen pe na jaaye
-            if(closeBtn) closeBtn.style.display = 'none';
-
-            document.getElementById('dashTabs').style.display = 'flex';
-            showAdminOrd();
-        } else {
-            // Customer ke liye sab kuch wapas normal kar do
-            if(cartBtn) cartBtn.style.display = 'block';
-            if(mainStore) mainStore.style.display = 'block';
-            if(closeBtn) closeBtn.style.display = 'block';
-        }
-    } else {
-        area.innerHTML = '<button onclick="toggleView(\'authView\')" class="border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white px-5 py-2 rounded-lg font-bold transition flex items-center gap-2"><i class="fa-solid fa-right-to-bracket"></i> Login</button>';
-        if(cartBtn) cartBtn.style.display = 'block';
-        if(mainStore) mainStore.style.display = 'block';
-        if(closeBtn) closeBtn.style.display = 'block';
-    }
-}
-
-function openDash() {
-    let dashModal = document.getElementById('dashView');
-    if(activeUser.role === 'admin') {
-        document.getElementById('dashTabs').style.display = 'flex';
-        showAdminOrd();
-        dashModal.classList.remove('hidden');
-    } else {
-        document.getElementById('dashTabs').style.display = 'none';
-        showCustOrd();
-        dashModal.classList.toggle('hidden');
-    }
-}
-
-function logout() { 
-    activeUser = null; 
-    sessionStorage.removeItem('msts_session'); 
-    
-    let dashModal = document.getElementById('dashView');
-    dashModal.classList.add('hidden'); 
-    dashModal.classList.remove('bg-[#050b14]'); 
-    dashModal.classList.add('bg-[#050b14]/95'); // Logout par styles reset karna
-    
-    let mainStore = document.querySelector('main');
-    if(mainStore) mainStore.style.display = 'block'; // Store wapas laana
-    
-    refreshNav(); 
-    showAlert("Logged Out Successfully"); 
-}
-        
-        
     </script>
 </body>
 </html>
